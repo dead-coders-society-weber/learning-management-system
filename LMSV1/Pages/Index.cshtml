@@ -1,37 +1,15 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity
+@using LMSV1.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        /* Style for the card container */
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 columns */
-            gap: 20px; /* Gap between cards */
-        }
-
-        /* Style for individual cards */
-        .card {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
-        }
-    </style>
-</head>
-<body>
+@if (SignInManager.IsSignedIn(User))
+{
     <div class="card-container">
         <!-- Card 1 -->
         <div class="card">
@@ -73,5 +51,11 @@
             </ul>
         </div>
     </div>
-</body>
-</html>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+}
