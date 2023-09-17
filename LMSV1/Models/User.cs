@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace LMSV1.Models;
 
@@ -10,28 +11,42 @@ namespace LMSV1.Models;
  * You don't need to encrypt or hash the password. Just store the password
  * as plain text for this assignment.
  */
-public class User
+public class User : IdentityUser
 {
-    [Required]
-    public int Id { get; set; }
-    [Required]
-    public string? FirstName { get; set; }
-    [Required]
-    public string? LastName { get; set; }
-    [Required]
-    [DataType(DataType.EmailAddress)]
-    public string? Email { get; set; }
-    [Required]
+    public int Id { get; set; }  // Primary key
+
+    [Required(ErrorMessage = "Username/Email is required.")]
+    [EmailAddress(ErrorMessage = "Invalid email format.")]
+    [Display(Name = "Username/Email")]
+    public string Email { get; set; }
+
+    [Required(ErrorMessage = "Password is required.")]
     [DataType(DataType.Password)]
-    public string? Password { get; set; }
-    [Required]
+    [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters.")]
+    public string Password { get; set; }
+
+    [Required(ErrorMessage = "First Name is required.")]
+    [Display(Name = "First Name")]
+    public string FirstName { get; set; }
+
+    [Required(ErrorMessage = "Last Name is required.")]
+    [Display(Name = "Last Name")]
+    public string LastName { get; set; }
+
+    [Required(ErrorMessage = "Birthdate is required.")]
     [DataType(DataType.Date)]
     public DateTime Birthdate { get; set; }
-    public Boolean Instructor { get; set; }
+
+    public string Instructor { get; set; }
+
     public string? Address1 { get; set; }
+
     public string? Address2 { get; set; }
+
     public string? City { get; set; }
+
     public string? State { get; set; }
+
     [DataType(DataType.PostalCode)]
     public string? Zip { get; set; }
 }
