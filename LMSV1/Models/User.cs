@@ -13,7 +13,8 @@ namespace LMSV1.Models;
  */
 public class User : IdentityUser
 {
-    public int Id { get; set; }  // Primary key
+    [Required]
+    public new int Id { get; set; }  // Primary key
 
     [Required(ErrorMessage = "Username/Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email format.")]

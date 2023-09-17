@@ -1,10 +1,61 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity
+@using LMSV1.Models
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+            <h2>CS 3750</h2>
+            <ul>
+                <li>Software Engineering II</li>
+                <li>CAE 232</li>
+                <li>Thurdsay 9:30-11:20am</li>
+            </ul>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <h2>CS 3550</h2>
+            <ul>
+                <li>Advanced Database</li>
+                <li>CAE 250</li>
+                <li>Tuesday Thursday 10:00-11:00am</li>
+            </ul>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <h2>CS 3100</h2>
+            <ul>
+                <li>Operating Systems</li>
+                <li>CAE 310</li>
+                <li>Monday Wednesday 1:00-3:00pm</li>
+            </ul>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <h2>CS 4200</h2>
+            <ul>
+                <li>Mobile Websites API</li>
+                <li>CAE 320</li>
+                <li>Tuesday 10:00-11:00am</li>
+            </ul>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
+}
