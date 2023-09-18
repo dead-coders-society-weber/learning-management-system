@@ -80,11 +80,13 @@ namespace LMSV1.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Birthdate")]
             [DataType(DataType.Date)]
+            [DateMinimumAge(15, ErrorMessage = "Must be at least 15 years of age to register.")]
             public DateTime Birthdate { get; set; }
 
             [Required]
             public string Instructor { get; set; }
         }
+
 
         public async Task OnGetAsync(string returnUrl = null)
         {
@@ -124,6 +126,7 @@ namespace LMSV1.Areas.Identity.Pages.Account
                 }
             }
 
+
             // If we got this far, something failed, redisplay form
             return Page();
         }
@@ -150,5 +153,30 @@ namespace LMSV1.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<User>)_userStore;
         }
+    }
+
+    // Custom Validation for Age
+    // Verifies the user's age is >= the minimum age of 15
+    public class DateMinimumAgeAttribute : ValidationAttribute
+    {
+        public DateMinimumAgeAttribute(int minimumAge)
+        {
+            MinimumAge = minimumAge;
+        }
+
+        // Model state is set to false if this returns false
+        public override bool IsValid(object value)
+        {
+            DateTime date;
+
+            if ((value != null && DateTime.TryParse(value.ToString(), out date)))
+            {
+                return date.AddYears(MinimumAge) < DateTime.UtcNow;
+            }
+
+            return false;
+        }
+
+        public int MinimumAge { get; }
     }
 }
