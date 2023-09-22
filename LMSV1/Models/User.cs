@@ -50,4 +50,13 @@ public class User : IdentityUser
 
     [DataType(DataType.PostalCode)]
     public string? Zip { get; set; }
+
+    [DataType(DataType.Url)]
+    public string? Link1 { get; set; }
+
+    [DataType(DataType.Url)]
+    public string? Link2 { get; set; }
+
+    [DataType(DataType.Url)]
+    public string? Link3 { get; set; }
 }

@@ -30,13 +30,13 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
         public string StatusMessage { get; set; }
 
         [BindProperty]
-        public string Email { get; set; }
-
-        [BindProperty]
         public InputModel Input { get; set; }
 
         public class InputModel
         {
+            [DataType(DataType.EmailAddress)]
+            public string Email { get; set;}
+
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
@@ -62,14 +62,25 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Zip Code")]
             [DataType(DataType.PostalCode)]
             public string Zip { get; set; }
+
+            [Display(Name = "Link 1")]
+            [DataType(DataType.Url)]
+            public string? Link1 { get; set; }
+
+            [Display(Name = "Link 2")]
+            [DataType(DataType.Url)]
+            public string? Link2 { get; set; }
+
+            [Display(Name = "Link 3")]
+            [DataType(DataType.Url)]
+            public string? Link3 { get; set; }
         }
 
         private async Task LoadAsync(User user)
         {
-            Email = await _userManager.GetEmailAsync(user);
-
             Input = new InputModel
             {
+                Email = user.Email,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Birthdate = user.Birthdate,
@@ -78,6 +89,9 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
                 City = user.City,
                 State = user.State,
                 Zip = user.Zip,
+                Link1 = user.Link1,
+                Link2 = user.Link2,
+                Link3 = user.Link3,
             };
         }
 
@@ -115,6 +129,9 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
             user.City = Input.City;
             user.State = Input.State;
             user.Zip = Input.Zip;
+            user.Link1 = Input.Link1;
+            user.Link2 = Input.Link2;
+            user.Link3 = Input.Link3;
 
             // update user management
             await _signInManager.RefreshSignInAsync(user);
