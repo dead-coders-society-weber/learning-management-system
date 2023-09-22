@@ -1,0 +1,53 @@
+﻿@page
+@model InstructorCourseCreationModel
+@{
+    ViewData["Title"] = "InstructorCourseCreation";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="CourseCreation" asp-route-returnUrl="" method="post">
+            <h2>Create a New Course.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CourseID" class="form-control" aria-required="true" placeholder="CS" />
+                <label asp-for="Input.CourseID">Course ID</label>
+                <span asp-validation-for="Input.CourseID" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CourseName" class="form-control" autocomplete="" aria-required="true" placeholder="Course Name Here" />
+                <label asp-for="Input.CourseName">Course Name</label>
+                <span asp-validation-for="Input.CourseName" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.CreditHours" class="form-control"  aria-required="true" placeholder="0" />
+                <label asp-for="Input.CreditHours">Credit Hours</label>
+                <span asp-validation-for="Input.CreditHours" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Location" class="form-control" autocomplete="" aria-required="true" placeholder="Classroom: " />
+                <label asp-for="Input.Location">Class Location</label>
+                <span asp-validation-for="Input.Location" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Input.MeetTimes" class="form-control" autocomplete="" aria-required="true" placeholder="Days: " />
+                <label asp-for="Input.MeetTimes">Meet Times</label>
+                <span asp-validation-for="Input.MeetTimes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.StartEndTimes" class="control-label"></label>
+                <input asp-for="Input.StartEndTimes" class="form-control" />
+                <span asp-validation-for="Input.StartEndTimes" class="text-danger"></span>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Create Class</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
