@@ -22,20 +22,20 @@ using Microsoft.Extensions.Logging;
 
 namespace LMSV1.Areas.Identity.Pages.Account
 {
-    public class RegisterModel : PageModel
+    public class SignUpModel : PageModel
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IUserStore<User> _userStore;
         private readonly IUserEmailStore<User> _emailStore;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly ILogger<SignUpModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public RegisterModel(
+        public SignUpModel(
             UserManager<User> userManager,
             IUserStore<User> userStore,
             SignInManager<User> signInManager,
-            ILogger<RegisterModel> logger,
+            ILogger<SignUpModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -84,7 +84,7 @@ namespace LMSV1.Areas.Identity.Pages.Account
             public DateTime Birthdate { get; set; }
 
             [Required]
-            public string Instructor { get; set; }
+            public string Role { get; set; }
         }
 
 
@@ -105,10 +105,11 @@ namespace LMSV1.Areas.Identity.Pages.Account
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
                 user.Birthdate = Input.Birthdate;
-                user.Instructor = Input.Instructor;
+                user.Role = Input.Role;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                await _userManager.AddToRoleAsync(user, Input.Role);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

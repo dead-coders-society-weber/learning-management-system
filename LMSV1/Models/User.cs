@@ -13,9 +13,6 @@ namespace LMSV1.Models;
  */
 public class User : IdentityUser
 {
-    [Required]
-    public new int Id { get; set; }  // Primary key
-
     [Required(ErrorMessage = "Username/Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email format.")]
     [Display(Name = "Username/Email")]
@@ -38,7 +35,7 @@ public class User : IdentityUser
     [DataType(DataType.Date)]
     public DateTime Birthdate { get; set; }
 
-    public string Instructor { get; set; }
+    public string Role { get; set; }
 
     public string? Address1 { get; set; }
 
@@ -59,4 +56,7 @@ public class User : IdentityUser
 
     [DataType(DataType.Url)]
     public string? Link3 { get; set; }
+
+    [DataType(DataType.ImageUrl)]
+    public string? ProfileImage { get; set; }
 }

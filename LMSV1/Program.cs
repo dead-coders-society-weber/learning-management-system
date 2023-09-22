@@ -14,6 +14,7 @@ builder.Services.AddDbContext<LMSV1UserContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<LMSV1UserContext>();
 
 var app = builder.Build();
