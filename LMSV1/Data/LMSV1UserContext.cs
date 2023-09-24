@@ -16,7 +16,6 @@ namespace LMSV1.Data
         {
         }
 
-        public DbSet<LMSV1.Models.Course> Course { get; set; } = default!;
         public DbSet<LMSV1.Models.User> User { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)

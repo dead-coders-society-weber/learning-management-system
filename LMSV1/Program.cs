@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using LMSV1.Data;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<LMSV1CourseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LMSV1CourseContext") ?? throw new InvalidOperationException("Connection string 'LMSV1CourseContext' not found.")));
 
 var connectionString = builder.Configuration.GetConnectionString("LMSV1UserContext") ?? throw new InvalidOperationException("Connection string 'LMSV1UserContext' not found.");
 builder.Services.AddDbContext<LMSV1UserContext>(options =>
@@ -42,7 +44,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var context = services.GetRequiredService<LMSV1UserContext>();
+    var context = services.GetRequiredService<LMSV1CourseContext>();
     context.Database.EnsureCreated();
     SeedData.Initialize(context);
 }
