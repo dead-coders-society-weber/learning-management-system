@@ -7,7 +7,7 @@ namespace LMSV1.Models;
  This class contains the necesssary information about each course that will be created
 and submit it into the database for storage
  */
-public class CourseCreation 
+public class Course
 {    
     [Required]
     public int ID { get; set; }  // Primary key
@@ -19,11 +19,11 @@ public class CourseCreation
     [Required(ErrorMessage = "Course Name is required.")]
     [StringLength(100, MinimumLength = 6, ErrorMessage = "Course name must be between 6 and 100 characters.")]
     [Display(Name = "Course Name")]
-    public required string CourseName { get; set; }
+    public required string Title { get; set; }
 
     [Required(ErrorMessage = "Credit hours is required.")]
     [Display(Name = "Credit Hours")]
-    public required string CreditHours { get; set; }
+    public required string Credits { get; set; }
 
     [Required(ErrorMessage = "Location is required.")]
     [Display(Name = "Location")]
@@ -33,8 +33,14 @@ public class CourseCreation
     [Display(Name = "Meet Times")]
     public required string MeetDays { get; set; }
 
-    [Required(ErrorMessage = "Start and End time is required.")]
-    [Display(Name = "Start and End Times")]
-    public required string StartEndTimes { get; set; }
+
+    [Required(ErrorMessage = "Start time is required.")]
+    [Display(Name = "Start Time")]
+    public required string StartTime { get; set; }
+
+    [Required(ErrorMessage = "End time is required.")]
+    [Display(Name = "End Time")]
+
+    public required string EndTime { get; set; }
 
 }

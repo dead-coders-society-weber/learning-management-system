@@ -19,6 +19,13 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 
 var app = builder.Build();
 
+//SeedInitializer
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+
+//    SeedData.Initialize(services);
+//}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

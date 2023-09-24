@@ -9,13 +9,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LMSV1.Data
 {
+           
     public class LMSV1UserContext : IdentityDbContext<User>
     {
         public LMSV1UserContext (DbContextOptions<LMSV1UserContext> options)
             : base(options)
         {
         }
-
+        public DbSet<LMSV1.Models.Course> Course { get; set; } = default!;
         public DbSet<LMSV1.Models.User> User { get; set; } = default!;
         private List<User> users = new List<User>();
         private List<IdentityRole> roles = new List<IdentityRole>();
@@ -23,6 +24,10 @@ namespace LMSV1.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+
+
+
 
             builder.Entity<User>(b =>
             {
