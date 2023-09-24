@@ -61,7 +61,7 @@ namespace LMSV1.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Course");
+                    b.ToTable("Course", (string)null);
                 });
 
             modelBuilder.Entity("LMSV1.Models.User", b =>
@@ -147,48 +147,6 @@ namespace LMSV1.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("User", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "48947c6f-6589-462a-827b-d3c991e6eee0",
-                            Birthdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "instructor@email.com",
-                            FirstName = "first",
-                            LastName = "last",
-                            Password = "Instructor123!",
-                            Role = "Instructor"
-                        },
-                        new
-                        {
-                            Id = "1bc9f6d4-8c68-4bb4-81df-3683030e9d4b",
-                            Birthdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "student@email.com",
-                            FirstName = "first",
-                            LastName = "last",
-                            Password = "Student123!",
-                            Role = "Student"
-                        },
-                        new
-                        {
-                            Id = "a6ab736a-da7e-46fa-b692-2d42d579fadc",
-                            Birthdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "instructor@email.com",
-                            FirstName = "first",
-                            LastName = "last",
-                            Password = "Instructor123!",
-                            Role = "Instructor"
-                        },
-                        new
-                        {
-                            Id = "18a6041c-c9ab-4eff-a611-eaa636eb5139",
-                            Birthdate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "student@email.com",
-                            FirstName = "first",
-                            LastName = "last",
-                            Password = "Student123!",
-                            Role = "Student"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -216,28 +174,6 @@ namespace LMSV1.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Role", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "40dfd555-a1d0-4bd0-8b26-c37eb358fee6",
-                            Name = "Instructor"
-                        },
-                        new
-                        {
-                            Id = "509130d4-46a3-45ac-a31f-4188172a9a7a",
-                            Name = "Student"
-                        },
-                        new
-                        {
-                            Id = "5009f788-07d4-4471-8ddb-a6b4e173833d",
-                            Name = "Instructor"
-                        },
-                        new
-                        {
-                            Id = "fb7d8fbe-3fb9-41fc-9fb0-79060c91fb2e",
-                            Name = "Student"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -327,18 +263,6 @@ namespace LMSV1.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "48947c6f-6589-462a-827b-d3c991e6eee0",
-                            RoleId = "40dfd555-a1d0-4bd0-8b26-c37eb358fee6"
-                        },
-                        new
-                        {
-                            UserId = "1bc9f6d4-8c68-4bb4-81df-3683030e9d4b",
-                            RoleId = "509130d4-46a3-45ac-a31f-4188172a9a7a"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

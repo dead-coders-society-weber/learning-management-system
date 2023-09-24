@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using LMSV1.Data;
 using Microsoft.AspNetCore.Identity;
 using LMSV1.Models;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,13 +20,6 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 
 var app = builder.Build();
 
-//SeedInitializer
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-
-//    SeedData.Initialize(services);
-//}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -41,6 +35,27 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+// Seed Initializer
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<LMSV1UserContext>();
+    context.Database.EnsureCreated();
+    SeedData.Initialize(context);
+}
+//using (var scope = app.Services.CreateScope())
+//{
+//    var services = scope.ServiceProvider;
+
+//    // Get the required services
+//    var dbContext = services.GetRequiredService<LMSV1UserContext>();
+//    var userManager = services.GetRequiredService<UserManager<User>>();
+//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+//    _ = SeedData.InitializeAsync(dbContext, userManager, roleManager);
+//}
 
 app.MapRazorPages();
 
