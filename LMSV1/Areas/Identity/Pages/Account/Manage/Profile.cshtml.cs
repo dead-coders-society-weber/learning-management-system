@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using LMSV1.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,13 +18,16 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private IWebHostEnvironment _webHostEnvironment;
 
         public ProfileModel(
             UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IWebHostEnvironment webHostEnvironment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [TempData]
@@ -74,6 +78,9 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Link 3")]
             [DataType(DataType.Url)]
             public string? Link3 { get; set; }
+
+            [DataType(DataType.ImageUrl)]
+            public string? ProfileImage { get; set; }
         }
 
         private async Task LoadAsync(User user)
@@ -92,6 +99,7 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
                 Link1 = user.Link1,
                 Link2 = user.Link2,
                 Link3 = user.Link3,
+                ProfileImage = user.ProfileImage,
             };
         }
 
@@ -107,7 +115,7 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(IFormFile profileImage)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -132,6 +140,22 @@ namespace LMSV1.Areas.Identity.Pages.Account.Manage
             user.Link1 = Input.Link1;
             user.Link2 = Input.Link2;
             user.Link3 = Input.Link3;
+
+            // Handle profile image upload
+            var profileImageFile = profileImage;
+            if (profileImageFile != null && profileImageFile.Length > 0)
+            {
+                var profileImageFileName = $"{user.Id}_profile_image{Path.GetExtension(profileImageFile.FileName)}";
+                var profileImagePath = Path.Combine(_webHostEnvironment.WebRootPath, "Uploads", profileImageFileName);
+
+                using (var stream = new FileStream(profileImagePath, FileMode.Create))
+                {
+                    await profileImageFile.CopyToAsync(stream);
+                }
+
+                // Update the ProfileImage property
+                user.ProfileImage = $"/Uploads/{profileImageFileName}";
+            }
 
             // update user management
             await _signInManager.RefreshSignInAsync(user);

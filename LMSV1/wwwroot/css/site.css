@@ -36,3 +36,18 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background-color: #fff;
 }
+
+/* Styles for profile image */
+.profile-image {
+    width: 150px; /* Adjust the size as needed */
+    height: 150px; /* Adjust the size as needed */
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #fff; /* Optional: Add a border around the circle */
+}
+
+.profile-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensures the image covers the entire circle */
+}

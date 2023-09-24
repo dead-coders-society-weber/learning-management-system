@@ -7,10 +7,59 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
-        <form id="profile-form" method="post">
+        <!-- Display data -->
+        <div id="profile-display-form" style="display:block;">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            <div class="profile-image">
+                <img src="@Model.Input.ProfileImage" alt="Profile Image">
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Username/Email:</strong> @Model.Input.Email</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>First Name:</strong> @Model.Input.FirstName</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Last Name:</strong> @Model.Input.LastName</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Birthdate:</strong> @Model.Input.Birthdate</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Address 1:</strong> @Model.Input.Address1</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Address 2:</strong> @Model.Input.Address2</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>City:</strong> @Model.Input.City</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>State:</strong> @Model.Input.State</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Zip Code:</strong> @Model.Input.Zip</p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Link 1:</strong> <a href="@Model.Input.Link1" target="_blank">@Model.Input.Link1</a></p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Link 2:</strong> <a href="@Model.Input.Link2" target="_blank">@Model.Input.Link2</a></p>
+            </div>
+            <div class="form-floating mb-3">
+                <p><strong>Link 3:</strong> <a href="@Model.Input.Link3" target="_blank">@Model.Input.Link3</a></p>
+            </div>
+            <button id="edit-profile-button" type="button" class="w-100 btn btn-lg btn-primary">Edit</button>
+        </div>
+
+        <!-- Edit data -->
+        <form id="profile-edit-form" method="post" style="display:none;" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" disabled />
+                <input asp-for="Input.ProfileImage" type="file" name="ProfileImage">
+            </div>
+            <div class="form-floating mb-3">
+                <input id="Email" asp-for="Input.Email" class="form-control" disabled />
                 <label asp-for="Input.Email" class="form-label"></label>
             </div>
             <div class="form-floating mb-3">
@@ -68,10 +117,27 @@
                 <label asp-for="Input.Link3" class="form-label"></label>
                 <span asp-validation-for="Input.Link3" class="text-danger"></span>
             </div>
-            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+            <button id="save-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
 </div>
+
+<!-- Add JavaScript to handle the edit button click event -->
+<script>
+    var editButton = document.getElementById("edit-profile-button");
+    var saveButton = document.getElementById("save-profile-button");
+    var displayForm = document.getElementById("profile-display-form");
+    var editForm = document.getElementById("profile-edit-form");
+
+    editButton.addEventListener("click", function () {
+        displayForm.style.display = "none";
+        editForm.style.display = "block";
+    });
+
+    saveButton.addEventListener("click", function(e) {
+        e.stopPropagation();
+    })
+</script>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

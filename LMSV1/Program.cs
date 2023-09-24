@@ -4,6 +4,7 @@ using LMSV1.Data;
 using Microsoft.AspNetCore.Identity;
 using LMSV1.Models;
 using System;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 

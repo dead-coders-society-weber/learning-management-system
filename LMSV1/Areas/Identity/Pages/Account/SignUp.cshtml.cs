@@ -106,6 +106,8 @@ namespace LMSV1.Areas.Identity.Pages.Account
                 user.LastName = Input.LastName;
                 user.Birthdate = Input.Birthdate;
                 user.Role = Input.Role;
+                // add stock img by default for profile image
+                user.ProfileImage = "/Uploads/stock-profile-image.jpg";
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
