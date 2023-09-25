@@ -10,11 +10,11 @@ and submit it into the database for storage
 public class Course
 {    
     [Required]
-    public int ID { get; set; }  // Primary key
+    public int CourseID { get; set; }  // Primary key
 
-    [Required(ErrorMessage = "Course ID is required.")]
+    [Required(ErrorMessage = "Course Number is required.")]
     [Display(Name = "Course ID")]
-    public required string CourseID { get; set; }
+    public required string CourseNumber { get; set; }
 
     [Required(ErrorMessage = "Course Name is required.")]
     [StringLength(100, MinimumLength = 6, ErrorMessage = "Course name must be between 6 and 100 characters.")]

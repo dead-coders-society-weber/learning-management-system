@@ -30,12 +30,12 @@ namespace LMSV1.Pages.Instructor
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Course == null || Course == null)
+          if (!ModelState.IsValid || _context.Courses == null || Course == null)
             {
                 return Page();
             }
 
-            _context.Course.Add(Course);
+            _context.Courses.Add(Course);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -59,8 +59,8 @@
                 @Html.DisplayFor(modelItem => item.EndTime)
             </td>
             <td>
-                <a asp-page="./Add" asp-route-id="@item.ID">Register</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Drop</a> |
+                <a asp-page="./Add" asp-route-id="@item.CourseID">Register</a> |
+                    <a asp-page="./Details" asp-route-id="@item.CourseID">Drop</a> |
             </td>
         </tr>
 }

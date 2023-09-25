@@ -24,12 +24,12 @@ namespace LMSV1.Pages.Instructor
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course =  await _context.Course.FirstOrDefaultAsync(m => m.ID == id);
+            var course =  await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
             if (course == null)
             {
                 return NotFound();
@@ -55,7 +55,7 @@ namespace LMSV1.Pages.Instructor
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CourseExists(Course.ID))
+                if (!CourseExists(Course.CourseID))
                 {
                     return NotFound();
                 }
@@ -70,7 +70,7 @@ namespace LMSV1.Pages.Instructor
 
         private bool CourseExists(int id)
         {
-          return (_context.Course?.Any(e => e.ID == id)).GetValueOrDefault();
+          return (_context.Courses?.Any(e => e.CourseID == id)).GetValueOrDefault();
         }
     }
 }

@@ -22,12 +22,12 @@ namespace LMSV1.Pages.Instructor
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Course == null)
+            if (id == null || _context.Courses == null)
             {
                 return NotFound();
             }
 
-            var course = await _context.Course.FirstOrDefaultAsync(m => m.ID == id);
+            var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
             if (course == null)
             {
                 return NotFound();

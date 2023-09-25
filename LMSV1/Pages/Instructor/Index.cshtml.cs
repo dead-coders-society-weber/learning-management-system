@@ -21,9 +21,9 @@ namespace LMSV1.Pages.Instructor
         public IList<Course> Course { get;set; } = default!;
         public async Task OnGetAsync()
         {
-            if (_context.Course != null)
+            if (_context.Courses != null)
             {
-                Course = await _context.Course.ToListAsync();
+                Course = await _context.Courses.ToListAsync();
             }
         }
     }

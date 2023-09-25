@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using LMSV1.Data;
 using Microsoft.AspNetCore.Identity;
+using LMSV1.Models;
 
 namespace LMSV1.Models;
 public static class SeedData
@@ -8,79 +9,40 @@ public static class SeedData
     public static void Initialize(LMSV1Context context)
     {
         // Look for any courses.
-        if (context.Course.Any())
+        if (context.Courses.Any())
         {
             return;   // DB has been seeded
         }
 
-        context.Course.Add(new Course
+        DateTime Birthday1 = new DateTime(1995, 1, 1); // User 1 birthday seed
+        var users = new User[]
         {
-            CourseID = "CS370",
-            Title = "Software Development II",
-            Credits = "4",
-            Location = "Weber NB - 324",
-            MeetDays = "T,TH",
-            StartTime = "11:30 AM",
-            EndTime = "12:30 PM"
-        });
-
+            new User{//UserID = 1,
+            Email = "Instructor1@gmail.com",Password = "Abc123!",FirstName = "John",
+            LastName = "Doe",Birthdate = Birthday1,Role = "Instructor" },
+             new User{//UserID = 2,
+            Email = "Student1@gmail.com",Password = "Abc123!",FirstName = "Jane",
+            LastName = "Doe",Birthdate = Birthday1,Role = "Student" }
+        };
+        context.Users.AddRange(users);
         context.SaveChanges();
+
+        var courses = new Course[]
+        {
+            new Course {CourseNumber = "CS370",Title = "Software Development II",Credits = "4",
+                Location = "Weber NB - 324",MeetDays = "T,TH",StartTime = "11:30 AM",EndTime = "12:30 PM"}
+        };
+        context.Courses.AddRange(courses);
+        context.SaveChanges();
+
+        DateTime enrollmentDate1 = new DateTime(2023, 9, 15); // User 1 birthday seed
+        var enrollments = new Enrollment[]
+        {
+            new Enrollment{UserID = 1,CourseID = 1,EnrollmentDate =  enrollmentDate1 }
+
+        };
+        context.Enrollments.AddRange(enrollments);
+        context.SaveChanges();
+
     }
-
-    //public static async Task InitializeAsync(LMSV1UserContext dbContext, 
-    //    UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
-    //{
-    //    // Create Roles if they don't exist
-    //    if (!await roleManager.RoleExistsAsync("Instructor"))
-    //    {
-    //        await roleManager.CreateAsync(new IdentityRole("Instructor"));
-    //    }
-    //    if (!await roleManager.RoleExistsAsync("Student"))
-    //    {
-    //        await roleManager.CreateAsync(new IdentityRole("Student"));
-    //    }
-
-    //    // Create Instructor user
-    //    var instructorUser = new User
-    //    {
-    //        Email = "instructor@example.com",
-    //        Password = "Instructor123!",
-    //        FirstName = "first",
-    //        LastName = "last",
-    //        Birthdate = new DateTime(),
-    //        Role = "Instructor"
-    //    };
-    //    await userManager.CreateAsync(instructorUser, instructorUser.Password);
-    //    await userManager.AddToRoleAsync(instructorUser, instructorUser.Role);
-
-    //    // Create Student user
-    //    var studentUser = new User
-    //    {
-    //        Email = "student@example.com",
-    //        Password = "Student123!",
-    //        FirstName = "first",
-    //        LastName = "last",
-    //        Birthdate = new DateTime(),
-    //        Role = "Student"
-    //    };
-    //    await userManager.CreateAsync(studentUser, studentUser.Password);
-    //    await userManager.AddToRoleAsync(studentUser, studentUser.Role);
-
-    //    // Seed Courses
-    //    if (!dbContext.Course.Any())
-    //    {
-    //        dbContext.Course.Add(new Course
-    //        {
-    //            CourseID = "CS370",
-    //            Title = "Software Development II",
-    //            Credits = "4",
-    //            Location = "Weber NB - 324",
-    //            MeetDays = "T,TH",
-    //            StartTime = "11:30 AM",
-    //            EndTime = "12:30 PM"
-    //        });
-
-    //        await dbContext.SaveChangesAsync();
-    //    }
-    //}
 }
