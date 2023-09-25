@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 namespace LMSV1.Models;
 public static class SeedData
 {
-    public static void Initialize(LMSV1CourseContext context)
+    public static void Initialize(LMSV1Context context)
     {
         // Look for any courses.
         if (context.Course.Any())

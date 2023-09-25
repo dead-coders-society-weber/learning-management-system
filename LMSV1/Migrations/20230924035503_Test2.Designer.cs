@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LMSV1.Migrations
 {
-    [DbContext(typeof(LMSV1UserContext))]
+    [DbContext(typeof(LMSV1Context))]
     [Migration("20230924035503_Test2")]
     partial class Test2
     {

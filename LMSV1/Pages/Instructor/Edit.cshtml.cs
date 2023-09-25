@@ -12,9 +12,9 @@ namespace LMSV1.Pages.Instructor
 {
     public class EditModel : PageModel
     {
-        private readonly LMSV1CourseContext _context;
+        private readonly Data.LMSV1Context _context;
 
-        public EditModel(LMSV1CourseContext context)
+        public EditModel(Data.LMSV1Context context)
         {
             _context = context;
         }

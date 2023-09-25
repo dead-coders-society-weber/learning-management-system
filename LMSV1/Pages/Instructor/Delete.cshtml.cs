@@ -11,9 +11,9 @@ namespace LMSV1.Pages.Instructor
 {
     public class DeleteModel : PageModel
     {
-        private readonly LMSV1CourseContext _context;
+        private readonly Data.LMSV1Context _context;
 
-        public DeleteModel(LMSV1CourseContext context)
+        public DeleteModel(Data.LMSV1Context context)
         {
             _context = context;
         }

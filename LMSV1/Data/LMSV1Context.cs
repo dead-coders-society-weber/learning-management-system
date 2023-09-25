@@ -9,15 +9,15 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LMSV1.Data
 {
-    public class LMSV1UserContext : IdentityDbContext<User>
+    public class LMSV1Context : IdentityDbContext<User>
     {
-        public LMSV1UserContext (DbContextOptions<LMSV1UserContext> options)
+        public LMSV1Context (DbContextOptions<LMSV1Context> options)
             : base(options)
         {
         }
 
         public DbSet<LMSV1.Models.User> User { get; set; } = default!;
-
+        public DbSet<LMSV1.Models.Course> Course { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

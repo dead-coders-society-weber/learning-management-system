@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LMSV1.Migrations
 {
-    [DbContext(typeof(LMSV1UserContext))]
+    [DbContext(typeof(LMSV1Context))]
     partial class LMSV1UserContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

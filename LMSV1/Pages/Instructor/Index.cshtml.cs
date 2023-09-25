@@ -11,15 +11,14 @@ namespace LMSV1.Pages.Instructor
 {
     public class IndexModel : PageModel
     {
-        private readonly LMSV1CourseContext _context;
+        private readonly Data.LMSV1Context _context;
 
-        public IndexModel(LMSV1CourseContext context)
+        public IndexModel(Data.LMSV1Context context)
         {
             _context = context;
         }
 
         public IList<Course> Course { get;set; } = default!;
-
         public async Task OnGetAsync()
         {
             if (_context.Course != null)

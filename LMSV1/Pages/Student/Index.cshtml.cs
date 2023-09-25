@@ -11,9 +11,9 @@ namespace LMSV1.Pages.Student
 {
     public class IndexModel : PageModel
     {
-        private readonly LMSV1CourseContext _context;
+        private readonly Data.LMSV1Context _context;
 
-        public IndexModel(LMSV1CourseContext context)
+        public IndexModel(Data.LMSV1Context context)
         {
             _context = context;
         }
