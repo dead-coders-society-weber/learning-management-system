@@ -22,7 +22,7 @@ public class Enrollment
     public required int CourseID { get; set; }
 
     [Display(Name = "User ID")]
-    public required int UserID { get; set; }
+    public required string UserID { get; set; }
 
     [Display(Name = "Grade")]
     [DisplayFormat(NullDisplayText = "No grade")]
@@ -31,8 +31,8 @@ public class Enrollment
     [Display(Name = "Enrollment Date")]
     public DateTime EnrollmentDate { get; set; }
 
-    //public required Course Course { get; set; }
-    //public required User user { get; set; }
+    public Course Course { get; set; }
+    public User user { get; set; }
 
 
 }

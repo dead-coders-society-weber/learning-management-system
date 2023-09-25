@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMSV1.Models;
 
@@ -8,12 +9,13 @@ namespace LMSV1.Models;
 and submit it into the database for storage
  */
 public class Course
-{    
+{
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     [Required]
     public int CourseID { get; set; }  // Primary key
 
     [Required(ErrorMessage = "Course Number is required.")]
-    [Display(Name = "Course ID")]
+    [Display(Name = "Course Number")]
     public required string CourseNumber { get; set; }
 
     [Required(ErrorMessage = "Course Name is required.")]

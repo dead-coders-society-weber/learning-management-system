@@ -35,14 +35,14 @@ public static class SeedData
         context.Courses.AddRange(courses);
         context.SaveChanges();
 
-        DateTime enrollmentDate1 = new DateTime(2023, 9, 15); // User 1 birthday seed
-        var enrollments = new Enrollment[]
-        {
-            new Enrollment{UserID = 1,CourseID = 1,EnrollmentDate =  enrollmentDate1 }
+        //DateTime enrollmentDate1 = new DateTime(2023, 9, 15); // User 1 birthday seed
+        //var enrollments = new Enrollment[]
+        //{
+        //    new Enrollment{UserID = "1",CourseID = 0,EnrollmentDate =  enrollmentDate1 }
 
-        };
-        context.Enrollments.AddRange(enrollments);
-        context.SaveChanges();
+        //};
+        //context.Enrollments.AddRange(enrollments);
+        //context.SaveChanges();
 
     }
 }
