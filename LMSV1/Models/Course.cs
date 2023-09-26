@@ -35,14 +35,13 @@ public class Course
     [Display(Name = "Meet Times")]
     public required string MeetDays { get; set; }
 
-
     [Required(ErrorMessage = "Start time is required.")]
     [Display(Name = "Start Time")]
     public required string StartTime { get; set; }
 
     [Required(ErrorMessage = "End time is required.")]
     [Display(Name = "End Time")]
-
     public required string EndTime { get; set; }
 
+    public ICollection<Enrollment> Enrollments { get; set; }
 }

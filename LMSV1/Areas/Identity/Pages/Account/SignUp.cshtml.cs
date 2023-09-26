@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Security;
 
 namespace LMSV1.Areas.Identity.Pages.Account
 {
@@ -108,15 +109,18 @@ namespace LMSV1.Areas.Identity.Pages.Account
                 user.Role = Input.Role;
                 // add stock img by default for profile image
                 user.ProfileImage = "/Uploads/stock-profile-image.jpg";
+                user.SecurityStamp = Guid.NewGuid().ToString();
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                //await _userManager.AddToRoleAsync(user, Input.Role);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    // assign user to role
+                    await _userManager.AddToRoleAsync(user, Input.Role);
 
                     // sign the user in immediately after registration
                     await _signInManager.SignInAsync(user, isPersistent: false);

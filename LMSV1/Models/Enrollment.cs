@@ -12,6 +12,7 @@ public enum Grade
 {
     A, B, C, D, F
 }
+
 public class Enrollment
 {
     [Required]
@@ -22,7 +23,7 @@ public class Enrollment
     public required int CourseID { get; set; }
 
     [Display(Name = "User ID")]
-    public required string UserID { get; set; }
+    public required int UserId { get; set; }
 
     [Display(Name = "Grade")]
     [DisplayFormat(NullDisplayText = "No grade")]
@@ -32,7 +33,6 @@ public class Enrollment
     public DateTime EnrollmentDate { get; set; }
 
     public Course Course { get; set; }
-    public User user { get; set; }
 
-
+    public User User { get; set; }
 }

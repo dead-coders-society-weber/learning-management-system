@@ -11,12 +11,15 @@ namespace LMSV1.Models;
  * You don't need to encrypt or hash the password. Just store the password
  * as plain text for this assignment.
  */
-public class User : IdentityUser
+public class User : IdentityUser<int>
 {
+    [Required]
+    public override int Id { get; set; } // Primary key
+
     [Required(ErrorMessage = "Username/Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email format.")]
     [Display(Name = "Username/Email")]
-    public string Email { get; set; }
+    public override string Email { get; set; }
 
     [Required(ErrorMessage = "Password is required.")]
     [DataType(DataType.Password)]
@@ -59,4 +62,6 @@ public class User : IdentityUser
 
     [DataType(DataType.ImageUrl)]
     public string? ProfileImage { get; set; }
+
+    public ICollection<Enrollment> Enrollments { get; set; }
 }

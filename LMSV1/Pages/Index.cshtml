@@ -9,13 +9,11 @@
 }
 
 @if (SignInManager.IsSignedIn(User))
-
 {
     <!--Refresh button to see if any information on the courses page has changed-->
     <p>
         <a asp-page="Index">Refresh</a>
     </p>
-
 
     <html>
     <head>
@@ -54,37 +52,36 @@
 
         @foreach (var item in Model.Course)
         {
-        <div class="card-container">
-            <div class="card">
-
-                <!--<p>Collapsible Set:</p>-->
-                <p>@Html.DisplayFor(modelItem => item.Title)</p>
-                <button class="collapsible">Course ID</button>
-                <div class="content">
-                        <p> @Html.DisplayFor(modelItem => item.CourseID)</p>
-                </div>
-                <button class="collapsible">Course Credit Hours</button>
-                <div class="content">
-                        <p> @Html.DisplayFor(modelItem => item.Credits)</p>
+            <div class="card-container">
+                <div class="card">
+                    <!--<p>Collapsible Set:</p>-->
+                    <p>@Html.DisplayFor(modelItem => item.Title)</p>
+                    <button class="collapsible">Course ID</button>
+                    <div class="content">
+                            <p> @Html.DisplayFor(modelItem => item.CourseID)</p>
                     </div>
-                <button class="collapsible">Class Location</button>
-                <div class="content">
-                        <p>@Html.DisplayFor(modelItem => item.Location)</p>
-                </div>
-                <button class="collapsible">Days to Meet in Class</button>
-                <div class="content">
-                    <p> @Html.DisplayFor(modelItem => item.MeetDays)</p>
-                </div>
-                <button class="collapsible">Class Start Time</button>
-                <div class="content">
-                    <p> @Html.DisplayFor(modelItem => item.StartTime)</p>
-                </div>
-                <button class="collapsible">Class End Time</button>
-                <div class="content">
-                    <p>@Html.DisplayFor(modelItem => item.EndTime)</p>
+                    <button class="collapsible">Course Credit Hours</button>
+                    <div class="content">
+                            <p> @Html.DisplayFor(modelItem => item.Credits)</p>
+                        </div>
+                    <button class="collapsible">Class Location</button>
+                    <div class="content">
+                            <p>@Html.DisplayFor(modelItem => item.Location)</p>
+                    </div>
+                    <button class="collapsible">Days to Meet in Class</button>
+                    <div class="content">
+                        <p> @Html.DisplayFor(modelItem => item.MeetDays)</p>
+                    </div>
+                    <button class="collapsible">Class Start Time</button>
+                    <div class="content">
+                        <p> @Html.DisplayFor(modelItem => item.StartTime)</p>
+                    </div>
+                    <button class="collapsible">Class End Time</button>
+                    <div class="content">
+                        <p>@Html.DisplayFor(modelItem => item.EndTime)</p>
+                    </div>
                 </div>
             </div>
-        </div>
         }
 
         <!--This script is used to allow the dropdown and collapse feature on the card items like Course Name/ MeetTime/ etc.-->

@@ -5,20 +5,18 @@ using Microsoft.AspNetCore.Identity;
 using LMSV1.Models;
 using System;
 using System.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
 builder.Services.AddDbContext<LMSV1Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("LMSV1Context") ?? throw new InvalidOperationException("Connection string 'LMSV1Context' not found.")));
 
-var connectionString = builder.Configuration.GetConnectionString("LMSV1UserContext") ?? throw new InvalidOperationException("Connection string 'LMSV1UserContext' not found.");
-builder.Services.AddDbContext<LMSV1Context>(options =>
-    options.UseSqlServer(connectionString));
-
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddRoles<IdentityRole>()
+    .AddRoles<IdentityRole<int>>()
     .AddEntityFrameworkStores<LMSV1Context>();
 
 var app = builder.Build();
@@ -46,7 +44,7 @@ using (var scope = app.Services.CreateScope())
 
     var context = services.GetRequiredService<LMSV1Context>();
     context.Database.EnsureCreated();
-    SeedData.Initialize(context);
+    await SeedData.InitializeAsync(services);
 }
 //using (var scope = app.Services.CreateScope())
 //{
