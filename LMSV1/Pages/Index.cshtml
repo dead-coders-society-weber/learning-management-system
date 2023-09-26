@@ -9,49 +9,94 @@
 }
 
 @if (SignInManager.IsSignedIn(User))
+
 {
-    <div class="card-container">
-        <!-- Card 1 -->
-        <div class="card">
-            <h2>CS 3750</h2>
-            <ul>
-                <li>Software Engineering II</li>
-                <li>CAE 232</li>
-                <li>Thurdsay 9:30-11:20am</li>
-            </ul>
-        </div>
+    @*This code is commented out for now but will be used in the future for styling and any .js script for the page
+        This code allows acces to a javascript(.js) file
+       <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+      <script src="CourseStyle.js"></script>*@
+    <!--This line of code in the header allows the html page to pull from the .css page for styling-->
+    @*<head>
+        <link href="@Url.Content("/CourseStyle.css")" rel="stylesheet" type="text/css" />
+    </head>*@
 
-        <!-- Card 2 -->
-        <div class="card">
-            <h2>CS 3550</h2>
-            <ul>
-                <li>Advanced Database</li>
-                <li>CAE 250</li>
-                <li>Tuesday Thursday 10:00-11:00am</li>
-            </ul>
-        </div>
+    <h1>Courses</h1>
 
-        <!-- Card 3 -->
-        <div class="card">
-            <h2>CS 3100</h2>
-            <ul>
-                <li>Operating Systems</li>
-                <li>CAE 310</li>
-                <li>Monday Wednesday 1:00-3:00pm</li>
-            </ul>
-        </div>
+    <!--Refresh button to see if any information on the courses page has changed-->
+    <p>
+        <a asp-page="Index">Refresh</a>
+    </p>
 
-        <!-- Card 4 -->
-        <div class="card">
-            <h2>CS 4200</h2>
-            <ul>
-                <li>Mobile Websites API</li>
-                <li>CAE 320</li>
-                <li>Tuesday 10:00-11:00am</li>
-            </ul>
+    @*Places the for loop here creates a new box("card") for each course *@
+    @foreach (var item in Model.Course)
+    {
+        <div class="card-container">
+            <div class="card">
+                <table class="table">
+                    <thead>
+                        <!--This part of the code will show the header information of the classes before showing the actual class itself-->
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course[0].CourseID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course[0].Title)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course[0].Credits)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course[0].Location)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course[0].MeetDays)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course[0].StartTime)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Course[0].EndTime)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*This code below shows all of the courses information that exist in the database and stops*@
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CourseID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Credits)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MeetDays)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartTime)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EndTime)
+                            </td>
+                            <td>
+                                <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
+                                <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
+                                <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
+    }
 }
+
 else
 {
     <div class="text-center">
@@ -59,3 +104,5 @@ else
         <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
 }
+
+
