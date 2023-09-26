@@ -11,90 +11,102 @@
 @if (SignInManager.IsSignedIn(User))
 
 {
-    @*This code is commented out for now but will be used in the future for styling and any .js script for the page
-        This code allows acces to a javascript(.js) file
-       <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-      <script src="CourseStyle.js"></script>*@
-    <!--This line of code in the header allows the html page to pull from the .css page for styling-->
-    @*<head>
-        <link href="@Url.Content("/CourseStyle.css")" rel="stylesheet" type="text/css" />
-    </head>*@
-
-    <h1>Courses</h1>
-
     <!--Refresh button to see if any information on the courses page has changed-->
     <p>
         <a asp-page="Index">Refresh</a>
     </p>
 
-    @*Places the for loop here creates a new box("card") for each course *@
-    @foreach (var item in Model.Course)
-    {
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--Minor CSS elements added to make the class card more readable and cleaner-->
+        <style>
+            .collapsible {
+                background-color: #284;
+                color: white;
+                cursor: pointer;
+                padding: 12px;
+                width: 80%;
+                border: none;
+                text-align: left;
+                outline: none;
+                font-size: 12px;
+            }
+
+            .active, .collapsible:hover {
+                background-color: #678;
+            }
+
+            .content {
+                padding: 0 16px;
+                width: 80%;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.2s ease-out;
+                background-color: #f1f1f1;
+            }
+        </style>
+    </head>
+    <body>
+        <!--New Approach to creating the cards, this way you can click the course elements to get a small dropdown of the information-->
+        <h1>Courses</h1>
+
+        @foreach (var item in Model.Course)
+        {
         <div class="card-container">
             <div class="card">
-                <table class="table">
-                    <thead>
-                        <!--This part of the code will show the header information of the classes before showing the actual class itself-->
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Course[0].CourseID)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Course[0].Title)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Course[0].Credits)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Course[0].Location)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Course[0].MeetDays)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Course[0].StartTime)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Course[0].EndTime)
-                            </th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @*This code below shows all of the courses information that exist in the database and stops*@
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CourseID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Title)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Credits)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Location)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MeetDays)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.StartTime)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EndTime)
-                            </td>
-                            <td>
-                                <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
-                                <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
-                                <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <!--<p>Collapsible Set:</p>-->
+                <p>@Html.DisplayFor(modelItem => item.Title)</p>
+                <button class="collapsible">Course ID</button>
+                <div class="content">
+                        <p> @Html.DisplayFor(modelItem => item.CourseID)</p>
+                </div>
+                <button class="collapsible">Course Credit Hours</button>
+                <div class="content">
+                        <p> @Html.DisplayFor(modelItem => item.Credits)</p>
+                    </div>
+                <button class="collapsible">Class Location</button>
+                <div class="content">
+                        <p>@Html.DisplayFor(modelItem => item.Location)</p>
+                </div>
+                <button class="collapsible">Days to Meet in Class</button>
+                <div class="content">
+                    <p> @Html.DisplayFor(modelItem => item.MeetDays)</p>
+                </div>
+                <button class="collapsible">Class Start Time</button>
+                <div class="content">
+                    <p> @Html.DisplayFor(modelItem => item.StartTime)</p>
+                </div>
+                <button class="collapsible">Class End Time</button>
+                <div class="content">
+                    <p>@Html.DisplayFor(modelItem => item.EndTime)</p>
+                </div>
             </div>
         </div>
-    }
+        }
+
+        <!--This script is used to allow the dropdown and collapse feature on the card items like Course Name/ MeetTime/ etc.-->
+        <script>
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + "px";
+                    }
+                });
+            }
+        </script>
+
+    </body>
+    </html>
 }
 
 else
@@ -106,3 +118,71 @@ else
 }
 
 
+@*Old method of createing the cards 
+@foreach (var item in Model.Course)
+{
+    <div class="card-container">
+        <div class="card">
+            <table class="table">
+                <thead>
+                    <!--This part of the code will show the header information of the classes before showing the actual class itself-->
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course[0].CourseID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course[0].Title)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course[0].Credits)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course[0].Location)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course[0].MeetDays)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course[0].StartTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Course[0].EndTime)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @*This code below shows all of the courses information that exist in the database and stops
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Credits)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MeetDays)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StartTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EndTime)
+                        </td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.CourseID">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}*@
