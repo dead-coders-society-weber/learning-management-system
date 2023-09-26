@@ -4,6 +4,10 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,18 +31,21 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <ul class="navbar-nav flex-grow-1">
-@*                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                            </li> *@
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/FilePage">File</a>
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Index">Dashboard</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-page="/Instructor/Index">Manage Courses</a>
-                            </li>
-                                                            <li class="nav-item">
+                            @if (await UserManager.IsInRoleAsync(user, "Instructor"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Instructor/Index">Manage Courses</a>
+                                </li>
+                            }
+                            @if (await UserManager.IsInRoleAsync(user, "Student"))
+                            {
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/Student/Index">Course Registration</a>
                                 </li>
+                            }
                         </ul>
                     }
                     <partial name="_LoginPartial" />
