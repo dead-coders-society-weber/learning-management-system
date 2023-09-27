@@ -21,22 +21,6 @@ body {
   margin-bottom: 60px;
 }
 
-/* Style for the card container */
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 columns */
-    gap: 20px; /* Gap between cards */
-}
-
-/* Style for individual cards */
-.card {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
-}
-
 /* Styles for profile image */
 .profile-image {
     width: 150px; /* Adjust the size as needed */
@@ -52,7 +36,7 @@ body {
     object-fit: cover; /* Ensures the image covers the entire circle */
 }
 
-/* Minor CSS elements added to make the class card more readable and cleaner */
+/* Styles for dashboard page */
 .collapsible {
     background-color: #284;
     color: white;
@@ -76,4 +60,29 @@ body {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     background-color: #f1f1f1;
+}
+
+/* Styles for course registration page */
+.class-box {
+    border: 1px solid black;
+    margin: 10px;
+}
+
+table th {
+    font-weight: bold;
+    text-align: center;
+}
+
+table tr {
+    border: 2px solid black;
+    padding: 15px;
+}
+
+table td {
+    padding: 15px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
 }
