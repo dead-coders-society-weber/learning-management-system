@@ -51,3 +51,29 @@ body {
     height: auto;
     object-fit: cover; /* Ensures the image covers the entire circle */
 }
+
+/* Minor CSS elements added to make the class card more readable and cleaner */
+.collapsible {
+    background-color: #284;
+    color: white;
+    cursor: pointer;
+    padding: 12px;
+    width: 80%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 12px;
+}
+
+.active, .collapsible:hover {
+    background-color: #678;
+}
+
+.content {
+    padding: 0 16px;
+    width: 80%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
