@@ -91,8 +91,8 @@ public static class SeedData
         {
             new Course
             {
-                CourseNumber = "CS370",
-                Title = "Software Development II",
+                CourseID = 3750,
+                Title = "CS - Software Development II",
                 Credits = "4",
                 Location = "Weber NB - 324",
                 MeetDays = "T,TH",
@@ -112,13 +112,13 @@ public static class SeedData
                 new Enrollment  // Instructor enrollment (course instructor)
                 {
                     UserId = users[0].Id,
-                    CourseID = 0,
+                    CourseID = 3750,
                     EnrollmentDate = new DateTime()
                 },
                 new Enrollment  // Student enrollment (course participant)
                 {
                     UserId = users[1].Id,
-                    CourseID = 0,
+                    CourseID = 3750,
                     EnrollmentDate = new DateTime()
                 }
             };

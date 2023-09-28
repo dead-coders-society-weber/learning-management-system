@@ -27,10 +27,6 @@ namespace LMSV1.Migrations
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
 
-                    b.Property<string>("CourseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Credits")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

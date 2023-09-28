@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20230926234840_Initial")]
+    [Migration("20230928005100_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -29,10 +29,6 @@ namespace LMSV1.Migrations
                 {
                     b.Property<int>("CourseID")
                         .HasColumnType("int");
-
-                    b.Property<string>("CourseNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Credits")
                         .IsRequired()

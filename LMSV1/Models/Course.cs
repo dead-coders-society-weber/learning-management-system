@@ -11,12 +11,9 @@ and submit it into the database for storage
 public class Course
 {
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    [Required]
+    [Required(ErrorMessage = "Course ID is required.")]
+    [Display(Name = "Course ID")]
     public int CourseID { get; set; }  // Primary key
-
-    [Required(ErrorMessage = "Course Number is required.")]
-    [Display(Name = "Course Number")]
-    public required string CourseNumber { get; set; }
 
     [Required(ErrorMessage = "Course Name is required.")]
     [StringLength(100, MinimumLength = 6, ErrorMessage = "Course name must be between 6 and 100 characters.")]
@@ -43,5 +40,5 @@ public class Course
     [Display(Name = "End Time")]
     public required string EndTime { get; set; }
 
-    public ICollection<Enrollment> Enrollments { get; set; }
+    public ICollection<Enrollment>? Enrollments { get; set; }
 }

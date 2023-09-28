@@ -19,26 +19,26 @@ public class User : IdentityUser<int>
     [Required(ErrorMessage = "Username/Email is required.")]
     [EmailAddress(ErrorMessage = "Invalid email format.")]
     [Display(Name = "Username/Email")]
-    public override string Email { get; set; }
+    public override required string Email { get; set; }
 
     [Required(ErrorMessage = "Password is required.")]
     [DataType(DataType.Password)]
     [StringLength(100, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 100 characters.")]
-    public string Password { get; set; }
+    public required string Password { get; set; }
 
     [Required(ErrorMessage = "First Name is required.")]
     [Display(Name = "First Name")]
-    public string FirstName { get; set; }
+    public required string FirstName { get; set; }
 
     [Required(ErrorMessage = "Last Name is required.")]
     [Display(Name = "Last Name")]
-    public string LastName { get; set; }
+    public required string LastName { get; set; }
 
     [Required(ErrorMessage = "Birthdate is required.")]
     [DataType(DataType.Date)]
     public DateTime Birthdate { get; set; }
 
-    public string Role { get; set; }
+    public required string Role { get; set; }
 
     public string? Address1 { get; set; }
 
@@ -63,5 +63,5 @@ public class User : IdentityUser<int>
     [DataType(DataType.ImageUrl)]
     public string? ProfileImage { get; set; }
 
-    public ICollection<Enrollment> Enrollments { get; set; }
+    public ICollection<Enrollment>? Enrollments { get; set; }
 }
