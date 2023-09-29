@@ -37,7 +37,15 @@ body {
 }
 
 /* Styles for dashboard page */
-.collapsible {
+.card {
+   width: 40%;
+   display:block;
+   float:left;
+   border:double;
+   padding:4px;
+}
+
+/*.collapsible {
     background-color: #284;
     color: white;
     cursor: pointer;
@@ -60,7 +68,7 @@ body {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
     background-color: #f1f1f1;
-}
+}*/
 
 /* Styles for course registration page */
 .class-box {
