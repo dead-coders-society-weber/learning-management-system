@@ -41,4 +41,5 @@ public class Course
     public required string EndTime { get; set; }
 
     public ICollection<Enrollment>? Enrollments { get; set; }
+
 }

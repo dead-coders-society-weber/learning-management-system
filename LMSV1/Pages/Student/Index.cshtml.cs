@@ -20,6 +20,22 @@ namespace LMSV1.Pages.Student
 
         public IList<Course> Course { get;set; } = default!;
 
+        public bool IsEnrolled(int selectedCourse)
+        {
+            var enrolledQuery = from c in _context.Enrollments
+                              where c.CourseID == selectedCourse
+                              select c;
+
+            if (enrolledQuery == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public async Task OnGetAsync()
         {
             if (_context.Courses != null)
