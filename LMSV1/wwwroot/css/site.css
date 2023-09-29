@@ -44,31 +44,9 @@ body {
    border:double;
    padding:4px;
 }
-
-/*.collapsible {
-    background-color: #284;
-    color: white;
-    cursor: pointer;
-    padding: 12px;
-    width: 80%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 12px;
-}
-
-.active, .collapsible:hover {
-    background-color: #678;
-}
-
-.content {
-    padding: 0 16px;
-    width: 80%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
-}*/
+/*a {
+    color: inherit;
+} */
 
 /* Styles for course registration page */
 .class-box {

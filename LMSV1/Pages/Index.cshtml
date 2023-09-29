@@ -17,55 +17,22 @@
     <p><a asp-page="Index">Refresh</a></p>
     @foreach (var item in Model.Course)
     {
+        <!--This is the information displayed insdie the card-->
+        <!--Need to figure out how to send the clickable card to the appropriate page... Change the a href="Something else here"-->
+        <a href="Error" style="text-decoration:none; color:inherit;">
         <div class="card-container">
             <div class="card">
-                <!--<p>Collapsible Set:</p>-->
-                <p>@Html.DisplayFor(modelItem => item.Title)</p>
-                <!--<button class="collapsible">Course ID</button>-->
-                <!--<div class="content">-->
-                    <p> @Html.DisplayFor(modelItem => item.CourseID)</p>
-                <!--</div>-->
-                <!--<button class="collapsible">Course Credit Hours</button>-->
-                <!--<div class="content">-->
-                    <p> @Html.DisplayFor(modelItem => item.Credits)</p>
-                <!--</div>-->
-                <!--<button class="collapsible">Class Location</button>-->
-                <!--<div class="content">-->
-                    <p>@Html.DisplayFor(modelItem => item.Location)</p>
-                <!--</div>-->
-                <!--<button class="collapsible">Days to Meet in Class</button>-->
-                <!--<div class="content">-->
-                    <p> @Html.DisplayFor(modelItem => item.MeetDays)</p>
-                <!--</div>-->
-                <!--<button class="collapsible">Class Start Time</button>-->
-                <!--<div class="content">-->
-                    <p> @Html.DisplayFor(modelItem => item.StartTime)</p>
-                <!--</div>-->
-                <!--<button class="collapsible">Class End Time</button>-->
-                <!--<div class="content">-->
-                    <p>@Html.DisplayFor(modelItem => item.EndTime)</p>
-                <!--</div>-->
+                <p>@Html.DisplayFor(modelItem => item.Title)</p>             
+                    <p> @Html.DisplayFor(modelItem => item.CourseID)</p>             
+                    <p> @Html.DisplayFor(modelItem => item.Credits) Credits</p>             
+                    <p> @Html.DisplayFor(modelItem => item.Location)</p>               
+                    <p> @Html.DisplayFor(modelItem => item.MeetDays)</p>               
+                    <p> @Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
             </div>
         </div>
+        </a>
     }
-
-    <!--This script is used to allow the dropdown and collapse feature on the card items like Course Name/ MeetTime/ etc.-->
-    <script>
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
-
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
-            });
-        }
-    </script>
+    
 }
 else
 {
