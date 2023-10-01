@@ -46,17 +46,6 @@ using (var scope = app.Services.CreateScope())
     context.Database.EnsureCreated();
     await SeedData.InitializeAsync(services);
 }
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-
-//    // Get the required services
-//    var dbContext = services.GetRequiredService<LMSV1UserContext>();
-//    var userManager = services.GetRequiredService<UserManager<User>>();
-//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-//    _ = SeedData.InitializeAsync(dbContext, userManager, roleManager);
-//}
 
 app.MapRazorPages();
 

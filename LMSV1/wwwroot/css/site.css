@@ -45,6 +45,16 @@ body {
    padding:4px;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: 75% 25%;
+}
+
+.grid-container h1,
+.grid-container h4{
+    height: 10%;
+}
+
 /* Styles for course registration page */
 .class-box {
     border: 1px solid black;
