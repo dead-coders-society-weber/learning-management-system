@@ -29,6 +29,23 @@ namespace LMSV1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PaymentInformation",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    cardName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    cardNumber = table.Column<long>(type: "bigint", nullable: false),
+                    expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    cVV = table.Column<int>(type: "int", nullable: false),
+                    paymentAmount = table.Column<float>(type: "real", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PaymentInformation", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Role",
                 columns: table => new
                 {
@@ -265,6 +282,9 @@ namespace LMSV1.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Enrollment");
+
+            migrationBuilder.DropTable(
+                name: "PaymentInformation");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

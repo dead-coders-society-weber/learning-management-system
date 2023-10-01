@@ -86,6 +86,35 @@ namespace LMSV1.Migrations
                     b.ToTable("Enrollment", (string)null);
                 });
 
+            modelBuilder.Entity("LMSV1.Models.PaymentInformation", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("cVV")
+                        .HasColumnType("int");
+
+                    b.Property<string>("cardName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("cardNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("paymentAmount")
+                        .HasColumnType("real");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("PaymentInformation", (string)null);
+                });
+
             modelBuilder.Entity("LMSV1.Models.User", b =>
                 {
                     b.Property<int>("Id")

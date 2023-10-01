@@ -19,6 +19,7 @@ namespace LMSV1.Data
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<Enrollment> Enrollments { get; set; } = default!;
         public DbSet<Course> Courses { get; set; } = default!;
+        public DbSet<PaymentInformation> PaymentInformation { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -43,6 +44,10 @@ namespace LMSV1.Data
                 b.ToTable("User");
             });
 
+            //Added the PaymentInformation table -Quinn
+            //When a new table is added an Add-Migration is necessary using the NuGetPackageManager => Package Manager Console
+            //you can have no errors in your current build. do command Update-Database after this
+
             builder.Entity<Course>().ToTable("Course");
             builder.Entity<Enrollment>().ToTable("Enrollment");
             builder.Entity<User>().ToTable("User");
@@ -52,6 +57,7 @@ namespace LMSV1.Data
             builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");
             builder.Entity<IdentityUserToken<int>>().ToTable("UserTokens");
+            builder.Entity<PaymentInformation>().ToTable("PaymentInformation");
         }
     }
 }
