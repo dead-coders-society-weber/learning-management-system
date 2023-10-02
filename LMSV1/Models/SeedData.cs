@@ -12,17 +12,37 @@ public static class SeedData
             serviceProvider.GetRequiredService<DbContextOptions<LMSV1Context>>()))
         {
             // seed Instructor user and ensure role assignment
-            var instructor = await EnsureUser(serviceProvider, "Instructor1@gmail.com", 
+            var instructor1 = await EnsureUser(serviceProvider, "Instructor1@gmail.com", 
                                                 "Abc123!", "Instructor");
-            await EnsureRole(serviceProvider, instructor.Email, "Instructor");
+            await EnsureRole(serviceProvider, instructor1.Email, "Instructor");
 
             // seed Student user and ensure role assignment
-            var student = await EnsureUser(serviceProvider, "Student1@gmail.com", 
+            var student1 = await EnsureUser(serviceProvider, "Student1@gmail.com", 
                                              "Abc123!", "Student");
-            await EnsureRole(serviceProvider, student.Email, "Student");
+            await EnsureRole(serviceProvider, student1.Email, "Student");
+
+            // seed Instructor user and ensure role assignment
+            var instructor2 = await EnsureUser(serviceProvider, "Instructor2@gmail.com",
+                                                "Abc123!", "Instructor");
+            await EnsureRole(serviceProvider, instructor2.Email, "Instructor");
+
+            // seed Student user and ensure role assignment
+            var student2 = await EnsureUser(serviceProvider, "Student2@gmail.com",
+                                             "Abc123!", "Student");
+            await EnsureRole(serviceProvider, student2.Email, "Student");
+
+            // seed Instructor user and ensure role assignment
+            var instructor3 = await EnsureUser(serviceProvider, "Instructor3@gmail.com",
+                                                "Abc123!", "Instructor");
+            await EnsureRole(serviceProvider, instructor3.Email, "Instructor");
+
+            // seed Student user and ensure role assignment
+            var student3 = await EnsureUser(serviceProvider, "Student3@gmail.com",
+                                             "Abc123!", "Student");
+            await EnsureRole(serviceProvider, student3.Email, "Student");
 
             // seed db with data
-            SeedDB(context, new User[] { instructor, student });
+            SeedDB(context, new User[] { instructor1, student1, instructor2, student2, instructor3, student3 });
         }
     }
 
@@ -94,7 +114,7 @@ public static class SeedData
                 CourseID = 3750,
                 Title = "CS - Software Development II",
                 Credits = "4",
-                InstructorID = 01,
+                InstructorID = 1,
                 Location = "Weber NB - 324",
                 MeetDays = "T,TH",
                 StartTime = "11:30 AM",
