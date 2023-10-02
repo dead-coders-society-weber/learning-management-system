@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LMSV1.Data;
 using LMSV1.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace LMSV1.Pages.Instructor.Crs
 {
@@ -21,13 +22,23 @@ namespace LMSV1.Pages.Instructor.Crs
 
         public IList<Assignment> Assignment { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int id)
         {
             if (_context.Assignments != null)
             {
-                Assignment = await _context.Assignments
-                .Include(a => a.Course).ToListAsync();
+                //Assignment = await _context.Assignments
+                //.Include(a => a.Course).ToListAsync();
+                var courseID = id;
+                var Assignments = from A in _context.Assignments
+                              select A;
+                if (!string.IsNullOrEmpty(courseID.ToString()))
+                {
+                    Assignments = Assignments.Where(s => s.CourseID == (courseID));
+                }
+
+                Assignment = await Assignments.ToListAsync();
             }
+
         }
     }
 }
