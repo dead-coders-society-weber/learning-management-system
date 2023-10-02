@@ -94,6 +94,7 @@ public static class SeedData
                 CourseID = 3750,
                 Title = "CS - Software Development II",
                 Credits = "4",
+                InstructorID = 01,
                 Location = "Weber NB - 324",
                 MeetDays = "T,TH",
                 StartTime = "11:30 AM",

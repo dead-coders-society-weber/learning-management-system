@@ -19,6 +19,7 @@ namespace LMSV1.Data
         public DbSet<User> Users { get; set; } = default!;
         public DbSet<Enrollment> Enrollments { get; set; } = default!;
         public DbSet<Course> Courses { get; set; } = default!;
+        public DbSet<Assignment> Assignments { get; set; } = default!;
         public DbSet<PaymentInformation> PaymentInformation { get; set; } = default!;
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -51,6 +52,7 @@ namespace LMSV1.Data
             builder.Entity<Course>().ToTable("Course");
             builder.Entity<Enrollment>().ToTable("Enrollment");
             builder.Entity<User>().ToTable("User");
+            builder.Entity<Assignment>().ToTable("Assignment");
             builder.Entity<IdentityRole<int>>().ToTable("Role");
             builder.Entity<IdentityUserRole<int>>().ToTable("UserRoles");
             builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");

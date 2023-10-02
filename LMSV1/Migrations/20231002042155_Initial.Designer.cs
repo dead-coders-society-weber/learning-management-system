@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20231001024017_Initial")]
+    [Migration("20231002042155_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -24,6 +24,37 @@ namespace LMSV1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("LMSV1.Models.Assignment", b =>
+                {
+                    b.Property<int>("AssignmentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MaxPoints")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("AssignmentID");
+
+                    b.HasIndex("CourseID");
+
+                    b.ToTable("Assignment", (string)null);
+                });
 
             modelBuilder.Entity("LMSV1.Models.Course", b =>
                 {
@@ -37,6 +68,9 @@ namespace LMSV1.Migrations
                     b.Property<string>("EndTime")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InstructorID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -350,6 +384,17 @@ namespace LMSV1.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("LMSV1.Models.Assignment", b =>
+                {
+                    b.HasOne("LMSV1.Models.Course", "Course")
+                        .WithMany("Assignments")
+                        .HasForeignKey("CourseID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("LMSV1.Models.Enrollment", b =>
                 {
                     b.HasOne("LMSV1.Models.Course", "Course")
@@ -422,6 +467,8 @@ namespace LMSV1.Migrations
 
             modelBuilder.Entity("LMSV1.Models.Course", b =>
                 {
+                    b.Navigation("Assignments");
+
                     b.Navigation("Enrollments");
                 });
 
