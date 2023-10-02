@@ -24,12 +24,8 @@ namespace LMSV1.Pages.Instructor.Crs
 
         public async Task OnGetAsync(int id)
         {
-            ViewData["id"] = id;
-
             if (_context.Assignments != null)
             {
-                //Assignment = await _context.Assignments
-                //.Include(a => a.Course).ToListAsync();
                 var courseID = id;
                 var Assignments = from A in _context.Assignments
                               select A;

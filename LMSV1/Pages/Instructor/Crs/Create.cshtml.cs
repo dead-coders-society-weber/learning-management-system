@@ -13,7 +13,6 @@ namespace LMSV1.Pages.Instructor.Crs
     public class CreateModel : PageModel
     {
         private readonly LMSV1.Data.LMSV1Context _context;
-        //private int courseID;
         public CreateModel(LMSV1.Data.LMSV1Context context)
         {
             _context = context;
@@ -22,7 +21,6 @@ namespace LMSV1.Pages.Instructor.Crs
         public IActionResult OnGet()
         {
         ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
-          //  courseID = id;
             return Page();
         }
 
