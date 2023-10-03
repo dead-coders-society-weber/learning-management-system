@@ -25,7 +25,7 @@ namespace LMSV1.Pages.Instructor.Crs
 
         public async Task OnGetAsync(int id)
         {
-            ViewData["CourseName"] = new SelectList(_context.Courses, "CourseID", "Title");
+            ViewData["CourseName"] = id;
             if (_context.Assignments != null)
             {
                 var courseID = id;
