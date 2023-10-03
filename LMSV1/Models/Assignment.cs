@@ -10,13 +10,9 @@ namespace LMSV1.Models;
  */
 public class Assignment
 {
-
-    [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    [Required(ErrorMessage = "Assignment ID is required.")]
-    [Display(Name = "Assignment ID")]
     public int AssignmentID { get; set; }  // Primary key
 
-    [Required(ErrorMessage = "Course ID is required.")]
+    [Required]
     [Display(Name = "Course ID")]
     public int CourseID { get; set; }  // Foreign Key
 
@@ -26,7 +22,7 @@ public class Assignment
     public required string Title { get; set; }
 
     [Required(ErrorMessage = "Description is required.")]
-    [StringLength(100, MinimumLength = 10, ErrorMessage = "Assignment name must be between 10 and 100 characters.")]
+    [StringLength(100, MinimumLength = 5, ErrorMessage = "Assignment name must be between 5 and 100 characters.")]
     [Display(Name = "Description")]
     public required string Description { get; set; }
 
@@ -35,8 +31,9 @@ public class Assignment
     public required int MaxPoints { get; set; }
     [Required(ErrorMessage = "Due date is required.")]
     [Display(Name = "Due Date")]
+    [DataType(DataType.Date)]
     public DateTime DueDate { get; set; }
 
-    public Course Course { get; set; }
+    //public Course Course { get; set; }
 }
 

@@ -25,7 +25,10 @@ namespace LMSV1.Migrations
             modelBuilder.Entity("LMSV1.Models.Assignment", b =>
                 {
                     b.Property<int>("AssignmentID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssignmentID"));
 
                     b.Property<int>("CourseID")
                         .HasColumnType("int");

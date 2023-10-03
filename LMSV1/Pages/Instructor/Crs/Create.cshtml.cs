@@ -31,14 +31,17 @@ namespace LMSV1.Pages.Instructor.Crs
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            Assignment.CourseID = courseID;
+            Assignment.CourseID = id;
             if (!ModelState.IsValid || _context.Assignments == null || Assignment == null)
             {
                 return Page();
             }
-
+            //        var errors = ModelState
+            //.Where(x => x.Value.Errors.Count > 0)
+            //.Select(x => new { x.Key, x.Value.Errors })
+            //.ToArray();
 
             _context.Assignments.Add(Assignment);
             await _context.SaveChangesAsync();
