@@ -15,6 +15,7 @@ namespace LMSV1.Pages.Instructor.Crs
     public class IndexModel : PageModel
     {
         private readonly LMSV1.Data.LMSV1Context _context;
+        public int courseID;
 
         public IndexModel(LMSV1.Data.LMSV1Context context)
         {
@@ -25,10 +26,11 @@ namespace LMSV1.Pages.Instructor.Crs
 
         public async Task OnGetAsync(int id)
         {
+            courseID = id;
             ViewData["CourseName"] = id;
             if (_context.Assignments != null)
             {
-                var courseID = id;
+                
                 var Assignments = from A in _context.Assignments
                               select A;
                 if (!string.IsNullOrEmpty(courseID.ToString()))

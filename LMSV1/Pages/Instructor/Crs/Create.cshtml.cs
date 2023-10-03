@@ -13,14 +13,16 @@ namespace LMSV1.Pages.Instructor.Crs
     public class CreateModel : PageModel
     {
         private readonly LMSV1.Data.LMSV1Context _context;
+        public int courseID;
         public CreateModel(LMSV1.Data.LMSV1Context context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public IActionResult OnGet(int id)
         {
-        ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
+            courseID = id;
+        //ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
             return Page();
         }
 
@@ -31,13 +33,12 @@ namespace LMSV1.Pages.Instructor.Crs
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            //Assignment.CourseID = courseID;
-            if (!ModelState.IsValid || _context.Assignments == null || Assignment == null)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid || _context.Assignments == null || Assignment == null)
+            //{
+            //    return Page();
+            //}
 
-            
+
             _context.Assignments.Add(Assignment);
             await _context.SaveChangesAsync();
 

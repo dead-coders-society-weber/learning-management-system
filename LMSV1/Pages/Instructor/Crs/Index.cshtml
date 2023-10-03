@@ -9,7 +9,7 @@
  
 
 <p>
-   <a asp-page="Create">Create New</a>
+   <a asp-page="Create" asp-route-id="model.courseID">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -48,7 +48,7 @@
                 @Html.DisplayFor(modelItem => item.DueDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Course.Credits)
+                @Html.DisplayFor(modelItem => item.CourseID)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.AssignmentID">Edit</a> |
