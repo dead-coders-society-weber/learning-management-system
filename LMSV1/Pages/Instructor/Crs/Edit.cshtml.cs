@@ -36,7 +36,7 @@ namespace LMSV1.Pages.Instructor.Crs
                 return NotFound();
             }
             Assignment = assignment;
-           ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "Credits");
+           ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
             return Page();
         }
 

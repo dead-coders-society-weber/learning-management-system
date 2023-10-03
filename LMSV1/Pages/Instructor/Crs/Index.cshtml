@@ -2,10 +2,10 @@
 @model LMSV1.Pages.Instructor.Crs.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Course";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag["CourseName"]</h1>
 
 <p>
    <a asp-page="Create">Create New</a>

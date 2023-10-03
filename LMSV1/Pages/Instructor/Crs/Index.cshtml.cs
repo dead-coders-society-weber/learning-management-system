@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LMSV1.Data;
 using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LMSV1.Pages.Instructor.Crs
 {
@@ -24,6 +25,7 @@ namespace LMSV1.Pages.Instructor.Crs
 
         public async Task OnGetAsync(int id)
         {
+            ViewData["CourseName"] = new SelectList(_context.Courses, "CourseID", "Title");
             if (_context.Assignments != null)
             {
                 var courseID = id;
