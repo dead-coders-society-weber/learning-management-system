@@ -14,14 +14,17 @@ namespace LMSV1.Pages.Instructor.Crs
 {
     public class IndexModel : PageModel
     {
+        //Reference to the database
         private readonly LMSV1.Data.LMSV1Context _context;
         public int courseID;
 
+        //Allows us to use the database
         public IndexModel(LMSV1.Data.LMSV1Context context)
         {
             _context = context;
         }
 
+        //Grabs a list of items and stores them inside a list
         public IList<Assignment> Assignment { get;set; } = default!;
 
         public async Task OnGetAsync(int id)

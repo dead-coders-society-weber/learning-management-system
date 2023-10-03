@@ -13,9 +13,9 @@ namespace LMSV1.Pages.Instructor.Crs
 {
     public class EditModel : PageModel
     {
-        private readonly LMSV1.Data.LMSV1Context _context;
+        private readonly Data.LMSV1Context _context;
 
-        public EditModel(LMSV1.Data.LMSV1Context context)
+        public EditModel(Data.LMSV1Context context)
         {
             _context = context;
         }
@@ -67,7 +67,7 @@ namespace LMSV1.Pages.Instructor.Crs
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./SuccessPage");
         }
 
         private bool AssignmentExists(int id)

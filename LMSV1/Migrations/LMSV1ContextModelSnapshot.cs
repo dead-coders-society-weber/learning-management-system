@@ -386,13 +386,11 @@ namespace LMSV1.Migrations
 
             modelBuilder.Entity("LMSV1.Models.Assignment", b =>
                 {
-                    b.HasOne("LMSV1.Models.Course", "Course")
+                    b.HasOne("LMSV1.Models.Course", null)
                         .WithMany("Assignments")
                         .HasForeignKey("CourseID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("LMSV1.Models.Enrollment", b =>

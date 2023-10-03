@@ -46,7 +46,7 @@ namespace LMSV1.Pages.Instructor.Crs
             _context.Assignments.Add(Assignment);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./SuccessPage");
         }
     }
 }
