@@ -16,7 +16,6 @@ namespace LMSV1.Pages.Instructor.Crs
     {
         //Reference to the database
         private readonly LMSV1.Data.LMSV1Context _context;
-        public int courseID;
 
         //Allows us to use the database
         public IndexModel(LMSV1.Data.LMSV1Context context)
@@ -25,25 +24,26 @@ namespace LMSV1.Pages.Instructor.Crs
         }
 
         //Grabs a list of items and stores them inside a list
-        public IList<Assignment> Assignment { get;set; } = default!;
+        public Course? Course { get;set; } = default!;
 
-        public async Task OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            courseID = id;
-            ViewData["CourseName"] = id;
-            if (_context.Assignments != null)
+            if(id == null)
             {
-                
-                var Assignments = from A in _context.Assignments
-                              select A;
-                if (!string.IsNullOrEmpty(courseID.ToString()))
-                {
-                    Assignments = Assignments.Where(s => s.CourseID == (courseID));
-                }
-
-                Assignment = await Assignments.ToListAsync();
+                return NotFound();
             }
 
+            Course = await _context.Courses
+                .Include(c => c.Assignments)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.CourseID == id);
+
+            if(Course == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
     }
 }

@@ -5,35 +5,33 @@
     ViewData["Title"] = "Course";
 }
 
-<h1>@ViewData["CourseName"] </h1>
- 
-
+<h1>@Model.Course.CourseID</h1>
 <p>
-   <a asp-page="Create" asp-route-id="@Model.courseID">Create New</a>
+   <a asp-page="Create" asp-route-id="@Model.Course.CourseID">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Assignment[0].Title)
+                @Html.DisplayNameFor(model => model.Course.Assignments.First().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Assignment[0].Description)
+                @Html.DisplayNameFor(model => model.Course.Assignments.First().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Assignment[0].MaxPoints)
+                @Html.DisplayNameFor(model => model.Course.Assignments.First().MaxPoints)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Assignment[0].DueDate)
+                @Html.DisplayNameFor(model => model.Course.Assignments.First().DueDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Assignment[0].CourseID)
+                @Html.DisplayNameFor(model => model.Course.Assignments.First().CourseID)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Assignment) {
+@foreach (var item in Model.Course.Assignments) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)

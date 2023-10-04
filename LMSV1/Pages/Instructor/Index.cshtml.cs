@@ -21,7 +21,9 @@ namespace LMSV1.Pages.Instructor
             _context = context;
             _userManager = userManager;
         }
+
         public IList<Course> Course { get;set; } = default!;
+
         public async Task OnGetAsync()
         {
             if (_context.Courses != null)

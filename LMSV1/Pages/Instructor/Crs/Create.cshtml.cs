@@ -7,46 +7,75 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LMSV1.Data;
 using LMSV1.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace LMSV1.Pages.Instructor.Crs
 {
     public class CreateModel : PageModel
     {
         private readonly LMSV1.Data.LMSV1Context _context;
-        public int courseID = 0;
+
         public CreateModel(LMSV1.Data.LMSV1Context context)
         {
             _context = context;
         }
 
-        public IActionResult OnGet(int id)
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        public class InputModel
         {
-            courseID = id;
-        //ViewData["CourseID"] = new SelectList(_context.Courses, "CourseID", "CourseID");
-            return Page();
+            [Required(ErrorMessage = "Assignment Name is required.")]
+            [StringLength(100, MinimumLength = 4, ErrorMessage = "Assignment name must be between 4 and 100 characters.")]
+            [Display(Name = "Title")]
+            public string Title { get; set; }
+
+            [Required(ErrorMessage = "Description is required.")]
+            [StringLength(100, MinimumLength = 5, ErrorMessage = "Assignment name must be between 5 and 100 characters.")]
+            [Display(Name = "Description")]
+            public string Description { get; set; }
+
+            [Required(ErrorMessage = "Maximum points is required.")]
+            [Display(Name = "Max Points")]
+            public int MaxPoints { get; set; }
+
+            [Required(ErrorMessage = "Due date is required.")]
+            [Display(Name = "Due Date")]
+            [DataType(DataType.Date)]
+            public DateTime DueDate { get; set; }
         }
 
-        [BindProperty]
-        public Assignment Assignment { get; set; } = default!;
+        public IActionResult OnGet(int id)
+        {
+            return Page();
+        }
         
-
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            Assignment.CourseID = id;
-            if (!ModelState.IsValid || _context.Assignments == null || Assignment == null)
+            if (ModelState.IsValid)
             {
-                return Page();
+                var newAssignment = new Assignment
+                {
+                    CourseID = id,
+                    Course = _context.Courses.FirstOrDefault(x => x.CourseID == id),
+                    Title = Input.Title,
+                    Description = Input.Description,
+                    MaxPoints = Input.MaxPoints,
+                    DueDate = Input.DueDate
+                };
+
+                _context.Assignments.Add(newAssignment);
+                await _context.SaveChangesAsync();
+
+                // var errors = ModelState
+                //              .Where(x => x.Value.Errors.Count > 0)
+                //              .Select(x => new { x.Key, x.Value.Errors })
+                //              .ToArray();
+
+                return RedirectToPage("./SuccessPage");
             }
-            //        var errors = ModelState
-            //.Where(x => x.Value.Errors.Count > 0)
-            //.Select(x => new { x.Key, x.Value.Errors })
-            //.ToArray();
 
-            _context.Assignments.Add(Assignment);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./SuccessPage");
+            return Page();
         }
     }
 }
