@@ -108,19 +108,19 @@ public static class SeedData
         if (!context.Courses.Any())
         {
             var courses = new Course[]
-        {
-            new Course
             {
-                CourseID = 3750,
-                Title = "CS - Software Development II",
-                Credits = "4",
-                InstructorID = 1,
-                Location = "Weber NB - 324",
-                MeetDays = "T,TH",
-                StartTime = "11:30 AM",
-                EndTime = "12:30 PM"
-            }
-        };
+                new Course
+                {
+                    CourseID = 3750,
+                    Title = "CS - Software Development II",
+                    Credits = "4",
+                    InstructorID = 1,
+                    Location = "Weber NB - 324",
+                    MeetDays = "T,TH",
+                    StartTime = "11:30 AM",
+                    EndTime = "12:30 PM"
+                }
+            };
             context.Courses.AddRange(courses);
             context.SaveChanges();
         }

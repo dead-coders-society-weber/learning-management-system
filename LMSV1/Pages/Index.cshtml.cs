@@ -20,15 +20,10 @@ namespace LMSV1.Pages
         //we need to use the IList<Course> way of referencing so that we can use an array
         public IList<Course> Course { get; set; } = default!;
 
-        //This would be used for gathering a single piece of data but is not used here
-        //[BindProperty]
-        //public Course NewCourse { get; set; } = default!;
-
-
         //This method will get the information from the database
         //Because it is an Async method it will not wait for the data to be gathered before allowing
         //the user to continue with operations, this helps with optimization.
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             //If the course exists then grab it and assign it to Course
             if (_context.Courses != null)
@@ -36,11 +31,7 @@ namespace LMSV1.Pages
                 Course = await _context.Courses.ToListAsync();
             }
 
-            //If we cannot gather the valid data about the course then refresh the page
-            if (!ModelState.IsValid)
-            {
-                Page();
-            }
+            return Page();
         }
     }
 }
