@@ -46,7 +46,7 @@
             } else {
                 <div class="list-group">
                     @foreach (var item in Model.Assignments) {
-                        <a href="#" class="list-group-item list-group-item-action">
+                            <a asp-page="/Instructor/Assignments/Details" asp-route-id="@item.AssignmentID" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">@item.CourseID</h5>
                             </div>
