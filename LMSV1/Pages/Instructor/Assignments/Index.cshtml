@@ -6,9 +6,13 @@
 }
 
 <h1>@Model.Course.CourseID</h1>
+<h2>@Model.Course.Title</h2>
 <p>
-   <a asp-page="Create" asp-route-id="@Model.Course.CourseID">Create New</a>
+   <b>Location:</b> @Model.Course.Location <br />
+   <b>Meet days:</b> @Model.Course.MeetDays <br />
+   <b>Time:</b> @Model.Course.StartTime - @Model.Course.EndTime <br />
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -35,7 +39,9 @@
         {
             <tr>
                 <td>
+                    <a asp-page="./Details" asp-route-id="@item.AssignmentID">
                     @Html.DisplayFor(modelItem => item.Title)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Description)
@@ -56,6 +62,7 @@
                 </td>
             </tr>
         }
+           <a asp-page="Create" asp-route-id="@Model.Course.CourseID">Create new assignment</a>
     </tbody>
 </table>
 

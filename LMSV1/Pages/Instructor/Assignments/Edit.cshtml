@@ -5,7 +5,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit - @Model.Assignment.Title</h1>
 
 <h4>Assignment</h4>
 <hr />
@@ -42,7 +42,7 @@
 </div>
 
 <div>
-   <a asp-page="../Index">Back to Courses</a>
+   <a asp-page="./Index" asp-route-id="@Model.Assignment.CourseID">Back to @Model.Assignment.CourseID details </a>
 </div>
 
 @section Scripts {
