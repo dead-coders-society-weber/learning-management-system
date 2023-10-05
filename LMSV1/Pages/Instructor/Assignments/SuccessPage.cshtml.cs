@@ -7,7 +7,7 @@ namespace LMSV1.Pages.Instructor.Assignments
     {
         public async Task<RedirectToPageResult> OnPostAsync()
         {
-            return RedirectToPage("../Index");
+            return RedirectToPage("../CourseManager");
         }
     }
 }
