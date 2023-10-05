@@ -1,10 +1,13 @@
 ﻿@page
 @model LMSV1.Pages.Instructor.Assignments.IndexModel
+@using Microsoft.AspNetCore.Identity
+@using LMSV1.Models
 
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Course Details";
+    var user = await UserManager.GetUserAsync(User);
 }
-
 <h1>@Model.Course.CourseID</h1>
 <h2>@Model.Course.Title</h2>
 <p>
@@ -56,14 +59,28 @@
                     @Html.DisplayFor(modelItem => item.CourseID)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.AssignmentID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.AssignmentID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.AssignmentID">Delete</a>
+                    @if (await UserManager.IsInRoleAsync(user, "Instructor"))
+                    {
+                        <a asp-page="./Edit" asp-route-id="@item.AssignmentID">Edit </a> 
+                    }
+                    | <a asp-page="./Details" asp-route-id="@item.AssignmentID">Details</a> |
+                    @if (await UserManager.IsInRoleAsync(user, "Instructor"))
+                    {
+                        <a asp-page="./Delete" asp-route-id="@item.AssignmentID">Delete</a>
+                    }
                 </td>
             </tr>
         }
           
     </tbody>
 </table>
- <p><a asp-page="Create" asp-route-id="@Model.Course.CourseID">Create new assignment</a></p>
-<a asp-page="../CourseManager">Back to Courses</a>
+@if (await UserManager.IsInRoleAsync(user, "Instructor"))
+    {
+         <p><a asp-page="Create" asp-route-id="@Model.Course.CourseID">Create new assignment</a></p>
+         <a asp-page="../CourseManager">Back to Courses</a>
+    }
+
+@if (await UserManager.IsInRoleAsync(user, "Student"))
+    {
+             <a asp-page="/Index">Back to Dashboard</a>
+    }

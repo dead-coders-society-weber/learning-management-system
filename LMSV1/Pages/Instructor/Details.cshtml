@@ -1,8 +1,12 @@
 ﻿@page
 @model LMSV1.Pages.Instructor.DetailsModel
+@using Microsoft.AspNetCore.Identity
+@using LMSV1.Models
 
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Details";
+    var user = await UserManager.GetUserAsync(User);
 }
 
 <h1>Details</h1>
@@ -56,6 +60,9 @@
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Course?.CourseID">Edit</a> |
+    @if (await UserManager.IsInRoleAsync(user, "Instructor"))
+    {
+        <a asp-page="./Edit" asp-route-id="@Model.Course?.CourseID">Edit</a>
+          }
     <a asp-page="./Index">Back to List</a>
 </div>
