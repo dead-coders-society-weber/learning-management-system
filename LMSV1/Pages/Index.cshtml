@@ -11,26 +11,29 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="grid-container">
+        <!--The dashboard will show each card with the class information inside of it-->
         <div class="dashboard-section">
-            <!--The dashboard will show each card with the class information inside of it-->
             <h1>Dashboard</h1>
             <hr />
-            @foreach (var item in Model.Courses)
-            {
-                <!--This is the information displayed insdie the card-->
-                <!--When clicking the individual card it will take you to that courses assignment page depending on the course ID-->
-                <a asp-page="/Instructor/Assignments/Index" asp-route-id="@item.CourseID" style="text-decoration:none; color:inherit;">
-                    <div class="card-container">
-                        <div class="card">
-                            <p>@Html.DisplayFor(modelItem => item.Title)</p>             
-                            <p>@Html.DisplayFor(modelItem => item.CourseID)</p>             
-                            <p>@Html.DisplayFor(modelItem => item.Credits) Credits</p>             
-                            <p>@Html.DisplayFor(modelItem => item.Location)</p>               
-                            <p>@Html.DisplayFor(modelItem => item.MeetDays)</p>               
-                            <p>@Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
+            @if(!Model.Courses.Any()) {
+                <p>No courses registered</p>
+            } else {
+                @foreach (var item in Model.Courses) {
+                    <!--This is the information displayed insdie the card-->
+                    <!--When clicking the individual card it will take you to that courses assignment page depending on the course ID-->
+                    <a asp-page="/Instructor/Assignments/Index" asp-route-id="@item.CourseID" style="text-decoration:none; color:inherit;">
+                        <div class="card-container">
+                            <div class="card">
+                                <p>@Html.DisplayFor(modelItem => item.Title)</p>             
+                                <p>@Html.DisplayFor(modelItem => item.CourseID)</p>             
+                                <p>@Html.DisplayFor(modelItem => item.Credits) Credits</p>             
+                                <p>@Html.DisplayFor(modelItem => item.Location)</p>               
+                                <p>@Html.DisplayFor(modelItem => item.MeetDays)</p>               
+                                <p>@Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                }
             }
         </div>
 
@@ -38,18 +41,21 @@
         <div class="to-do-section">
             <h4>To Do</h4>
             <hr />
-            <div class="list-group">
-                @foreach (var item in Model.Assignments)
-                {
-                    <a href="#" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">@item.CourseID</h5>
-                        </div>
-                        <p class="mb-1">@item.Title</p>
-                        <small>@item.DueDate</small>
-                    </a>
-                }
-            </div>
+            @if(!Model.Assignments.Any()) {
+                <p>No assignments due</p>
+            } else {
+                <div class="list-group">
+                    @foreach (var item in Model.Assignments) {
+                        <a href="#" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@item.CourseID</h5>
+                            </div>
+                            <p class="mb-1">@item.Title</p>
+                            <small>@item.DueDate</small>
+                        </a>
+                    }
+                </div>
+            }
         </div>
     </div>
 }

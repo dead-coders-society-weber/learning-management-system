@@ -22,24 +22,42 @@ public class Course
 
     [Required(ErrorMessage = "Credit hours is required.")]
     [Display(Name = "Credit Hours")]
-    public required string Credits { get; set; }
+    public int Credits { get; set; }
 
     [Required(ErrorMessage = "Location is required.")]
     [Display(Name = "Location")]
-    public required string Location { get; set; }
+    public string Location { get; set; }
 
     [Required(ErrorMessage = "Meeting times is required.")]
     [Display(Name = "Meet Times")]
-    public required string MeetDays { get; set; }
+    public DaysOfWeek MeetDays { get; set; }
 
     [Required(ErrorMessage = "Start time is required.")]
     [Display(Name = "Start Time")]
-    public required string StartTime { get; set; }
+    [DataType(DataType.Time)]
+    public TimeSpan StartTime { get; set; }
 
     [Required(ErrorMessage = "End time is required.")]
     [Display(Name = "End Time")]
-    public required string EndTime { get; set; }
+    [DataType(DataType.Time)]
+    public TimeSpan EndTime { get; set; }
 
     public ICollection<Enrollment>? Enrollments { get; set; }
     public ICollection<Assignment>? Assignments { get; set; }
+}
+
+/* For the DaysOfWeek enum, flags allow you to combine multiple days. 
+ * For instance, if a course meets on Monday and Wednesday, 
+ * the value stored would be Monday | Wednesday (i.e., 1 + 4 = 5).
+ */
+[Flags]
+public enum DaysOfWeek
+{
+    None = 0,
+    Monday = 1,
+    Tuesday = 2,
+    Wednesday = 4,
+    Thursday = 8,
+    Friday = 16,
+    // we can extend for Saturday and Sunday if needed
 }

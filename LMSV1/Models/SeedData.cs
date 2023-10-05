@@ -113,11 +113,11 @@ public static class SeedData
                 {
                     CourseID = 3750,
                     Title = "CS - Software Development II",
-                    Credits = "4",
+                    Credits = 4,
                     Location = "Weber NB - 324",
-                    MeetDays = "T,TH",
-                    StartTime = "11:30 AM",
-                    EndTime = "12:30 PM"
+                    MeetDays = DaysOfWeek.Monday | DaysOfWeek.Wednesday,
+                    StartTime = new TimeSpan(9, 0, 0),
+                    EndTime = new TimeSpan(11, 0, 0)
                 }
             };
             context.Courses.AddRange(courses);

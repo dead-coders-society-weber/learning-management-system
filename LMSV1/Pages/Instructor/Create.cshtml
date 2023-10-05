@@ -1,5 +1,6 @@
 ﻿@page
 @model LMSV1.Pages.Instructor.CreateModel
+@using LMSV1.Models;
 
 @{
     ViewData["Title"] = "Create Course";
@@ -34,9 +35,17 @@
                 <span asp-validation-for="Course.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Course.MeetDays" class="control-label"></label>
-                <input asp-for="Course.MeetDays" class="form-control" />
-                <span asp-validation-for="Course.MeetDays" class="text-danger"></span>
+                <label asp-for="Course.MeetDays" class="control-label"></label><br>
+                <div style="display:inline-flex; width:100%; justify-content:space-evenly;">
+                    @foreach (DaysOfWeek day in Enum.GetValues(typeof(DaysOfWeek)))
+                    {
+                        if (day != DaysOfWeek.None) // Exclude the "None" value
+                        {
+                            <input type="checkbox" name="SelectedDays" value="@((int)day)"
+                                @(Model.SelectedDays.Contains((int)day) ? "checked" : "") /> @day <br>
+                        }
+                    }
+                </div>
             </div>
             <div class="form-group">
                 <label asp-for="Course.StartTime" class="control-label"></label>

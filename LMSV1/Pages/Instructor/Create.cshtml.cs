@@ -16,6 +16,12 @@ namespace LMSV1.Pages.Instructor
         private readonly Data.LMSV1Context _context;
         private readonly UserManager<User> _userManager;
 
+        [BindProperty]
+        public Course Course { get; set; } = default!;
+
+        [BindProperty]
+        public List<int> SelectedDays { get; set; } = new List<int>();
+
         public CreateModel(Data.LMSV1Context context,UserManager<User> userManager)
         {
             _context = context;
@@ -27,9 +33,6 @@ namespace LMSV1.Pages.Instructor
             return Page();
         }
 
-        [BindProperty]
-        public Course Course { get; set; } = default!;
-        
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid || _context.Courses == null || Course == null)
@@ -38,7 +41,10 @@ namespace LMSV1.Pages.Instructor
             }
 
             var user = await _userManager.GetUserAsync(User);
-            
+
+            // Convert SelectedDays to DaysOfWeek enum and assign to Course.MeetDays
+            Course.MeetDays = SelectedDays.Aggregate(DaysOfWeek.None, (current, day) => current | (DaysOfWeek)day);
+
             // create new course
             _context.Courses.Add(Course);
             await _context.SaveChangesAsync();

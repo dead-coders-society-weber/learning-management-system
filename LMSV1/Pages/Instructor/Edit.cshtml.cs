@@ -14,13 +14,16 @@ namespace LMSV1.Pages.Instructor
     {
         private readonly Data.LMSV1Context _context;
 
+        [BindProperty]
+        public Course Course { get; set; } = default!;
+
+        [BindProperty]
+        public List<int> SelectedDays { get; set; } = new List<int>();
+
         public EditModel(Data.LMSV1Context context)
         {
             _context = context;
         }
-
-        [BindProperty]
-        public Course Course { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -38,14 +41,15 @@ namespace LMSV1.Pages.Instructor
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+
+            // Convert SelectedDays to DaysOfWeek enum and assign to Course.MeetDays
+            Course.MeetDays = SelectedDays.Aggregate(DaysOfWeek.None, (current, day) => current | (DaysOfWeek)day);
 
             _context.Attach(Course).State = EntityState.Modified;
 
