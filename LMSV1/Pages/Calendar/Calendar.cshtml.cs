@@ -2,12 +2,12 @@ using LMSV1.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LMSV1.Pages
+namespace LMSV1.Pages.Calendar
 {
     public class CalendarModel : PageModel
     {
         // for future use, create a ref to the DB
-        private readonly LMSV1.Data.LMSV1Context _context;
+        private readonly LMSV1Context _context;
 
         public CalendarModel(LMSV1Context context)
         {
@@ -21,7 +21,7 @@ namespace LMSV1.Pages
         // For future use
         //public IActionResult OnGetFindAllEvents()
         //{
-            
+
         //}
     }
 }
