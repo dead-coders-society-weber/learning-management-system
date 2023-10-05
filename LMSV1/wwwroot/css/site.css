@@ -38,13 +38,21 @@ body {
 
 /* Styles for dashboard page */
 .card {
-   width: 40%;
-   display:block;
-   float:left;
-   border:double;
-   padding:4px;
+    width: 40%;
+    display: block;
+    float: left;
+    border: double;
+    padding: 4px;
+    background-color: lightsteelblue;
 }
-
+.todo-group {
+   background-color: #EBEBEB;
+   border-color: maroon;
+   border-width: thick;
+}
+list-group {
+    background-color: #ABBAEA;
+}
 .grid-container {
     display: grid;
     grid-template-columns: 75% 25%;
@@ -61,11 +69,17 @@ body {
     margin: 10px;
 }
 
+thead {
+    font-weight: bold;
+    text-align: center;
+    background-color: lightsteelblue;
+}
+
+
 table th {
     font-weight: bold;
     text-align: center;
 }
-
 table tr {
     border: 2px solid black;
     padding: 15px;
@@ -80,6 +94,4 @@ table {
     width: 100%;
 }
 
-list-group {
-    background-color: #ABBAEA;
-}
+

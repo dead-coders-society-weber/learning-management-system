@@ -24,7 +24,7 @@
                     <a asp-page="/Instructor/Assignments/Index" asp-route-id="@item.CourseID" style="text-decoration:none; color:inherit;">
                         <div class="card-container">
                             <div class="card">
-                                <p>@Html.DisplayFor(modelItem => item.Title)</p>             
+                                <p><b>@Html.DisplayFor(modelItem => item.Title)</b></p>             
                                 <p>@Html.DisplayFor(modelItem => item.CourseID)</p>             
                                 <p>@Html.DisplayFor(modelItem => item.Credits) Credits</p>             
                                 <p>@Html.DisplayFor(modelItem => item.Location)</p>               
@@ -45,7 +45,9 @@
                 <p>No assignments due</p>
             } else {
                 <div class="list-group">
+
                     @foreach (var item in Model.Assignments) {
+                            <div class="todo-group">
                             <a asp-page="/Instructor/Assignments/Details" asp-route-id="@item.AssignmentID" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">@item.CourseID</h5>
@@ -53,6 +55,7 @@
                             <p class="mb-1">@item.Title</p>
                             <small>@item.DueDate</small>
                         </a>
+                        </div>
                     }
                 </div>
             }
