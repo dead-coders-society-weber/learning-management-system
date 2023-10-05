@@ -65,7 +65,7 @@ namespace LMSV1.Pages.Instructor
                 }
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./CourseManager");
         }
 
         private bool CourseExists(int id)

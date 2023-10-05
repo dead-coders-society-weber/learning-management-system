@@ -38,6 +38,7 @@ namespace LMSV1.Pages.Student
                 UserId = studentId, 
                 CourseID = courseId,
                 EnrollmentDate = DateTime.Now,
+                Role = Role.Student,
             };
             _context.Enrollments.Add(enrollment);
             await _context.SaveChangesAsync();

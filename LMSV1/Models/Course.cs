@@ -24,10 +24,6 @@ public class Course
     [Display(Name = "Credit Hours")]
     public required string Credits { get; set; }
 
-    [Required(ErrorMessage = "Instructor is required.")]
-    [Display(Name = "Instructor")]
-    public required int InstructorID { get; set; }
-
     [Required(ErrorMessage = "Location is required.")]
     [Display(Name = "Location")]
     public required string Location { get; set; }

@@ -114,7 +114,6 @@ public static class SeedData
                     CourseID = 3750,
                     Title = "CS - Software Development II",
                     Credits = "4",
-                    InstructorID = 1,
                     Location = "Weber NB - 324",
                     MeetDays = "T,TH",
                     StartTime = "11:30 AM",
@@ -134,13 +133,15 @@ public static class SeedData
                 {
                     UserId = users[0].Id,
                     CourseID = 3750,
-                    EnrollmentDate = new DateTime()
+                    EnrollmentDate = new DateTime(),
+                    Role = Role.Instructor
                 },
                 new Enrollment  // Student enrollment (course participant)
                 {
                     UserId = users[1].Id,
                     CourseID = 3750,
-                    EnrollmentDate = new DateTime()
+                    EnrollmentDate = new DateTime(),
+                    Role = Role.Student
                 }
             };
             context.Enrollments.AddRange(enrollments);

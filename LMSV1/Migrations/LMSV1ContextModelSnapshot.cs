@@ -69,9 +69,6 @@ namespace LMSV1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("InstructorID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -109,6 +106,9 @@ namespace LMSV1.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")

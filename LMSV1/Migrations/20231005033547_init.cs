@@ -18,7 +18,6 @@ namespace LMSV1.Migrations
                     CourseID = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Credits = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InstructorID = table.Column<int>(type: "int", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MeetDays = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -144,10 +143,11 @@ namespace LMSV1.Migrations
                 {
                     EnrollmentID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CourseID = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
                     Grade = table.Column<int>(type: "int", nullable: true),
-                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EnrollmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    CourseID = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

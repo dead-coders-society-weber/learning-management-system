@@ -22,22 +22,20 @@ namespace LMSV1.Pages.Instructor
             _userManager = userManager;
         }
 
-        public IList<Course> Course { get;set; } = default!;
+        public IList<Course> Courses { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Courses != null)
+            // Get the current user (instructor)
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
             {
-                var user = await _userManager.GetUserAsync(User);
-
-                var courses = from c in _context.Courses
-                                select c;
-                if (!string.IsNullOrEmpty(user.Id.ToString()))
-                {
-                    courses = courses.Where(s => s.InstructorID == (user.Id));
-                }
-
-                Course = await courses.ToListAsync();
+                // Fetch courses where the user is the instructor
+                Courses = await _context.Enrollments
+                    .Where(e => e.UserId == user.Id && e.Role == Role.Instructor)
+                    .Select(e => e.Course)
+                    .ToListAsync();
             }
         }
     }

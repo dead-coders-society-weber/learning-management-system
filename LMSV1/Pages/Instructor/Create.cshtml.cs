@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Cryptography.Xml;
 
 namespace LMSV1.Pages.Instructor
 {
@@ -14,6 +15,7 @@ namespace LMSV1.Pages.Instructor
     {
         private readonly Data.LMSV1Context _context;
         private readonly UserManager<User> _userManager;
+
         public CreateModel(Data.LMSV1Context context,UserManager<User> userManager)
         {
             _context = context;
@@ -28,23 +30,29 @@ namespace LMSV1.Pages.Instructor
         [BindProperty]
         public Course Course { get; set; } = default!;
         
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Courses == null || Course == null)
+            if (!ModelState.IsValid || _context.Courses == null || Course == null)
             {
                 return Page();
             }
 
             var user = await _userManager.GetUserAsync(User);
-            if (!string.IsNullOrEmpty(user.Id.ToString()))
-            {
-                Course.InstructorID = user.Id;
-            }
+            
+            // create new course
             _context.Courses.Add(Course);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            // create new enrollment with current user as instructor
+            _context.Enrollments.Add(new Enrollment
+            {
+                EnrollmentDate = DateTime.Now,
+                UserId = user.Id,
+                CourseID = Course.CourseID
+            });
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./CourseManager");
         }
     }
 }
