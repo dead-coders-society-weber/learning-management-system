@@ -54,10 +54,10 @@ public class Course
 public enum DaysOfWeek
 {
     None = 0,
-    Monday = 1,
-    Tuesday = 2,
-    Wednesday = 4,
-    Thursday = 8,
-    Friday = 16,
+    M = 1,
+    T = 2,
+    W = 4,
+    Th = 8,
+    F = 16,
     // we can extend for Saturday and Sunday if needed
 }

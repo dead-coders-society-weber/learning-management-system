@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20231005055637_Initial")]
+    [Migration("20231005080203_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

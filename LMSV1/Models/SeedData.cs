@@ -115,7 +115,7 @@ public static class SeedData
                     Title = "CS - Software Development II",
                     Credits = 4,
                     Location = "Weber NB - 324",
-                    MeetDays = DaysOfWeek.Monday | DaysOfWeek.Wednesday,
+                    MeetDays = DaysOfWeek.M | DaysOfWeek.W,
                     StartTime = new TimeSpan(9, 0, 0),
                     EndTime = new TimeSpan(11, 0, 0)
                 }

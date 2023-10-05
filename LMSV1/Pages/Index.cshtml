@@ -24,12 +24,10 @@
                     <a asp-page="/Instructor/Assignments/Index" asp-route-id="@item.CourseID" style="text-decoration:none; color:inherit;">
                         <div class="card-container">
                             <div class="card">
-                                <p><b>@Html.DisplayFor(modelItem => item.Title)</b></p>             
-                                <p>@Html.DisplayFor(modelItem => item.CourseID)</p>             
-                                <p>@Html.DisplayFor(modelItem => item.Credits) Credits</p>             
-                                <p>@Html.DisplayFor(modelItem => item.Location)</p>               
-                                <p>@Html.DisplayFor(modelItem => item.MeetDays)</p>               
-                                <p>@Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
+                                <p><b>@Html.DisplayFor(modelItem => item.CourseID) @Html.DisplayFor(modelItem => item.Title)</b></p>                     
+                                <p><b>Location: </b>@Html.DisplayFor(modelItem => item.Location)</p>               
+                                 <p><b>Meet days: </b>@Html.DisplayFor(modelItem => item.MeetDays)</p>               
+                                <p><b>Time: </b>@Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
                             </div>
                         </div>
                     </a>
