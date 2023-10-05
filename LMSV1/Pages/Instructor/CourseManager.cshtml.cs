@@ -11,12 +11,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LMSV1.Pages.Instructor
 {
-    public class IndexModel : PageModel
+    public class CourseManagerModel : PageModel
     {
         private readonly Data.LMSV1Context _context;
         private readonly UserManager<User> _userManager;
 
-        public IndexModel(Data.LMSV1Context context, UserManager<User> userManager)
+        public CourseManagerModel(Data.LMSV1Context context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -30,14 +30,14 @@ namespace LMSV1.Pages.Instructor
             {
                 var user = await _userManager.GetUserAsync(User);
 
-                    var courses = from c in _context.Courses
-                                 select c;
-                    if (!string.IsNullOrEmpty(user.Id.ToString()))
-                    {
-                        courses = courses.Where(s => s.InstructorID == (user.Id));
-                    }
+                var courses = from c in _context.Courses
+                                select c;
+                if (!string.IsNullOrEmpty(user.Id.ToString()))
+                {
+                    courses = courses.Where(s => s.InstructorID == (user.Id));
+                }
 
-                    Course = await courses.ToListAsync();
+                Course = await courses.ToListAsync();
             }
         }
     }

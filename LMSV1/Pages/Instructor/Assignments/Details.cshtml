@@ -1,13 +1,12 @@
 ﻿@page
-@model LMSV1.Pages.Instructor.Crs.DeleteModel
+@model LMSV1.Pages.Instructor.Assignments.DetailsModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Details";
 }
 
-<h1>Delete</h1>
+<h1>Details</h1>
 
-<h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Assignment</h4>
     <hr />
@@ -43,10 +42,8 @@
             @Html.DisplayFor(model => model.Assignment.CourseID)
         </dd>
     </dl>
-    
-    <form method="post">
-        <input type="hidden" asp-for="Assignment.AssignmentID" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-   <a asp-page="../Index">Back to Courses</a>
-    </form>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a> |
+    <a asp-page="../Index">Back to Courses</a>
 </div>

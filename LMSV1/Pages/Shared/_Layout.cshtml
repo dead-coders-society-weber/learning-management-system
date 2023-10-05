@@ -35,7 +35,7 @@
                             @if (await UserManager.IsInRoleAsync(user, "Instructor"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-page="/Instructor/Index">Manage Courses</a>
+                                    <a class="nav-link text-dark" asp-page="/Instructor/CourseManager">Manage Courses</a>
                                 </li>
                             }
                             @if (await UserManager.IsInRoleAsync(user, "Student"))

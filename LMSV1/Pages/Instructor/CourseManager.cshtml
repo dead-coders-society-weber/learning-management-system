@@ -1,5 +1,5 @@
 ﻿@page
-@model LMSV1.Pages.Instructor.IndexModel
+@model LMSV1.Pages.Instructor.CourseManagerModel
 @using Microsoft.AspNetCore.Identity;
 @using LMSV1.Models;
 
@@ -62,7 +62,7 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
-                <a asp-page="./Crs/Index" asp-route-id="@item.CourseID">Details</a> |
+                <a asp-page="./Assignments/Index" asp-route-id="@item.CourseID">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
             </td>
         </tr>

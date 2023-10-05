@@ -10,7 +10,7 @@ using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace LMSV1.Pages.Instructor.Crs
+namespace LMSV1.Pages.Instructor.Assignments
 {
     public class IndexModel : PageModel
     {

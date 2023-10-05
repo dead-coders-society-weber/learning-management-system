@@ -8,18 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using LMSV1.Data;
 using LMSV1.Models;
 
-namespace LMSV1.Pages.Instructor.Crs
+namespace LMSV1.Pages.Instructor.Assignments
 {
-    public class DetailsModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly LMSV1.Data.LMSV1Context _context;
 
-        public DetailsModel(LMSV1.Data.LMSV1Context context)
+        public DeleteModel(LMSV1.Data.LMSV1Context context)
         {
             _context = context;
         }
 
-      public Assignment Assignment { get; set; } = default!; 
+        [BindProperty]
+      public Assignment Assignment { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,6 +30,7 @@ namespace LMSV1.Pages.Instructor.Crs
             }
 
             var assignment = await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentID == id);
+
             if (assignment == null)
             {
                 return NotFound();
@@ -38,6 +40,24 @@ namespace LMSV1.Pages.Instructor.Crs
                 Assignment = assignment;
             }
             return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync(int? id)
+        {
+            if (id == null || _context.Assignments == null)
+            {
+                return NotFound();
+            }
+            var assignment = await _context.Assignments.FindAsync(id);
+
+            if (assignment != null)
+            {
+                Assignment = assignment;
+                _context.Assignments.Remove(Assignment);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToPage("./SuccessPage");
         }
     }
 }

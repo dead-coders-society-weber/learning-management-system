@@ -9,7 +9,7 @@ using LMSV1.Data;
 using LMSV1.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace LMSV1.Pages.Instructor.Crs
+namespace LMSV1.Pages.Instructor.Assignments
 {
     public class CreateModel : PageModel
     {
