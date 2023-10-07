@@ -6,6 +6,7 @@
 @inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Dashboard";
+    var user = await UserManager.GetUserAsync(User);
 }
 
 @if (SignInManager.IsSignedIn(User))
@@ -36,6 +37,8 @@
         </div>
 
         <!-- To Do Section -->
+        @if (await UserManager.IsInRoleAsync(user, "Student"))
+        {
         <div class="to-do-section">
             <h4>To Do</h4>
             <hr />
@@ -51,13 +54,14 @@
                                 <h5 class="mb-1">@item.CourseID</h5>
                             </div>
                             <p class="mb-1">@item.Title</p>
-                            <small>@item.DueDate</small>
+                            <small><b>Due: </b>@item.DueDate</small>
                         </a>
                         </div>
                     }
                 </div>
             }
         </div>
+        }
     </div>
 }
 else
