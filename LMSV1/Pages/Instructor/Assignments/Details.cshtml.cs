@@ -34,12 +34,19 @@ namespace LMSV1.Pages.Instructor.Assignments
         }
 
    
-        public Assignment Assignment { get; set; } = default!; 
+        public Assignment Assignment { get; set; } = default!;
+        //This grabs the users email to be concatenated with the filename so that the download link with work properly
+        public User FileNamePartial { get; set; } = default!;
 
-       public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
+            
+            //If you can make this change dynamically with a ceratin = statement it could work
+            //this.Message = "Student1@gmail.comTestFile2.rtf";
+
             //Set the signed in user information the this variable
             var user = await _userManager.GetUserAsync(User);
+
 
             if (id == null || _context.Assignments == null)
             {
@@ -62,6 +69,7 @@ namespace LMSV1.Pages.Instructor.Assignments
         {
             //Set the signed in user information the this variable
             var user = await _userManager.GetUserAsync(User);
+            
 
             string wwwPath = Environment.WebRootPath;
             string contentPath = Environment.ContentRootPath;
@@ -80,10 +88,11 @@ namespace LMSV1.Pages.Instructor.Assignments
                 {
                     postedFile.CopyTo(stream);
                     uploadedFiles.Add(fileName);
-                    this.Message +=  fileName;
+                    //This sets the message to the student email + the file name
+                    this.Message +=  FileNamePartial + postedFile.FileName;
                 }
             }
-            return RedirectToPage(user);            
+            return RedirectToPage("./SubmissionSuccess");    //Using this will immediately take the user back to the assignment page without a notice  (user);            
         }  
     }
 }

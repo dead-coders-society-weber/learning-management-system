@@ -59,9 +59,9 @@
         <title>File Upload</title>
     </head>
     <body>
-        <form method='post'>
+        <form method='post' enctype="multipart/form-data">
             <div id='input'>
-                <textarea placeholder='Enter Text Here' id="link" rows="8" cols="80">
+                <textarea placeholder="" id="link" rows="8" cols="80">
                 </textarea>
             </div>
             <div>
@@ -69,15 +69,13 @@
             </div>
         </form>
 
-
         <form method="post" enctype="multipart/form-data">
             <span>Select File:</span>
             <input type="file" name="postedFiles" multiple />
             <input type="submit" value="Upload" asp-page-handler="Upload" />
             <br/>
-            <span style="color:teal">@Html.Raw(Model.Message)</span>
-
-            <a href="/Uploads/Student1@gmail.comTestFile2.rtf" download>Download</a>
+            <!--<span style="color:teal">@Html.Raw(Model.Message)</span>-->
+            <!--<a href="/Uploads/@Html.Raw(Model.Message)" download>@Html.Raw(Model.Message)</a>-->
         </form>
     </body>
 }
