@@ -2,7 +2,8 @@
 @model LMSV1.Pages.Instructor.Assignments.DetailsModel
 @using Microsoft.AspNetCore.Identity
 @using LMSV1.Models
-
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Details";
@@ -46,10 +47,47 @@
         </dd>
     </dl>
 </div>
-<div>
+
+@if (await UserManager.IsInRoleAsync(user, "Student"))
+{
+    <script>
+
+    </script>
+
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>File Upload</title>
+    </head>
+    <body>
+        <form method='post'>
+            <div id='input'>
+                <textarea placeholder='Enter Text Here' id="link" rows="8" cols="80">
+                </textarea>
+            </div>
+            <div>
+                <button type='submit' value="Details">Submit</button>
+            </div>
+        </form>
+
+
+        <form method="post" enctype="multipart/form-data">
+            <span>Select File:</span>
+            <input type="file" name="postedFiles" multiple />
+            <input type="submit" value="Upload" asp-page-handler="Upload" />
+            <br/>
+            <span style="color:teal">@Html.Raw(Model.Message)</span>
+
+            <a href="/Uploads/Student1@gmail.comTestFile2.rtf" download>Download</a>
+        </form>
+    </body>
+}
+
+    <div>
         @if (await UserManager.IsInRoleAsync(user, "Instructor"))
-    {
-        <a asp-page="./Edit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a>
-    }
-    <a asp-page="./Index" asp-route-id="@Model.Assignment.CourseID">Back to @Model.Assignment.CourseID</a>
-</div>
+        {
+            <a asp-page="./Edit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a>
+        <a asp-page="./Index" asp-route-id="@Model.Assignment.CourseID">Back to @Model.Assignment.CourseID</a>
+        }
+       
+    </div>
+

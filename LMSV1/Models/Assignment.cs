@@ -33,6 +33,11 @@ public class Assignment
     [Required(ErrorMessage = "Due date is required.")]
     [Display(Name = "Due Date")]
     [DataType(DataType.Date)]
+
+   /* [StringLength(5000)]
+    //[DataType(DataType.Text)]
+    public string? TextSubmission{ get; set; }}*/
+
     public DateTime DueDate { get; set; }
 
     public Course Course { get; set; }
