@@ -2,15 +2,23 @@
 @model LMSV1.Pages.Instructor.Assignments.DetailsModel
 @using Microsoft.AspNetCore.Identity
 @using LMSV1.Models
+<!--This line below was added for test purposes with the file submission-->
+@using (Html.BeginForm("SendMessage", "MessageController", FormMethod.Post))
+
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @{
-    ViewData["Title"] = "Details";
+        ViewData["Title"] = "Details";
+    ViewData["Assignment"] = "Assignment";
     var user = await UserManager.GetUserAsync(User);
 }
 
-<h1>@Model.Assignment.CourseID Assignment - @Model.Assignment.Title</h1>
+
+
+
+
+@*<h1>@Model.Assignment.CourseID Assignment - @Model.Assignment.Title</h1>*@
 
 <div>
     <hr />
@@ -49,26 +57,30 @@
 </div>
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
-{
-    <script>
+{   
 
-    </script>
-
-    <head>
-        <meta name="viewport" content="width=device-width" />
-        <title>File Upload</title>
-    </head>
-    <body>
-        <form method='post' enctype="multipart/form-data">
-            <div id='input'>
-                <textarea placeholder="" id="link" rows="8" cols="80">
-                </textarea>
+       @* TEST CODE FOR TEXT SUBMISSION AREA IS AHEAD*@
+    <form method="post" enctype="text/plain">
+       
+            <h2>Text Submission</h2>           
+                <!--<textarea id="TextMessage" name="TextMessage" rows="8" cols="100"></textarea>-->
+            <div class="form-group">
+                <label asp-for="TextMessage" class="control-label"></label>
+                <textarea asp-for="TextMessage" class="form-control" rows="8" cols="100"></textarea>
+                <span asp-validation-for="TextMessage" class="text-danger"></span>
+            <div class="form-group">
+                 <input type="submit" value="Submit" class="btn btn-primary" /> 
             </div>
-            <div>
-                <button type='submit' value="Details">Submit</button>
             </div>
-        </form>
+           
+        
+    </form>
+    <!--Test code ends here-->
 
+
+
+
+        <!--This is the code that allows for the file uploads-->
         <form method="post" enctype="multipart/form-data">
             <span>Select File:</span>
             <input type="file" name="postedFiles" multiple />
@@ -77,7 +89,6 @@
             <!--<span style="color:teal">@Html.Raw(Model.Message)</span>-->
             <!--<a href="/Uploads/@Html.Raw(Model.Message)" download>@Html.Raw(Model.Message)</a>-->
         </form>
-    </body>
 }
 
     <div>

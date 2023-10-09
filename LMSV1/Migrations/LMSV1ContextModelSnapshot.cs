@@ -148,6 +148,24 @@ namespace LMSV1.Migrations
                     b.ToTable("PaymentInformation", (string)null);
                 });
 
+            modelBuilder.Entity("LMSV1.Models.Submission", b =>
+                {
+                    b.Property<int>("SubmissionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubmissionID"));
+
+                    b.Property<string>("TextSubmission")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubmissionID");
+
+                    b.ToTable("Submission", (string)null);
+                });
+
             modelBuilder.Entity("LMSV1.Models.User", b =>
                 {
                     b.Property<int>("Id")

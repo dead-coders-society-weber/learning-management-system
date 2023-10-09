@@ -11,14 +11,34 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LMSV1.Pages.Instructor.Assignments
 {
     public class DetailsModel : PageModel
     {
+        //Testing this method for the text submission
+        public string TextMessage { get; set; }     
+
+        public class MessageController : Controller
+        {
+
+            [HttpPost]
+            public ActionResult SendMessage(DetailsModel viewModel)
+            {
+                var message = viewModel.TextMessage;
+                return View(message);
+            }
+        }
+        //End of test code
+
+
+
         //References used to get database information and the signin information
         private readonly LMSV1.Data.LMSV1Context _context;
         private readonly UserManager<User> _userManager;
+        
 
         //This is an obsolete way to upload files but I'm trying it to see if it works 
         [Obsolete]
@@ -35,8 +55,9 @@ namespace LMSV1.Pages.Instructor.Assignments
 
    
         public Assignment Assignment { get; set; } = default!;
+        public Submission Submission { get; set; } = default;
         //This grabs the users email to be concatenated with the filename so that the download link with work properly
-        public User FileNamePartial { get; set; } = default!;
+        //public User FileNamePartial { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -65,16 +86,41 @@ namespace LMSV1.Pages.Instructor.Assignments
             return Page();
         }
 
+       public InputModel Input { get; set; }
+
+        public class InputModel
+        {
+            
+            [StringLength(5000)]
+            [Display(Name = "Submission")]
+            public string Submission { get; set; }
+
+        }
+        
+
         public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> postedFiles, int? id)
         {
-            //Set the signed in user information the this variable
-            var user = await _userManager.GetUserAsync(User);
+            //TEST CODE FOR THE TEXT SUBMISSION SECTION
+            //if (ModelState.IsValid)
+            //{
+            //    var newSubmission = new Submission
+            //    {
+            //        TextSubmission = Input.Submission
+            //    };
+
+            //    _context.Submission.Add(newSubmission);
+            //    await _context.SaveChangesAsync();
+            //}
+            //END TEST CODE HERE
+
+                //Set the signed in user information the this variable
+                var user = await _userManager.GetUserAsync(User);
             
 
             string wwwPath = Environment.WebRootPath;
-            string contentPath = Environment.ContentRootPath;
+            //string contentPath = Environment.ContentRootPath;
 
-            string path = Path.Combine(Environment.WebRootPath, "Uploads");
+            string path = Path.Combine(wwwPath, "Uploads");
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -89,10 +135,11 @@ namespace LMSV1.Pages.Instructor.Assignments
                     postedFile.CopyTo(stream);
                     uploadedFiles.Add(fileName);
                     //This sets the message to the student email + the file name
-                    this.Message +=  FileNamePartial + postedFile.FileName;
+                    //this.Message +=  FileNamePartial + postedFile.FileName;
                 }
             }
             return RedirectToPage("./SubmissionSuccess");    //Using this will immediately take the user back to the assignment page without a notice  (user);            
-        }  
+        }
+      
     }
 }

@@ -61,6 +61,19 @@ namespace LMSV1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Submission",
+                columns: table => new
+                {
+                    SubmissionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TextSubmission = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Submission", x => x.SubmissionID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -320,6 +333,9 @@ namespace LMSV1.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "Submission");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");

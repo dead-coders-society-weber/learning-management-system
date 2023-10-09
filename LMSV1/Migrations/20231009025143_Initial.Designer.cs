@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20231005102632_Initial")]
+    [Migration("20231009025143_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -149,6 +149,24 @@ namespace LMSV1.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("PaymentInformation", (string)null);
+                });
+
+            modelBuilder.Entity("LMSV1.Models.Submission", b =>
+                {
+                    b.Property<int>("SubmissionID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubmissionID"));
+
+                    b.Property<string>("TextSubmission")
+                        .IsRequired()
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SubmissionID");
+
+                    b.ToTable("Submission", (string)null);
                 });
 
             modelBuilder.Entity("LMSV1.Models.User", b =>

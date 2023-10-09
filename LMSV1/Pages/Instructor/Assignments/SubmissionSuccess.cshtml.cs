@@ -10,7 +10,7 @@ namespace LMSV1.Pages.Instructor.Assignments
     {
         public void OnPostAsync()
         {
-            //return RedirectToPage("Instructor");
+            //Sends you back to the dashboard
             Response.Redirect("/");
         }
     }
