@@ -11,60 +11,34 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Courses[0].CourseID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Courses[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Courses[0].Credits)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Courses[0].Location)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Courses[0].MeetDays)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Courses[0].StartTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Courses[0].EndTime)
-            </th>
+            <th>Department</th>
+            <th>Course ID</th>
+            <th>Title</th>
+            <th>Credit Hours</th>
+            <th>Intstructor</th>
+            <th>Meet Days</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Location</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
     @foreach (var item in Model.Courses) {
         <tr>
+            <td>@Html.DisplayFor(modelItem => item.DepartmentID)</td>
+            <td>@Html.DisplayFor(modelItem => item.CourseID)</td>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.Credits)</td>
+            <td>@Html.DisplayFor(modelItem => item.Instructor.FullName)</td>
+            <td>@Html.DisplayFor(modelItem => item.MeetDays)</td>
+            <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.Location)</td>
             <td>
-                @Html.DisplayFor(modelItem => item.CourseID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Credits)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MeetDays)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                @{
-                    if(Model.CurrentStudent.Enrollments != null) {
+                @{if(Model.CurrentStudent.Enrollments != null) {
                         isEnrolled = Model.CurrentStudent.Enrollments.Any(e => e.CourseID == @item.CourseID);
-                    }
-                }
+                }}
                 <form method="post" style="display:inline;">
                     <input type="hidden" name="studentId" value="@Model.CurrentStudent.Id" />
                     <input type="hidden" name="courseId" value="@item.CourseID" />

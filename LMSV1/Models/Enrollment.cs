@@ -13,11 +13,6 @@ public enum Grade
     A, B, C, D, F
 }
 
-public enum Role
-{
-    Instructor, Student
-}
-
 public class Enrollment
 {
     [Required]
@@ -31,14 +26,11 @@ public class Enrollment
     [Display(Name = "Enrollment Date")]
     public DateTime EnrollmentDate { get; set; }
 
-    [Display(Name = "Role")]
-    public Role Role { get; set; }
-
     [Display(Name = "Course ID")]
     public required int CourseID { get; set; }  // Foreign key
     public Course Course { get; set; }
 
     [Display(Name = "User ID")]
-    public required int UserId { get; set; }    // Foreign key
-    public User User { get; set; }
+    public required int StudentID { get; set; }    // Foreign key
+    public User Student { get; set; }
 }

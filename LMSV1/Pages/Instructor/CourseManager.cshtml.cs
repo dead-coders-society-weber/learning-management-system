@@ -23,6 +23,7 @@ namespace LMSV1.Pages.Instructor
         }
 
         public IList<Course> Courses { get;set; } = default!;
+        public int instructorID { get; set; }
 
         public async Task OnGetAsync()
         {
@@ -32,10 +33,12 @@ namespace LMSV1.Pages.Instructor
             if (user != null)
             {
                 // Fetch courses where the user is the instructor
-                Courses = await _context.Enrollments
-                    .Where(e => e.UserId == user.Id && e.Role == Role.Instructor)
-                    .Select(e => e.Course)
+                Courses = await _context.Courses
+                    .Where(c => c.InstructorID == user.Id)
                     .ToListAsync();
+
+                // set the instructorID
+                instructorID = user.Id;
             }
         }
     }

@@ -16,7 +16,7 @@ public class Course
     public int CourseID { get; set; }  // Primary key
 
     [Required(ErrorMessage = "Course Name is required.")]
-    [StringLength(100, MinimumLength = 6, ErrorMessage = "Course name must be between 6 and 100 characters.")]
+    [StringLength(100)]
     [Display(Name = "Course Name")]
     public required string Title { get; set; }
 
@@ -41,6 +41,16 @@ public class Course
     [Display(Name = "End Time")]
     [DataType(DataType.Time)]
     public TimeSpan EndTime { get; set; }
+
+    [Required(ErrorMessage = "Department is required")]
+    [Display(Name = "Department")]
+    public string DepartmentID { get; set; } // Foreign key
+    public Department Department { get; set; }
+
+    [Required(ErrorMessage = "Instructor is required")]
+    [Display(Name = "Instructor")]
+    public int InstructorID { get; set; } // Foreign key
+    public User Instructor { get; set; }
 
     public ICollection<Enrollment>? Enrollments { get; set; }
     public ICollection<Assignment>? Assignments { get; set; }

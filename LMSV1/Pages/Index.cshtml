@@ -25,7 +25,7 @@
                     <a asp-page="/Instructor/Assignments/Index" asp-route-id="@item.CourseID" style="text-decoration:none; color:inherit;">
                         <div class="card-container">
                             <div class="card">
-                                <p><b>@Html.DisplayFor(modelItem => item.CourseID) @Html.DisplayFor(modelItem => item.Title)</b></p>                     
+                                <p><b>@Html.DisplayFor(modelItem => item.DepartmentID) @Html.DisplayFor(modelItem => item.CourseID) - @Html.DisplayFor(modelItem => item.Title)</b></p>
                                 <p><b>Location: </b>@Html.DisplayFor(modelItem => item.Location)</p>               
                                  <p><b>Meet days: </b>@Html.DisplayFor(modelItem => item.MeetDays)</p>               
                                 <p><b>Time: </b>@Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
@@ -37,30 +37,29 @@
         </div>
 
         <!-- To Do Section -->
-        @if (await UserManager.IsInRoleAsync(user, "Student"))
-        {
-        <div class="to-do-section">
-            <h4>To Do</h4>
-            <hr />
-            @if(!Model.Assignments.Any()) {
-                <p>No assignments due</p>
-            } else {
-                <div class="list-group">
+        @if (await UserManager.IsInRoleAsync(user, "Student")) {
+            <div class="to-do-section">
+                <h4>To Do</h4>
+                <hr />
+                @if(!Model.Assignments.Any()) {
+                    <p>No assignments due</p>
+                } else {
+                    <div class="list-group">
 
-                    @foreach (var item in Model.Assignments) {
-                            <div class="todo-group">
-                            <a asp-page="/Instructor/Assignments/Details" asp-route-id="@item.AssignmentID" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">@item.CourseID</h5>
+                        @foreach (var item in Model.Assignments) {
+                                <div class="todo-group">
+                                <a asp-page="/Instructor/Assignments/Details" asp-route-id="@item.AssignmentID" class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">@item.CourseID</h5>
+                                </div>
+                                <p class="mb-1">@item.Title</p>
+                                <small><b>Due: </b>@item.DueDate</small>
+                            </a>
                             </div>
-                            <p class="mb-1">@item.Title</p>
-                            <small><b>Due: </b>@item.DueDate</small>
-                        </a>
-                        </div>
-                    }
-                </div>
-            }
-        </div>
+                        }
+                    </div>
+                }
+            </div>
         }
     </div>
 }

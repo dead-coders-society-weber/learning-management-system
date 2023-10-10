@@ -38,16 +38,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Seed Initializer
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    var context = services.GetRequiredService<LMSV1Context>();
-    context.Database.EnsureCreated();
-    await SeedData.InitializeAsync(services);
-}
-
 app.MapRazorPages();
 
 app.Run();
