@@ -64,8 +64,15 @@ namespace LMSV1.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
+                    b.Property<string>("DepartmentID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(4)");
+
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("time");
+
+                    b.Property<int>("InstructorID")
+                        .HasColumnType("int");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -84,7 +91,67 @@ namespace LMSV1.Migrations
 
                     b.HasKey("CourseID");
 
+                    b.HasIndex("DepartmentID");
+
+                    b.HasIndex("InstructorID");
+
                     b.ToTable("Course", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            CourseID = 3750,
+                            Credits = 4,
+                            DepartmentID = "CS",
+                            EndTime = new TimeSpan(0, 11, 0, 0, 0),
+                            InstructorID = 1,
+                            Location = "Weber NB - 324",
+                            MeetDays = 5,
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0),
+                            Title = "Software Development II"
+                        });
+                });
+
+            modelBuilder.Entity("LMSV1.Models.Department", b =>
+                {
+                    b.Property<string>("DepartmentID")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DepartmentID");
+
+                    b.ToTable("Department", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            DepartmentID = "CS",
+                            Name = "Computer Science"
+                        },
+                        new
+                        {
+                            DepartmentID = "MATH",
+                            Name = "Mathematics"
+                        },
+                        new
+                        {
+                            DepartmentID = "HIST",
+                            Name = "History"
+                        },
+                        new
+                        {
+                            DepartmentID = "ENGL",
+                            Name = "English"
+                        },
+                        new
+                        {
+                            DepartmentID = "ART",
+                            Name = "Art"
+                        });
                 });
 
             modelBuilder.Entity("LMSV1.Models.Enrollment", b =>
@@ -104,19 +171,25 @@ namespace LMSV1.Migrations
                     b.Property<int?>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
+                    b.Property<int>("StudentID")
                         .HasColumnType("int");
 
                     b.HasKey("EnrollmentID");
 
                     b.HasIndex("CourseID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("StudentID");
 
                     b.ToTable("Enrollment", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            EnrollmentID = 1,
+                            CourseID = 3750,
+                            EnrollmentDate = new DateTime(2023, 10, 9, 23, 18, 49, 253, DateTimeKind.Local).AddTicks(560),
+                            StudentID = 2
+                        });
                 });
 
             modelBuilder.Entity("LMSV1.Models.PaymentInformation", b =>
@@ -259,6 +332,42 @@ namespace LMSV1.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "0ae5272d-16ec-4dc9-8a85-31317be0ec0b",
+                            Email = "Instructor1@gmail.com",
+                            FirstName = "John",
+                            LastName = "Doe",
+                            NormalizedEmail = "INSTRUCTOR1@GMAIL.COM",
+                            NormalizedUserName = "INSTRUCTOR1@GMAIL.COM",
+                            Password = "Abc123!",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDJhgVEUnMY2CfvMdwzF6aGYeDbJ1QNQ08K5C7GL2CldE5IuEEmBrefKmjOW5fnExQ==",
+                            ProfileImage = "/Uploads/stock-profile-image.jpg",
+                            Role = "Instructor",
+                            SecurityStamp = "5bc24601-f410-410d-b87c-97df34b0d23f",
+                            UserName = "Instructor1@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ConcurrencyStamp = "0e3f17ca-8703-42e8-bd61-16272051ace3",
+                            Email = "Student1@gmail.com",
+                            FirstName = "John",
+                            LastName = "Doe",
+                            NormalizedEmail = "STUDENT1@GMAIL.COM",
+                            NormalizedUserName = "STUDENT1@GMAIL.COM",
+                            Password = "Abc123!",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOH4CFyWusb51dr2cCCRMdCRxvDE/jv572ANZNFvBC5OB4j9opC6VQf4aTPI/kvb0w==",
+                            ProfileImage = "/Uploads/stock-profile-image.jpg",
+                            Role = "Student",
+                            SecurityStamp = "56e17e87-94d0-41b9-ac8b-9373ba4a3f9b",
+                            UserName = "Student1@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -289,6 +398,20 @@ namespace LMSV1.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Role", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Instructor",
+                            NormalizedName = "INSTRUCTOR"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Student",
+                            NormalizedName = "STUDENT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -359,7 +482,7 @@ namespace LMSV1.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
@@ -375,6 +498,18 @@ namespace LMSV1.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -409,6 +544,25 @@ namespace LMSV1.Migrations
                     b.Navigation("Course");
                 });
 
+            modelBuilder.Entity("LMSV1.Models.Course", b =>
+                {
+                    b.HasOne("LMSV1.Models.Department", "Department")
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LMSV1.Models.User", "Instructor")
+                        .WithMany("Courses")
+                        .HasForeignKey("InstructorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("Instructor");
+                });
+
             modelBuilder.Entity("LMSV1.Models.Enrollment", b =>
                 {
                     b.HasOne("LMSV1.Models.Course", "Course")
@@ -417,15 +571,15 @@ namespace LMSV1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LMSV1.Models.User", "User")
+                    b.HasOne("LMSV1.Models.User", "Student")
                         .WithMany("Enrollments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Course");
 
-                    b.Navigation("User");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -486,8 +640,15 @@ namespace LMSV1.Migrations
                     b.Navigation("Enrollments");
                 });
 
+            modelBuilder.Entity("LMSV1.Models.Department", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
             modelBuilder.Entity("LMSV1.Models.User", b =>
                 {
+                    b.Navigation("Courses");
+
                     b.Navigation("Enrollments");
                 });
 #pragma warning restore 612, 618

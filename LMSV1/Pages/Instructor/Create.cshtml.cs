@@ -33,7 +33,7 @@ namespace LMSV1.Pages.Instructor
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int instructorId)
         {
             if (!ModelState.IsValid || _context.Courses == null || Course == null)
             {
@@ -45,17 +45,11 @@ namespace LMSV1.Pages.Instructor
             // Convert SelectedDays to DaysOfWeek enum and assign to Course.MeetDays
             Course.MeetDays = SelectedDays.Aggregate(DaysOfWeek.None, (current, day) => current | (DaysOfWeek)day);
 
+            // add instructor to course
+            Course.InstructorID = instructorId;
+
             // create new course
             _context.Courses.Add(Course);
-            await _context.SaveChangesAsync();
-
-            // create new enrollment with current user as instructor
-            _context.Enrollments.Add(new Enrollment
-            {
-                EnrollmentDate = DateTime.Now,
-                UserId = user.Id,
-                CourseID = Course.CourseID
-            });
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./CourseManager");

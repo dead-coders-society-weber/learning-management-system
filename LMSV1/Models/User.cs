@@ -34,6 +34,8 @@ public class User : IdentityUser<int>
     [Display(Name = "Last Name")]
     public required string LastName { get; set; }
 
+    public string FullName { get { return LastName + ", " + FirstName; } }
+
     [Required(ErrorMessage = "Birthdate is required.")]
     [DataType(DataType.Date)]
     public DateTime Birthdate { get; set; }
@@ -64,4 +66,5 @@ public class User : IdentityUser<int>
     public string? ProfileImage { get; set; }
 
     public ICollection<Enrollment>? Enrollments { get; set; }
+    public ICollection<Course>? Courses { get; set;}
 }

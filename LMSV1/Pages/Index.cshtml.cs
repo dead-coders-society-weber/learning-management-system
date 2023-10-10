@@ -36,17 +36,27 @@ namespace LMSV1.Pages
 
             if (user != null)
             {
-                // get only courses the user is enrolled in
-                Courses = await _context.Enrollments
-                    .Where(e => e.UserId == user.Id)
-                    .Select(e => e.Course)
-                    .ToListAsync();
+                if (user.Role == "Instructor")
+                {
+                    Courses = await _context.Courses
+                        .Where(c => c.InstructorID == user.Id)
+                        .ToListAsync();
+                }
 
-                // get all assignments from enrolled courses
-                Assignments = await _context.Enrollments
-                    .Where(e => e.UserId == user.Id)
-                    .SelectMany(e => e.Course.Assignments)
-                    .ToListAsync();
+                if (user.Role == "Student")
+                {
+                    // get only courses the user is enrolled in
+                    Courses = await _context.Enrollments
+                     .Where(e => e.StudentID == user.Id)
+                     .Select(e => e.Course)
+                     .ToListAsync();
+
+                    // get all assignments from enrolled courses
+                    Assignments = await _context.Enrollments
+                     .Where(e => e.StudentID == user.Id)
+                     .SelectMany(e => e.Course.Assignments)
+                     .ToListAsync();
+                }
             }
 
             return Page();

@@ -24,6 +24,7 @@ namespace LMSV1.Pages.Student
         }
 
         public IList<Course> Courses { get; set; }
+        public IList<User> Instructors { get; set; }
         public User CurrentStudent { get; private set; }
 
         // On page load:
@@ -34,6 +35,9 @@ namespace LMSV1.Pages.Student
 
             // Load the list of Courses availabe for students
             Courses = await _context.Courses.ToListAsync();
+
+            // Load the list of Users that are instructors
+            Instructors = await _context.Users.Where(u => u.Role == "Instructor").ToListAsync();
         }
 
         // Method for when the user clicks Register on a Course in the Course Registration List 
@@ -45,10 +49,9 @@ namespace LMSV1.Pages.Student
             // Set the Enrollment date to the current date/time from the server.
             var enrollment = new Enrollment 
             { 
-                UserId = studentId, 
+                StudentID = studentId, 
                 CourseID = courseId,
                 EnrollmentDate = DateTime.Now,
-                Role = Role.Student,
             };
             
             // Add the enrollment to the Enrollments table in the DB
@@ -70,7 +73,7 @@ namespace LMSV1.Pages.Student
             // User ID and Course ID
             // If the enrollment exists:
             // Remove it from the DB and save the changes to the DB
-            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(e => e.UserId == studentId && e.CourseID == courseId);
+            var enrollment = await _context.Enrollments.FirstOrDefaultAsync(e => e.StudentID == studentId && e.CourseID == courseId);
             if (enrollment != null)
             {
                 _context.Enrollments.Remove(enrollment);
