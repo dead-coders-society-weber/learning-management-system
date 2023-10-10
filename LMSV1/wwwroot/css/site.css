@@ -94,4 +94,10 @@ table {
     width: 100%;
 }
 
+.fc-day-grid-event > .fc-content {
+    white-space: normal;
+}
 
+div.fc-day-grid-event {
+    white-space: normal;
+}
