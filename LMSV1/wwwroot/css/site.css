@@ -94,10 +94,14 @@ table {
     width: 100%;
 }
 
+/* Calendar formatting */
 .fc-day-grid-event > .fc-content {
     white-space: normal;
 }
-
 div.fc-day-grid-event {
+    white-space: normal;
+}
+div.fc-event-title {
+    font-size: 10px;
     white-space: normal;
 }
