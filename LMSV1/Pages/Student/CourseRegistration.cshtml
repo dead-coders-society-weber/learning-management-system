@@ -7,7 +7,16 @@
 }
 
 <h1>Course Registration</h1>
-
+<form>
+    <input type="hidden" name="id" value="@Model.CurrentStudent.Id" />
+    <p>
+        Title: <input type="text" asp-for="SearchString" />
+        Department: <select asp-for="Department" asp-items="Model.Departments">
+            <option value="">All</option>
+        </select>
+        <input type="submit" value="Search" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>

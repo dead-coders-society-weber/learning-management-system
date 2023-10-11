@@ -9,6 +9,8 @@ using LMSV1.Models;
 using LMSV1.Data;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 
 namespace LMSV1.Pages.Student
 {
@@ -27,6 +29,14 @@ namespace LMSV1.Pages.Student
         public IList<User> Instructors { get; set; }
         public User CurrentStudent { get; private set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string? SearchString { get; set; }
+
+        public SelectList? Departments { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string? Department { get; set; }
+
         // On page load:
         public async Task OnGetAsync(int id)
         {
@@ -34,7 +44,24 @@ namespace LMSV1.Pages.Student
             CurrentStudent = await _context.Users.Include(s => s.Enrollments).FirstOrDefaultAsync(s => s.Id == id);
 
             // Load the list of Courses availabe for students
-            Courses = await _context.Courses.ToListAsync();
+            IQueryable<string> deptQuery = from d in _context.Departments
+                                            orderby d.Name
+                                            select d.Name;
+
+            var courses = from c in _context.Courses
+                          select c;
+
+            if (!string.IsNullOrEmpty(SearchString))
+            {
+                courses = courses.Where(c => c.Title.Contains(SearchString));
+            }
+
+            if (!string.IsNullOrEmpty(Department))
+            {
+                courses = courses.Where(c => c.Department.Name == Department);
+            }
+            Departments = new SelectList(await deptQuery.Distinct().ToListAsync());
+            Courses = await courses.ToListAsync();
 
             // Load the list of Users that are instructors
             Instructors = await _context.Users.Where(u => u.Role == "Instructor").ToListAsync();
