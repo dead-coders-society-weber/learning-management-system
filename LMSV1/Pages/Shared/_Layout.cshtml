@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LMSV1.styles.css" asp-append-version="true" />
-    
-
 </head>
 <body>
     <header>
@@ -31,7 +29,6 @@
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-page="/Index">Dashboard</a>
-                                <a class="nav-link text-dark" asp-page="/GoogleCharts">Charts</a>
                             </li>
                             @if (await UserManager.IsInRoleAsync(user, "Instructor"))
                             {
@@ -48,7 +45,9 @@
                                     <a class="nav-link text-dark" asp-page="/Student/Account">Account</a>
                                 </li>
                             }
-
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/GoogleCharts">Charts</a>
+                            </li>
                         </ul>
                     }
                     <partial name="_LoginPartial" />

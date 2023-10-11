@@ -55,6 +55,8 @@ namespace LMSV1.Pages
                     Assignments = await _context.Enrollments
                      .Where(e => e.StudentID == user.Id)
                      .SelectMany(e => e.Course.Assignments)
+                     .Where(a => a.DueDate >=  DateTime.Now)
+                     .OrderBy(a => a.DueDate)
                      .ToListAsync();
                 }
             }
