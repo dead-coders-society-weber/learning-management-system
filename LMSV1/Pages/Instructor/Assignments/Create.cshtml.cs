@@ -45,7 +45,7 @@ namespace LMSV1.Pages.Instructor.Assignments
             public DateTime DueDate { get; set; }
         }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet()
         {
             return Page();
         }

@@ -22,6 +22,7 @@ public class Course
 
     [Required(ErrorMessage = "Credit hours is required.")]
     [Display(Name = "Credit Hours")]
+    [Range(0, 5)]
     public int Credits { get; set; }
 
     [Required(ErrorMessage = "Location is required.")]

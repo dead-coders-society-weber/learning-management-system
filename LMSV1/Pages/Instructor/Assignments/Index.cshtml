@@ -8,7 +8,7 @@
     ViewData["Title"] = "Course Details";
     var user = await UserManager.GetUserAsync(User);
 }
-<h1>@Model.Course.CourseID</h1>
+<h1>@Model.Course.DepartmentID @Model.Course.CourseID</h1>
 <h2>@Model.Course.Title</h2>
 <p>
    <b>Location:</b> @Model.Course.Location <br />
@@ -75,12 +75,12 @@
     </tbody>
 </table>
 @if (await UserManager.IsInRoleAsync(user, "Instructor"))
-    {
-         <p><a asp-page="Create" asp-route-id="@Model.Course.CourseID">Create new assignment</a></p>
-         <a asp-page="../CourseManager">Back to Courses</a>
-    }
+{
+    <p><a asp-page="Create" asp-route-id="@Model.Course.CourseID">Create new assignment</a></p>
+    <a asp-page="../CourseManager">Back to Courses</a>
+}
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
-    {
-             <a asp-page="/Index">Back to Dashboard</a>
-    }
+{
+    <a asp-page="/Index">Back to Dashboard</a>
+}

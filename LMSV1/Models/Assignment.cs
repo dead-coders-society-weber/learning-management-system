@@ -12,17 +12,13 @@ public class Assignment
 {
     public int AssignmentID { get; set; }  // Primary key
 
-    [Required]
-    [Display(Name = "Course ID")]
-    public int CourseID { get; set; }  // Foreign Key
-
     [Required(ErrorMessage = "Assignment Name is required.")]
-    [StringLength(100, MinimumLength = 4, ErrorMessage = "Assignment name must be between 4 and 100 characters.")]
+    [StringLength(100)]
     [Display(Name = "Title")]
     public string Title { get; set; }
 
     [Required(ErrorMessage = "Description is required.")]
-    [StringLength(100, MinimumLength = 5, ErrorMessage = "Assignment name must be between 5 and 100 characters.")]
+    [StringLength(256)]
     [Display(Name = "Description")]
     public string Description { get; set; }
 
@@ -32,10 +28,12 @@ public class Assignment
 
     [Required(ErrorMessage = "Due date is required.")]
     [Display(Name = "Due Date")]
-    [DataType(DataType.Date)]
-
+    [DataType(DataType.DateTime)]
     public DateTime DueDate { get; set; }
 
+    [Required]
+    [Display(Name = "Course ID")]
+    public int CourseID { get; set; }  // Foreign Key
     public Course Course { get; set; }
 }
 
