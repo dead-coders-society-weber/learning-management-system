@@ -18,7 +18,9 @@ namespace LMSV1.Pages.Instructor.Assignments
 {
     public class DetailsModel : PageModel
     {
+ 
         //Testing this method for the text submission
+        [BindProperty]
         public string TextMessage { get; set; }     
 
         public class MessageController : Controller
@@ -86,7 +88,14 @@ namespace LMSV1.Pages.Instructor.Assignments
             return Page();
         }
 
-       public InputModel Input { get; set; }
+        public InputModel Input { get; set; }
+
+        // Variable to store the Dropdown selection of either a Text or File submission
+        // Currently not implemented in POST yet
+        [BindProperty]
+        public string SelectedInputType { get; set; }
+        [BindProperty]
+        List<IFormFile> postedFiles { get; set; }
 
         public class InputModel
         {
@@ -96,46 +105,53 @@ namespace LMSV1.Pages.Instructor.Assignments
             public string Submission { get; set; }
 
         }
-        
 
-        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> postedFiles, int? id)
+
+        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile>? postedFiles, int? id)
         {
-            //TEST CODE FOR THE TEXT SUBMISSION SECTION
-            //if (ModelState.IsValid)
-            //{
-            //    var newSubmission = new Submission
-            //    {
-            //        TextSubmission = Input.Submission
-            //    };
+            // If dropdown list is selected for Text submission
+            if (SelectedInputType == "text")
+            {
+                //TEST CODE FOR THE TEXT SUBMISSION SECTION
+                if (ModelState.IsValid)
+                {
+                    var newSubmission = new Submission
+                    {
+                        TextSubmission = TextMessage,
+                    };
 
-            //    _context.Submission.Add(newSubmission);
-            //    await _context.SaveChangesAsync();
-            //}
-            //END TEST CODE HERE
-
+                    _context.Submission.Add(newSubmission);
+                    await _context.SaveChangesAsync();
+                }
+                //END TEST CODE HERE
+            }
+            // If dropdown list is selected for File submission
+            else
+            {
                 //Set the signed in user information the this variable
                 var user = await _userManager.GetUserAsync(User);
-            
 
-            string wwwPath = Environment.WebRootPath;
-            //string contentPath = Environment.ContentRootPath;
 
-            string path = Path.Combine(wwwPath, "Uploads");
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+                string wwwPath = Environment.WebRootPath;
+                //string contentPath = Environment.ContentRootPath;
 
-            List<string> uploadedFiles = new List<string>();
-            foreach (IFormFile postedFile in postedFiles)
-            {
-                string fileName = Path.GetFileName(user + postedFile.FileName);
-                using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                string path = Path.Combine(wwwPath, "Uploads");
+                if (!Directory.Exists(path))
                 {
-                    postedFile.CopyTo(stream);
-                    uploadedFiles.Add(fileName);
-                    //This sets the message to the student email + the file name
-                    //this.Message +=  FileNamePartial + postedFile.FileName;
+                    Directory.CreateDirectory(path);
+                }
+
+                List<string> uploadedFiles = new List<string>();
+                foreach (IFormFile postedFile in postedFiles)
+                {
+                    string fileName = Path.GetFileName(user + postedFile.FileName);
+                    using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+                    {
+                        postedFile.CopyTo(stream);
+                        uploadedFiles.Add(fileName);
+                        //This sets the message to the student email + the file name
+                        //this.Message +=  FileNamePartial + postedFile.FileName;
+                    }
                 }
             }
             return RedirectToPage("./SubmissionSuccess");    //Using this will immediately take the user back to the assignment page without a notice  (user);            
