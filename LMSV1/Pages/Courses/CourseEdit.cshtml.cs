@@ -15,11 +15,11 @@ using System.Configuration;
 
 namespace LMSV1.Pages.Courses
 {
-    public class EditModel : PageModel
+    public class CourseEditModel : PageModel
     {
         private readonly Data.LMSV1Context _context;
 
-        public EditModel(Data.LMSV1Context context)
+        public CourseEditModel(Data.LMSV1Context context)
         {
             _context = context;
         }
@@ -97,7 +97,7 @@ namespace LMSV1.Pages.Courses
             };
         }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             if (id == null || _context.Courses == null)
             {
@@ -114,7 +114,7 @@ namespace LMSV1.Pages.Courses
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             var course = await _context.Courses.FirstOrDefaultAsync(m => m.CourseID == id);
             if (course == null)

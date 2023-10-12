@@ -12,7 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 
-namespace LMSV1.Pages.Courses
+namespace LMSV1.Pages.Courses.Student
 {
     public class CourseRegistrationModel : PageModel
     {

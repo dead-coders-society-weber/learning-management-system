@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using LMSV1.Data;
 using LMSV1.Models;
 
-namespace LMSV1.Pages.Instructor.Assignments
+namespace LMSV1.Pages.Courses.Assignments
 {
-    public class DeleteModel : PageModel
+    public class AssignmentDeleteModel : PageModel
     {
         private readonly LMSV1.Data.LMSV1Context _context;
 
-        public DeleteModel(LMSV1.Data.LMSV1Context context)
+        public AssignmentDeleteModel(LMSV1.Data.LMSV1Context context)
         {
             _context = context;
         }

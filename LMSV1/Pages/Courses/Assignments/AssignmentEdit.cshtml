@@ -1,0 +1,57 @@
+﻿@page
+@model LMSV1.Pages.Courses.Assignments.AssignmentEditModel
+
+@{
+    ViewData["Title"] = "Edit Assignment";
+}
+
+<h1>Edit - @Model.Assignment.Title</h1>
+
+<h4>Assignment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Title" class="control-label"></label>
+                <input asp-for="Input.Title" class="form-control" />
+                <span asp-validation-for="Input.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Description" class="control-label"></label>
+                <input asp-for="Input.Description" class="form-control" />
+                <span asp-validation-for="Input.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.MaxPoints" class="control-label"></label>
+                <input asp-for="Input.MaxPoints" class="form-control" />
+                <span asp-validation-for="Input.MaxPoints" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.DueDate" class="control-label"></label>
+                <input asp-for="Input.DueDate" class="form-control" />
+                <span asp-validation-for="Input.DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.SubmissionType" class="control-label"></label>
+                <select asp-for="Input.SubmissionType" class="form-control"
+                        asp-items="@Html.GetEnumSelectList<Models.SubmissionType>()">
+                    <option value="">-- Select Type --</option>
+                </select>
+                <span asp-validation-for="Input.SubmissionType" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+   <a asp-page="../CourseHome" asp-route-id="@Model.Assignment.CourseID">Back to Course</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

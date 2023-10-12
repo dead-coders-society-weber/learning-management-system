@@ -1,11 +1,12 @@
 ﻿@page
-@model LMSV1.Pages.Courses.EditModel
-@using LMSV1.Models
+@model LMSV1.Pages.Courses.CourseCreateModel
+@using LMSV1.Models;
+
 @{
-    ViewData["Title"] = "Edit Course";
+    ViewData["Title"] = "Create Course";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
 <h4>Course</h4>
 <hr />
@@ -49,7 +50,7 @@
                         if (day != DaysOfWeek.None) // Exclude the "None" value
                         {
                             <input type="checkbox" name="SelectedDays" value="@((int)day)" style="margin-left:25px;"
-                            @(Model.SelectedDays.Contains((int)day) ? "checked" : "") /> @day
+                                @(Model.SelectedDays.Contains((int)day) ? "checked" : "") /> @day
                         }
                     }
                 </div>
@@ -65,14 +66,14 @@
                 <span asp-validation-for="Input.EndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./CourseManager">Back to Course Manager</a>
+    <a asp-page="./CourseManager">Back to Courses</a>
 </div>
 
 @section Scripts {

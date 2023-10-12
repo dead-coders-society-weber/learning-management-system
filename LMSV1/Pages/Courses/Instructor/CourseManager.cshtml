@@ -1,5 +1,5 @@
 ﻿@page
-@model LMSV1.Pages.Courses.CourseManagerModel
+@model CourseManagerModel
 @using Microsoft.AspNetCore.Identity;
 @using LMSV1.Models;
 
@@ -27,7 +27,7 @@
         <tr>
             
             <td>
-                <a asp-page="./Index" asp-route-id="@item.CourseID">
+                <a asp-page="../CourseHome" asp-route-id="@item.CourseID">
                      @Html.DisplayFor(modelItem => item.CourseName)
                 </a>
             </td>
@@ -38,8 +38,8 @@
             <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
             <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.CourseID">Edit</a> |
-                <a asp-page="./Delete" asp-route-id="@item.CourseID">Delete</a>
+                <a asp-page="../CourseEdit" asp-route-id="@item.CourseID">Edit</a> |
+                <a asp-page="../CourseDelete" asp-route-id="@item.CourseID">Delete</a>
             </td>
         </tr>
 }
@@ -47,5 +47,5 @@
 </table>
 
 <p>
-    <a asp-page="Create" asp-route-instructorId="@Model.instructorID">Add Course</a>
+    <a asp-page="../CourseCreate" asp-route-instructorId="@Model.instructorID">Add Course</a>
 </p>

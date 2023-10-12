@@ -1,5 +1,5 @@
-﻿@page
-@model LMSV1.Pages.Instructor.Assignments.DetailsModel
+﻿@page 
+@model LMSV1.Pages.Courses.Assignments.AssignmentHomeModel
 @using Microsoft.AspNetCore.Identity
 @using LMSV1.Models
 <!--This line below was added for test purposes with the file submission-->
@@ -9,50 +9,26 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @{
-        ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details";
     ViewData["Assignment"] = "Assignment";
     var user = await UserManager.GetUserAsync(User);
 }
-
-
-
-
 
 @*<h1>@Model.Assignment.CourseID Assignment - @Model.Assignment.Title</h1>*@
 
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.MaxPoints)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.MaxPoints)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.DueDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.DueDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Assignment.CourseID)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Assignment.CourseID)
-        </dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.Title)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.Title)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.Description)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.Description)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.MaxPoints)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.MaxPoints)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.DueDate)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.DueDate)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.CourseID)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.CourseID)</dd>
     </dl>
 </div>
 
@@ -87,11 +63,11 @@
 
 }
 
-        @if (await UserManager.IsInRoleAsync(user, "Instructor"))
-        {
-            <div>
-                <a asp-page="./Edit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a> |
-                <a asp-page="../Index" asp-route-id="@Model.Assignment.CourseID">Back to Course</a>
-            </div>
-        }
+@if (await UserManager.IsInRoleAsync(user, "Instructor"))
+{
+    <div>
+        <a asp-page="./AssignmentEdit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a> |
+        <a asp-page="../CourseHome" asp-route-id="@Model.Assignment.CourseID">Back to Course</a>
+    </div>
+}
 

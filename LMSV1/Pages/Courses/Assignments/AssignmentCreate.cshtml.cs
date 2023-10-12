@@ -9,13 +9,13 @@ using LMSV1.Data;
 using LMSV1.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace LMSV1.Pages.Instructor.Assignments
+namespace LMSV1.Pages.Courses.Assignments
 {
-    public class CreateModel : PageModel
+    public class AssignmentCreateModel : PageModel
     {
         private readonly LMSV1.Data.LMSV1Context _context;
 
-        public CreateModel(LMSV1.Data.LMSV1Context context)
+        public AssignmentCreateModel(LMSV1.Data.LMSV1Context context)
         {
             _context = context;
         }

@@ -14,9 +14,9 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace LMSV1.Pages.Instructor.Assignments
+namespace LMSV1.Pages.Courses.Assignments
 {
-    public class DetailsModel : PageModel
+    public class AssignmentHomeModel : PageModel
     {
  
         //Testing this method for the text submission
@@ -27,7 +27,7 @@ namespace LMSV1.Pages.Instructor.Assignments
         {
 
             [HttpPost]
-            public ActionResult SendMessage(DetailsModel viewModel)
+            public ActionResult SendMessage(AssignmentHomeModel viewModel)
             {
                 var message = viewModel.TextMessage;
                 return View(message);
@@ -48,7 +48,7 @@ namespace LMSV1.Pages.Instructor.Assignments
         public string Message { get; set; }
 
         [Obsolete]
-        public DetailsModel(LMSV1.Data.LMSV1Context context, UserManager<User> userManager, Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment)
+        public AssignmentHomeModel(LMSV1.Data.LMSV1Context context, UserManager<User> userManager, Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment)
         {
             _context = context;
             _userManager = userManager;

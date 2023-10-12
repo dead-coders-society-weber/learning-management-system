@@ -12,13 +12,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LMSV1.Pages.Courses
 {
-    public class IndexModel : PageModel
+    public class CourseHomeModel : PageModel
     {
         //Reference to the database
         private readonly LMSV1Context _context;
 
         //Allows us to use the database
-        public IndexModel(LMSV1Context context)
+        public CourseHomeModel(LMSV1Context context)
         {
             _context = context;
         }
