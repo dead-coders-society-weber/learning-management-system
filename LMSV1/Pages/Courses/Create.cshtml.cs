@@ -11,7 +11,7 @@ using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace LMSV1.Pages.Instructor
+namespace LMSV1.Pages.Courses
 {
     public class CreateModel : PageModel
     {

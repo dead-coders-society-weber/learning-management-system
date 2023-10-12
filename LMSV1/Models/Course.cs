@@ -15,9 +15,9 @@ public class Course
     [Display(Name = "Course ID")]
     public int CourseID { get; set; }  // Primary key
 
-    [Required(ErrorMessage = "Course Name is required.")]
+    [Required(ErrorMessage = "Title is required.")]
     [StringLength(100)]
-    [Display(Name = "Course Name")]
+    [Display(Name = "Title")]
     public required string Title { get; set; }
 
     [Required(ErrorMessage = "Credit hours is required.")]
@@ -52,6 +52,10 @@ public class Course
     [Display(Name = "Instructor")]
     public int InstructorID { get; set; } // Foreign key
     public User Instructor { get; set; }
+
+    // For display purposes
+    [Display(Name = "Course Name")]
+    public string CourseName { get { return DepartmentID + " " + CourseID; } }
 
     public ICollection<Enrollment>? Enrollments { get; set; }
     public ICollection<Assignment>? Assignments { get; set; }

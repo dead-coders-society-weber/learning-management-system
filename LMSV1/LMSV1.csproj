@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Instructor\Course\**" />
-    <Content Remove="Pages\Instructor\Course\**" />
-    <EmbeddedResource Remove="Pages\Instructor\Course\**" />
-    <None Remove="Pages\Instructor\Course\**" />
+    <Compile Remove="Pages\Courses\Course\**" />
+    <Content Remove="Pages\Courses\Course\**" />
+    <EmbeddedResource Remove="Pages\Courses\Course\**" />
+    <None Remove="Pages\Courses\Course\**" />
   </ItemGroup>
 
   <ItemGroup>

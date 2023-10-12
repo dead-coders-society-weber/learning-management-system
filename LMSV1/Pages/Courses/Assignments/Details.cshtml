@@ -87,12 +87,11 @@
 
 }
 
-    <div>
         @if (await UserManager.IsInRoleAsync(user, "Instructor"))
         {
-            <a asp-page="./Edit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a>
-        <a asp-page="./Index" asp-route-id="@Model.Assignment.CourseID">Back to @Model.Assignment.CourseID</a>
+            <div>
+                <a asp-page="./Edit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a> |
+                <a asp-page="../Index" asp-route-id="@Model.Assignment.CourseID">Back to Course</a>
+            </div>
         }
-       
-    </div>
 

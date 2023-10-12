@@ -41,8 +41,12 @@ namespace LMSV1.Pages.Instructor.Assignments
 
             [Required(ErrorMessage = "Due date is required.")]
             [Display(Name = "Due Date")]
-            [DataType(DataType.Date)]
+            [DataType(DataType.DateTime)]
             public DateTime DueDate { get; set; }
+
+            [Required(ErrorMessage = "Submission Type is required.")]
+            [Display(Name = "Submission Type")]
+            public SubmissionType SubmissionType { get; set; }
         }
 
         public IActionResult OnGet()
@@ -61,7 +65,8 @@ namespace LMSV1.Pages.Instructor.Assignments
                     Title = Input.Title,
                     Description = Input.Description,
                     MaxPoints = Input.MaxPoints,
-                    DueDate = Input.DueDate
+                    DueDate = Input.DueDate,
+                    SubmissionType = Input.SubmissionType,
                 };
 
                 _context.Assignments.Add(newAssignment);

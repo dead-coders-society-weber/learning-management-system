@@ -9,7 +9,7 @@ using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LMSV1.Pages.Instructor
+namespace LMSV1.Pages.Courses
 {
     public class CourseManagerModel : PageModel
     {

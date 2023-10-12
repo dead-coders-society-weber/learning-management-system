@@ -33,13 +33,13 @@
                             @if (await UserManager.IsInRoleAsync(user, "Instructor"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-page="/Instructor/CourseManager">Manage Courses</a>
+                                    <a class="nav-link" asp-page="/Courses/CourseManager">Manage Courses</a>
                                 </li>
                             }
                             @if (await UserManager.IsInRoleAsync(user, "Student"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-page="/Student/CourseRegistration" asp-route-id="@user.Id">Course Registration</a>
+                                    <a class="nav-link" asp-page="/Courses/CourseRegistration" asp-route-id="@user.Id">Course Registration</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-page="/Student/Account">Account</a>
