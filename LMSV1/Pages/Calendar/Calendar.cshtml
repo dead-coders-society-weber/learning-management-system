@@ -1,0 +1,28 @@
+﻿@page
+@model CalendarModel
+
+@using Microsoft.AspNetCore.Identity
+@using LMSV1.Models
+
+@{
+    ViewData["Title"] = "Calendar";
+}
+
+<div id='calendar'></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            events: 
+                @Html.Raw(Json.Serialize(Model.CourseSchedule)),
+                // other calendar options...
+                eventTimeFormat: { // like '14:30'
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: true,
+                },
+        });
+        calendar.render();
+    });
+</script>

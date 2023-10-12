@@ -11,37 +11,68 @@ and submit it into the database for storage
 public class Course
 {
     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    [Required]
+    [Required(ErrorMessage = "Course ID is required.")]
+    [Display(Name = "Course ID")]
     public int CourseID { get; set; }  // Primary key
 
-    [Required(ErrorMessage = "Course Number is required.")]
-    [Display(Name = "Course Number")]
-    public required string CourseNumber { get; set; }
-
-    [Required(ErrorMessage = "Course Name is required.")]
-    [StringLength(100, MinimumLength = 6, ErrorMessage = "Course name must be between 6 and 100 characters.")]
-    [Display(Name = "Course Name")]
+    [Required(ErrorMessage = "Title is required.")]
+    [StringLength(100)]
+    [Display(Name = "Title")]
     public required string Title { get; set; }
 
     [Required(ErrorMessage = "Credit hours is required.")]
     [Display(Name = "Credit Hours")]
-    public required string Credits { get; set; }
+    [Range(0, 5)]
+    public int Credits { get; set; }
 
     [Required(ErrorMessage = "Location is required.")]
     [Display(Name = "Location")]
-    public required string Location { get; set; }
+    public string Location { get; set; }
 
     [Required(ErrorMessage = "Meeting times is required.")]
     [Display(Name = "Meet Times")]
-    public required string MeetDays { get; set; }
+    public DaysOfWeek MeetDays { get; set; }
 
     [Required(ErrorMessage = "Start time is required.")]
     [Display(Name = "Start Time")]
-    public required string StartTime { get; set; }
+    [DataType(DataType.Time)]
+    public TimeSpan StartTime { get; set; }
 
     [Required(ErrorMessage = "End time is required.")]
     [Display(Name = "End Time")]
-    public required string EndTime { get; set; }
+    [DataType(DataType.Time)]
+    public TimeSpan EndTime { get; set; }
 
-    public ICollection<Enrollment> Enrollments { get; set; }
+    [Required(ErrorMessage = "Department is required")]
+    [Display(Name = "Department")]
+    public string DepartmentID { get; set; } // Foreign key
+    public Department Department { get; set; }
+
+    [Required(ErrorMessage = "Instructor is required")]
+    [Display(Name = "Instructor")]
+    public int InstructorID { get; set; } // Foreign key
+    public User Instructor { get; set; }
+
+    // For display purposes
+    [Display(Name = "Course Name")]
+    public string CourseName { get { return DepartmentID + " " + CourseID; } }
+
+    public ICollection<Enrollment>? Enrollments { get; set; }
+    public ICollection<Assignment>? Assignments { get; set; }
+}
+
+/* For the DaysOfWeek enum, flags allow you to combine multiple days. 
+ * For instance, if a course meets on Monday and Wednesday, 
+ * the value stored would be Monday | Wednesday (i.e., 1 + 4 = 5).
+ */
+[Flags]
+public enum DaysOfWeek
+{
+    None = 0,
+    M = 1,
+    T = 2,
+    W = 4,
+    Th = 8,
+    F = 16,
+    // we can extend for Saturday and Sunday if needed
 }

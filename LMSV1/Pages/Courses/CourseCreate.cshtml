@@ -1,0 +1,81 @@
+﻿@page
+@model LMSV1.Pages.Courses.CourseCreateModel
+@using LMSV1.Models;
+
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+<h1>Create</h1>
+
+<h4>Course</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.DepartmentID" class="control-label"></label>
+                <select asp-for="Input.DepartmentID" class="form-control"
+                        asp-items="@Model.Departments">
+                    <option value="">-- Select Department --</option>
+                </select>
+                <span asp-validation-for="Input.DepartmentID" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.CourseID" class="control-label"></label>
+                <input asp-for="Input.CourseID" class="form-control" />
+                <span asp-validation-for="Input.CourseID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Title" class="control-label"></label>
+                <input asp-for="Input.Title" class="form-control" />
+                <span asp-validation-for="Input.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Credits" class="control-label"></label>
+                <input asp-for="Input.Credits" class="form-control" />
+                <span asp-validation-for="Input.Credits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Location" class="control-label"></label>
+                <input asp-for="Input.Location" class="form-control" />
+                <span asp-validation-for="Input.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.MeetDays" class="control-label"></label><br>
+                <div style="padding:10px;">
+                    @foreach (DaysOfWeek day in Enum.GetValues(typeof(DaysOfWeek)))
+                    {
+                        if (day != DaysOfWeek.None) // Exclude the "None" value
+                        {
+                            <input type="checkbox" name="SelectedDays" value="@((int)day)" style="margin-left:25px;"
+                                @(Model.SelectedDays.Contains((int)day) ? "checked" : "") /> @day
+                        }
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.StartTime" class="control-label"></label>
+                <input asp-for="Input.StartTime" class="form-control" />
+                <span asp-validation-for="Input.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.EndTime" class="control-label"></label>
+                <input asp-for="Input.EndTime" class="form-control" />
+                <span asp-validation-for="Input.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Instructor/CourseManager">Back to Courses</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

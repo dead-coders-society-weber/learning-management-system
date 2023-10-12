@@ -1,0 +1,61 @@
+﻿@page
+@model LMSV1.Pages.Courses.Student.CourseRegistrationModel
+
+@{
+    ViewData["Title"] = "Course Registration";
+    bool isEnrolled = false;
+}
+
+<h1>Course Registration</h1>
+<form>
+    <input type="hidden" name="id" value="@Model.CurrentStudent.Id" />
+    <p>
+        Title: <input type="text" asp-for="SearchString" />
+        Department: <select asp-for="Department" asp-items="Model.Departments">
+            <option value="">All</option>
+        </select>
+        <input type="submit" value="Search" />
+    </p>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Course ID</th>
+            <th>Title</th>
+            <th>Credit Hours</th>
+            <th>Intstructor</th>
+            <th>Meet Days</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Location</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Courses) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.DepartmentID)</td>
+            <td>@Html.DisplayFor(modelItem => item.CourseID)</td>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.Credits)</td>
+            <td>@Html.DisplayFor(modelItem => item.Instructor.FullName)</td>
+            <td>@Html.DisplayFor(modelItem => item.MeetDays)</td>
+            <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.Location)</td>
+            <td>
+                @{if(Model.CurrentStudent.Enrollments != null) {
+                        isEnrolled = Model.CurrentStudent.Enrollments.Any(e => e.CourseID == @item.CourseID);
+                }}
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="studentId" value="@Model.CurrentStudent.Id" />
+                    <input type="hidden" name="courseId" value="@item.CourseID" />
+                    <input type="submit" value="Register" asp-page-handler="Register" disabled="@isEnrolled" />
+                    <input type="submit" value="Drop" asp-page-handler="Drop" disabled="@(!isEnrolled)" />
+                </form>
+            </td>
+        </tr>
+    }   
+    </tbody>
+</table>

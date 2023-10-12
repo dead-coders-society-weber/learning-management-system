@@ -37,29 +37,30 @@ body {
 }
 
 /* Styles for dashboard page */
-.collapsible {
-    background-color: #284;
-    color: white;
-    cursor: pointer;
-    padding: 12px;
-    width: 80%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 12px;
+.card {
+    width: 40%;
+    display: block;
+    float: left;
+    border: double;
+    padding: 4px;
+    background-color: lightsteelblue;
+}
+.todo-group {
+   background-color: #EBEBEB;
+   border-color: maroon;
+   border-width: thick;
+}
+list-group {
+    background-color: #ABBAEA;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 75% 25%;
 }
 
-.active, .collapsible:hover {
-    background-color: #678;
-}
-
-.content {
-    padding: 0 16px;
-    width: 80%;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.2s ease-out;
-    background-color: #f1f1f1;
+.grid-container h1,
+.grid-container h4{
+    height: 4vh;
 }
 
 /* Styles for course registration page */
@@ -68,11 +69,17 @@ body {
     margin: 10px;
 }
 
+thead {
+    font-weight: bold;
+    text-align: center;
+    background-color: lightsteelblue;
+}
+
+
 table th {
     font-weight: bold;
     text-align: center;
 }
-
 table tr {
     border: 2px solid black;
     padding: 15px;
@@ -85,4 +92,78 @@ table td {
 
 table {
     width: 100%;
+}
+
+/* Styles for Calendar */
+.fc {
+    background-color: white;
+}
+
+/* Calendar event specific */
+div.fc-event-title {
+    font-size: 10px;
+    white-space: normal;
+}
+
+#calendar {
+    background-color: #f0f0f0;
+}
+
+/* Styles for Navbar */
+.navbar-nav {
+    /* 
+        background-image: linear-gradient(90deg, rgb(139, 18, 125) 0%, rgb(139, 18, 125) 27%, rgb(159, 51, 114) 27%, rgb(159, 51, 114) 27%, rgb(159, 51, 114) 34%, rgb(179, 84, 102) 34%, rgb(179, 84, 102) 37%, rgb(198, 117, 91) 37%, rgb(198, 117, 91) 40%, rgb(218, 150, 79) 40%, rgb(218, 150, 79) 77%, rgb(238, 183, 68) 77%, rgb(238, 183, 68) 100%);
+    */
+    background-color: #7D7C7C;
+}
+
+a.navbar-brand {
+    color: #e8e2e2;
+    font-family: 'Brush Script MT', cursive;
+    font-size: 32px;
+}
+
+a.nav-link {
+    color: #2d2727;
+}
+
+a.nav-link:hover {
+    color: #f9f5eb;
+}
+
+li.nav-item {
+    border: thin;
+    background-color: #f9f5eb;
+    color: #2d2727;
+}
+
+button#logout.nav-link {
+    color: #2d2727;
+}
+
+button#logout.nav-link:hover {
+    color: #f9f5eb;
+}
+
+li.nav-item:hover {
+    background-color: #7D7C7C;
+    color: #f9f5eb;
+}
+
+/* Styles for Header */
+header {
+    background-color: #7D7C7C;
+}
+
+/* Styles for Every Page Background */
+body {
+    /*
+        background-image: linear-gradient(0deg, #2b2a4c 0%, #b31312 27%, #b31312 27%, #b31312 27%, #dddb76 34%, #e4f2ef 34%, #e4f2ef 37%, #388895 37%, #388895 40%, rgb(255, 255, 255) 40%, rgb(255, 255, 255) 77%, rgb(255, 255, 255) 77%, rgb(255, 255, 255) 100%);
+    */
+    background-color: #f0f0f0;
+}
+
+/* Styles for Footer */
+footer {
+    background-color: #3c486b;
 }

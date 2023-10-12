@@ -13,7 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<LMSV1Context>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LMSV1Context") ?? throw new InvalidOperationException("Connection string 'LMSV1Context' not found.")));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("LMSV1Context") ?? throw new InvalidOperationException("Connection string 'LMSV1Context' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole<int>>()
@@ -36,27 +37,6 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-// Seed Initializer
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    var context = services.GetRequiredService<LMSV1Context>();
-    context.Database.EnsureCreated();
-    await SeedData.InitializeAsync(services);
-}
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
-
-//    // Get the required services
-//    var dbContext = services.GetRequiredService<LMSV1UserContext>();
-//    var userManager = services.GetRequiredService<UserManager<User>>();
-//    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-//    _ = SeedData.InitializeAsync(dbContext, userManager, roleManager);
-//}
 
 app.MapRazorPages();
 

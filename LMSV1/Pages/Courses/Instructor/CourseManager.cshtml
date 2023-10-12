@@ -1,0 +1,51 @@
+﻿@page
+@model CourseManagerModel
+@using Microsoft.AspNetCore.Identity;
+@using LMSV1.Models;
+
+@{
+    ViewData["Title"] = "Course Manager";
+}
+
+<h1>Course Manager</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Courses[0].CourseName)</th>
+            <th>@Html.DisplayNameFor(model => model.Courses[0].Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Courses[0].Credits)</th>
+            <th>@Html.DisplayNameFor(model => model.Courses[0].Location)</th>
+            <th>@Html.DisplayNameFor(model => model.Courses[0].MeetDays)</th>
+            <th>@Html.DisplayNameFor(model => model.Courses[0].StartTime)</th>
+            <th>@Html.DisplayNameFor(model => model.Courses[0].EndTime)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Courses) {
+        <tr>
+            
+            <td>
+                <a asp-page="../CourseHome" asp-route-id="@item.CourseID">
+                     @Html.DisplayFor(modelItem => item.CourseName)
+                </a>
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Title)</td>
+            <td>@Html.DisplayFor(modelItem => item.Credits)</td>
+            <td>@Html.DisplayFor(modelItem => item.Location)</td>
+            <td>@Html.DisplayFor(modelItem => item.MeetDays)</td>
+            <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
+            <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
+            <td>
+                <a asp-page="../CourseEdit" asp-route-id="@item.CourseID">Edit</a> |
+                <a asp-page="../CourseDelete" asp-route-id="@item.CourseID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<p>
+    <a asp-page="../CourseCreate" asp-route-instructorId="@Model.instructorID">Add Course</a>
+</p>
