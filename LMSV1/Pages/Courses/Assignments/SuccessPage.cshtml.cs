@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace LMSV1.Pages.Instructor.Assignments
+namespace LMSV1.Pages.Courses.Assignments
 {
     public class SuccessPageModel : PageModel
     {

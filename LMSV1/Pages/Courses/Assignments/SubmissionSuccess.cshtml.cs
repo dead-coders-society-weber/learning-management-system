@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace LMSV1.Pages.Instructor.Assignments
+namespace LMSV1.Pages.Courses.Assignments
 {
     public class SubmissionSuccessModel : PageModel
     {

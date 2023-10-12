@@ -11,14 +11,14 @@ using System.Security.Cryptography.Xml;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
-namespace LMSV1.Pages.Instructor
+namespace LMSV1.Pages.Courses
 {
-    public class CreateModel : PageModel
+    public class CourseCreateModel : PageModel
     {
         private readonly Data.LMSV1Context _context;
         private readonly UserManager<User> _userManager;
 
-        public CreateModel(Data.LMSV1Context context, UserManager<User> userManager)
+        public CourseCreateModel(Data.LMSV1Context context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;

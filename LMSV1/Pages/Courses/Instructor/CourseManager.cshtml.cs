@@ -9,7 +9,7 @@ using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace LMSV1.Pages.Instructor
+namespace LMSV1.Pages.Courses.Instructor
 {
     public class CourseManagerModel : PageModel
     {
@@ -22,7 +22,7 @@ namespace LMSV1.Pages.Instructor
             _userManager = userManager;
         }
 
-        public IList<Course> Courses { get;set; } = default!;
+        public IList<Course> Courses { get; set; } = default!;
         public int instructorID { get; set; }
 
         public async Task OnGetAsync()

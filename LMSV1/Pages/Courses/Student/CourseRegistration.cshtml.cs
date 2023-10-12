@@ -12,7 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 
-namespace LMSV1.Pages.Student
+namespace LMSV1.Pages.Courses.Student
 {
     public class CourseRegistrationModel : PageModel
     {
@@ -45,8 +45,8 @@ namespace LMSV1.Pages.Student
 
             // Load the list of Courses availabe for students
             IQueryable<string> deptQuery = from d in _context.Departments
-                                            orderby d.Name
-                                            select d.Name;
+                                           orderby d.Name
+                                           select d.Name;
 
             var courses = from c in _context.Courses
                           select c;
@@ -74,13 +74,13 @@ namespace LMSV1.Pages.Student
             // Currently logged in student,
             // Course ID of the Course the student has registered for,
             // Set the Enrollment date to the current date/time from the server.
-            var enrollment = new Enrollment 
-            { 
-                StudentID = studentId, 
+            var enrollment = new Enrollment
+            {
+                StudentID = studentId,
                 CourseID = courseId,
                 EnrollmentDate = DateTime.Now,
             };
-            
+
             // Add the enrollment to the Enrollments table in the DB
             _context.Enrollments.Add(enrollment);
 

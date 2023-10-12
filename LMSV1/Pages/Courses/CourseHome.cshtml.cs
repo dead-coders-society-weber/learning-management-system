@@ -10,25 +10,25 @@ using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace LMSV1.Pages.Instructor.Assignments
+namespace LMSV1.Pages.Courses
 {
-    public class IndexModel : PageModel
+    public class CourseHomeModel : PageModel
     {
         //Reference to the database
-        private readonly LMSV1.Data.LMSV1Context _context;
+        private readonly LMSV1Context _context;
 
         //Allows us to use the database
-        public IndexModel(LMSV1.Data.LMSV1Context context)
+        public CourseHomeModel(LMSV1Context context)
         {
             _context = context;
         }
 
         //Grabs a list of items and stores them inside a list
-        public Course? Course { get;set; } = default!;
+        public Course? Course { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
@@ -38,7 +38,7 @@ namespace LMSV1.Pages.Instructor.Assignments
                 .AsNoTracking()
                 .FirstOrDefaultAsync(c => c.CourseID == id);
 
-            if(Course == null)
+            if (Course == null)
             {
                 return NotFound();
             }

@@ -1,8 +1,9 @@
 ﻿@page
-@model LMSV1.Pages.Instructor.Assignments.CreateModel
+@model LMSV1.Pages.Courses.Assignments.AssignmentCreateModel
+@using LMSV1.Models
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Assignment";
 }
 
 <h1>Create Assignment</h1>
@@ -26,11 +27,18 @@
                 <input asp-for="Input.MaxPoints" class="form-control" />
                 <span asp-validation-for="Input.MaxPoints" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Input.DueDate" class="control-label"></label>
                 <input asp-for="Input.DueDate" class="form-control" />
                 <span asp-validation-for="Input.DueDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.SubmissionType" class="control-label"></label>
+                <select asp-for="Input.SubmissionType" class="form-control"
+                        asp-items="@Html.GetEnumSelectList<Models.SubmissionType>()">
+                    <option value="">-- Select Type --</option>
+                </select>
+                <span asp-validation-for="Input.SubmissionType" class="text-danger" />
             </div>
             <div class="form-group">
                  <input type="submit" value="Create" class="btn btn-primary" /> 

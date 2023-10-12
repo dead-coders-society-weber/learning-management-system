@@ -7,19 +7,19 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using LMSV1.Models;
 
-namespace LMSV1.Pages.Instructor
+namespace LMSV1.Pages.Courses
 {
-    public class DeleteModel : PageModel
+    public class CourseDeleteModel : PageModel
     {
         private readonly Data.LMSV1Context _context;
 
-        public DeleteModel(Data.LMSV1Context context)
+        public CourseDeleteModel(Data.LMSV1Context context)
         {
             _context = context;
         }
 
         [BindProperty]
-      public Course Course { get; set; } = default!;
+        public Course Course { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {

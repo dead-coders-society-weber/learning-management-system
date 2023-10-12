@@ -31,9 +31,21 @@ public class Assignment
     [DataType(DataType.DateTime)]
     public DateTime DueDate { get; set; }
 
+    [Required(ErrorMessage ="Submission Type is required.")]
+    [Display(Name = "Submission Type")]
+    public SubmissionType SubmissionType { get; set; }
+
     [Required]
     [Display(Name = "Course ID")]
     public int CourseID { get; set; }  // Foreign Key
     public Course Course { get; set; }
+}
+
+public enum SubmissionType
+{
+    [Display(Name = "File Upload")]
+    FileUpload,
+    [Display(Name = "Text Entry")]
+    TextEntry
 }
 

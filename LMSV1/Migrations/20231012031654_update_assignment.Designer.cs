@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20231010051849_init")]
-    partial class init
+    [Migration("20231012031654_update_assignment")]
+    partial class update_assignment
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,13 +38,16 @@ namespace LMSV1.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("MaxPoints")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubmissionType")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -190,7 +193,7 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 1,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 10, 9, 23, 18, 49, 253, DateTimeKind.Local).AddTicks(560),
+                            EnrollmentDate = new DateTime(2023, 10, 11, 21, 16, 54, 194, DateTimeKind.Local).AddTicks(7018),
                             StudentID = 2
                         });
                 });
@@ -341,34 +344,34 @@ namespace LMSV1.Migrations
                         {
                             Id = 1,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "0ae5272d-16ec-4dc9-8a85-31317be0ec0b",
+                            ConcurrencyStamp = "2141e74c-6fac-462f-a815-621d58306e2a",
                             Email = "Instructor1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR1@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDJhgVEUnMY2CfvMdwzF6aGYeDbJ1QNQ08K5C7GL2CldE5IuEEmBrefKmjOW5fnExQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENr6YtEvRw06yi69IbUZCB8u1mqw/sRdHhD/u3RWovodS5Kvp4fymWU+RnSwa38SPw==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "5bc24601-f410-410d-b87c-97df34b0d23f",
+                            SecurityStamp = "60281203-a040-4d10-9e8f-d4e3f1c63f3f",
                             UserName = "Instructor1@gmail.com"
                         },
                         new
                         {
                             Id = 2,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "0e3f17ca-8703-42e8-bd61-16272051ace3",
+                            ConcurrencyStamp = "64a257c7-7464-4961-9bed-13075348b65b",
                             Email = "Student1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT1@GMAIL.COM",
                             NormalizedUserName = "STUDENT1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOH4CFyWusb51dr2cCCRMdCRxvDE/jv572ANZNFvBC5OB4j9opC6VQf4aTPI/kvb0w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK1YyJc9CXMo/1EGWLt9VbiYmpY9nQpHHSfR3mMRO6uYg3HMoPqJQqqO4wMhrP442Q==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "56e17e87-94d0-41b9-ac8b-9373ba4a3f9b",
+                            SecurityStamp = "5e674265-5987-4b3c-ba45-19d4ee974992",
                             UserName = "Student1@gmail.com"
                         });
                 });
@@ -485,7 +488,7 @@ namespace LMSV1.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
