@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20230926234840_Initial")]
-    partial class Initial
+    [Migration("20231012193524_main")]
+    partial class main
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
