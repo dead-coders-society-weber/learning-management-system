@@ -105,7 +105,7 @@ namespace LMSV1.Pages.Courses
                 _context.Courses.Add(newCourse);
                 await _context.SaveChangesAsync();
 
-                return RedirectToPage("./CourseManager");
+                return RedirectToPage("./Instructor/CourseManager");
             }
 
             return Page();

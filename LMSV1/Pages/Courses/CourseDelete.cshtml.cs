@@ -56,7 +56,7 @@ namespace LMSV1.Pages.Courses
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./CourseManager");
+            return RedirectToPage("./InstructorCourseManager");
         }
     }
 }
