@@ -114,7 +114,7 @@ div.fc-event-title {
     /* 
         background-image: linear-gradient(90deg, rgb(139, 18, 125) 0%, rgb(139, 18, 125) 27%, rgb(159, 51, 114) 27%, rgb(159, 51, 114) 27%, rgb(159, 51, 114) 34%, rgb(179, 84, 102) 34%, rgb(179, 84, 102) 37%, rgb(198, 117, 91) 37%, rgb(198, 117, 91) 40%, rgb(218, 150, 79) 40%, rgb(218, 150, 79) 77%, rgb(238, 183, 68) 77%, rgb(238, 183, 68) 100%);
     */
-    background-color: #f45050;
+    background-color: #7D7C7C;
 }
 
 a.navbar-brand {
@@ -146,13 +146,13 @@ button#logout.nav-link:hover {
 }
 
 li.nav-item:hover {
-    background-color: #f45050;
+    background-color: #7D7C7C;
     color: #f9f5eb;
 }
 
 /* Styles for Header */
 header {
-    background-color: #f45050;
+    background-color: #7D7C7C;
 }
 
 /* Styles for Every Page Background */
