@@ -19,30 +19,29 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.Title)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.Title)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.Description)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.Description)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.MaxPoints)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.MaxPoints)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.DueDate)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.DueDate)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignment.CourseID)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignment.CourseID)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.Title)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.Title)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.Description)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.Description)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.MaxPoints)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.MaxPoints)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.DueDate)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.DueDate)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.CourseID)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.CourseID)</dd>
     </dl>
 </div>
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
-{   
+{
     @* CODE FOR SUBMISSION SELECTION, STUDENT HAS OPTION TO SUBMIT EITHER A TEXT ENTRY OR UPLOAD A FILE*@
     <form method="post" enctype="multipart/form-data">
         @* <label for="SelectedInputType">Select Submission Type:</label>
         <select name="SelectedInputType" value=SelectedInputType>
             <option value="text">Text</option>
             <option value="file">File</option>
-         </select> *@
-
-        @if (Model.Assignment.SubmissionType.ToString() == ("TextEntry"))
+         </select> *@ 
+        @* @if (Model.Assignments.SubmissionType.ToString() == ("TextEntry")) *@
         {
             @*CODE FOR TEXT SUBMISSION, *@
             <div class="form-group">
@@ -52,7 +51,7 @@
             <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
         </div>
         }
-        @if (Model.Assignment.SubmissionType.ToString() == ("File Upload"))
+        @* @if (Model.Assignments.SubmissionType.ToString() == ("File Upload")) *@
         {
             @*CODE FOR FILE SUBMISSION*@
             <div class="form-group">
@@ -71,8 +70,8 @@
 @if (await UserManager.IsInRoleAsync(user, "Instructor"))
 {
     <div>
-        <a asp-page="./AssignmentEdit" asp-route-id="@Model.Assignment.AssignmentID">Edit</a> |
-        <a asp-page="../CourseHome" asp-route-id="@Model.Assignment.CourseID">Back to Course</a>
+        <a asp-page="./AssignmentEdit" asp-route-id="@Model.Assignments.AssignmentID">Edit</a> |
+        <a asp-page="../CourseHome" asp-route-id="@Model.Assignments.CourseID">Back to Course</a>
     </div>
 }
 

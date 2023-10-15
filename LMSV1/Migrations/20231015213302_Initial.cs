@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LMSV1.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -55,19 +55,6 @@ namespace LMSV1.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Role", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Submission",
-                columns: table => new
-                {
-                    SubmissionID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TextSubmission = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Submission", x => x.SubmissionID);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,6 +237,7 @@ namespace LMSV1.Migrations
                     Description = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     MaxPoints = table.Column<int>(type: "int", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SubmissionType = table.Column<int>(type: "int", nullable: false),
                     CourseID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -291,6 +279,35 @@ namespace LMSV1.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Submission",
+                columns: table => new
+                {
+                    SubmissionID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AssignmentID = table.Column<int>(type: "int", nullable: true),
+                    UserID = table.Column<int>(type: "int", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TextSubmission = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
+                    Score = table.Column<double>(type: "float", nullable: true),
+                    SubmissionDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Submission", x => x.SubmissionID);
+                    table.ForeignKey(
+                        name: "FK_Submission_Assignment_AssignmentID",
+                        column: x => x.AssignmentID,
+                        principalTable: "Assignment",
+                        principalColumn: "AssignmentID");
+                    table.ForeignKey(
+                        name: "FK_Submission_User_UserID",
+                        column: x => x.UserID,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Department",
                 columns: new[] { "DepartmentID", "Name" },
@@ -317,8 +334,8 @@ namespace LMSV1.Migrations
                 columns: new[] { "Id", "Address1", "Address2", "Birthdate", "City", "ConcurrencyStamp", "Email", "FirstName", "LastName", "Link1", "Link2", "Link3", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "ProfileImage", "Role", "SecurityStamp", "State", "UserName", "Zip" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "796164b2-eb3b-46e7-b793-8864ee6dcb3b", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEDILKW+0g5i1kgKS4+herPyShCCW3og9iUpzP8yB6HXjeQ8Z5gp8mxyRxM3R27KZhA==", "/Uploads/stock-profile-image.jpg", "Instructor", "194805ee-f799-4cd3-9019-212aa9e6de69", null, "Instructor1@gmail.com", null },
-                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "9855fa45-10ee-4112-9e68-fc1be713932e", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAELs7iUpUGigBHJT3NLBZyUpxT4Hg95KhncKMbkvCIAyt0GmnE+CsWTQefK++/DlT9w==", "/Uploads/stock-profile-image.jpg", "Student", "445feaa5-085a-4962-b1ea-7dc3d0db8be8", null, "Student1@gmail.com", null }
+                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "27635433-7be7-45b4-9a49-9a45426c01a6", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAECFVTcLjSHMYga7IXWcvecvrWwGdQaaNUumYAsdu+pQSqUQEw960zLx2fPyH9KXfEQ==", "/Uploads/stock-profile-image.jpg", "Instructor", "e56f167c-8d03-4b17-88c6-dbb291fb7f87", null, "Instructor1@gmail.com", null },
+                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "4f8d7c37-a141-4a79-b199-429c77713d7d", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAENl3o42Crrta+U2BWYWNS4heLk1RQOuSX9VeIzG4rQtWAfhKMMKdj04Lm2vEihCTfQ==", "/Uploads/stock-profile-image.jpg", "Student", "ac3f87b4-ba9e-456f-ae46-d40ecf321e6a", null, "Student1@gmail.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -338,7 +355,7 @@ namespace LMSV1.Migrations
             migrationBuilder.InsertData(
                 table: "Enrollment",
                 columns: new[] { "EnrollmentID", "CourseID", "EnrollmentDate", "Grade", "StudentID" },
-                values: new object[] { 1, 3750, new DateTime(2023, 10, 11, 17, 59, 1, 701, DateTimeKind.Local).AddTicks(1217), null, 2 });
+                values: new object[] { 1, 3750, new DateTime(2023, 10, 15, 15, 33, 2, 413, DateTimeKind.Local).AddTicks(4136), null, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignment_CourseID",
@@ -378,6 +395,16 @@ namespace LMSV1.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Submission_AssignmentID",
+                table: "Submission",
+                column: "AssignmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Submission_UserID",
+                table: "Submission",
+                column: "UserID");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "User",
                 column: "NormalizedEmail");
@@ -409,9 +436,6 @@ namespace LMSV1.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Assignment");
-
-            migrationBuilder.DropTable(
                 name: "Enrollment");
 
             migrationBuilder.DropTable(
@@ -436,10 +460,13 @@ namespace LMSV1.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "Course");
+                name: "Assignment");
 
             migrationBuilder.DropTable(
                 name: "Role");
+
+            migrationBuilder.DropTable(
+                name: "Course");
 
             migrationBuilder.DropTable(
                 name: "Department");

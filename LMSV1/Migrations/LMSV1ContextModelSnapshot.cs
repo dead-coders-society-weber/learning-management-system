@@ -190,7 +190,7 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 1,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 10, 11, 21, 16, 54, 194, DateTimeKind.Local).AddTicks(7018),
+                            EnrollmentDate = new DateTime(2023, 10, 15, 15, 33, 2, 413, DateTimeKind.Local).AddTicks(4136),
                             StudentID = 2
                         });
                 });
@@ -232,12 +232,31 @@ namespace LMSV1.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubmissionID"));
 
-                    b.Property<string>("TextSubmission")
+                    b.Property<int?>("AssignmentID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FileName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Score")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("SubmissionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TextSubmission")
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserID")
+                        .HasColumnType("int");
+
                     b.HasKey("SubmissionID");
+
+                    b.HasIndex("AssignmentID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("Submission", (string)null);
                 });
@@ -341,34 +360,34 @@ namespace LMSV1.Migrations
                         {
                             Id = 1,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "2141e74c-6fac-462f-a815-621d58306e2a",
+                            ConcurrencyStamp = "27635433-7be7-45b4-9a49-9a45426c01a6",
                             Email = "Instructor1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR1@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAENr6YtEvRw06yi69IbUZCB8u1mqw/sRdHhD/u3RWovodS5Kvp4fymWU+RnSwa38SPw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECFVTcLjSHMYga7IXWcvecvrWwGdQaaNUumYAsdu+pQSqUQEw960zLx2fPyH9KXfEQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "60281203-a040-4d10-9e8f-d4e3f1c63f3f",
+                            SecurityStamp = "e56f167c-8d03-4b17-88c6-dbb291fb7f87",
                             UserName = "Instructor1@gmail.com"
                         },
                         new
                         {
                             Id = 2,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "64a257c7-7464-4961-9bed-13075348b65b",
+                            ConcurrencyStamp = "4f8d7c37-a141-4a79-b199-429c77713d7d",
                             Email = "Student1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT1@GMAIL.COM",
                             NormalizedUserName = "STUDENT1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK1YyJc9CXMo/1EGWLt9VbiYmpY9nQpHHSfR3mMRO6uYg3HMoPqJQqqO4wMhrP442Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENl3o42Crrta+U2BWYWNS4heLk1RQOuSX9VeIzG4rQtWAfhKMMKdj04Lm2vEihCTfQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "5e674265-5987-4b3c-ba45-19d4ee974992",
+                            SecurityStamp = "ac3f87b4-ba9e-456f-ae46-d40ecf321e6a",
                             UserName = "Student1@gmail.com"
                         });
                 });
@@ -585,6 +604,23 @@ namespace LMSV1.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("LMSV1.Models.Submission", b =>
+                {
+                    b.HasOne("LMSV1.Models.Assignment", "Assignment")
+                        .WithMany("Submissions")
+                        .HasForeignKey("AssignmentID");
+
+                    b.HasOne("LMSV1.Models.User", "User")
+                        .WithMany("Submissions")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Assignment");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<int>", null)
@@ -636,6 +672,11 @@ namespace LMSV1.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("LMSV1.Models.Assignment", b =>
+                {
+                    b.Navigation("Submissions");
+                });
+
             modelBuilder.Entity("LMSV1.Models.Course", b =>
                 {
                     b.Navigation("Assignments");
@@ -653,6 +694,8 @@ namespace LMSV1.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("Enrollments");
+
+                    b.Navigation("Submissions");
                 });
 #pragma warning restore 612, 618
         }
