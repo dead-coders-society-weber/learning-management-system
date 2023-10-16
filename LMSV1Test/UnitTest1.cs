@@ -73,7 +73,35 @@ namespace LSMV1Test
 
 
         }
-        //[TestMethod]
-        //public void StudentCanRegisterForClass
+        [TestMethod]
+        public async Task StudentCanRegisterForClassAsync()
+        {
+
+            //int CurUser = User.CountAsync();
+            int initialEnrollmentCount = Context.Enrollments.Count();
+
+            int studentId = 2;// studentId;
+            //int courseId = courseId;
+            int courseId = 1234;
+
+            // Act: Call the registration method
+            var courseRegistrationModel = new CourseRegistrationModel(Context, null); // Assuming UserManager is not needed for this test
+            await courseRegistrationModel.OnPostRegisterAsync(studentId, courseId);
+
+
+            int finalEnrollmentCount = Context.Enrollments.Count();
+            //check if increased by 1
+            if (finalEnrollmentCount == initialEnrollmentCount + 1)
+            {
+                // Test passes
+                Console.WriteLine("test passed.");
+            }
+            else
+            {
+                // Test fails
+                Console.WriteLine("test failed.");
+            }
+            Assert.AreEqual(initialEnrollmentCount + 1, finalEnrollmentCount);
+        }
     }
 }
