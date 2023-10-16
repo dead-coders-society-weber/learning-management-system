@@ -57,8 +57,6 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 Submission.AssignmentID = Assignmentid;
                 Submission.UserID = UserID;
                 Submission.SubmissionDate = DateTime.Now;
-
-                return Page();
             }
 
             _context.Submissions.Add(Submission);
