@@ -29,8 +29,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             return Page();
         }
 
-        [BindProperty]
-        public Submission Submission { get; set; } = default!;
+        //blic Submission Submission { get; set; } = default!;
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -47,22 +46,21 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         public async Task<IActionResult> OnPostAsync(int Assignmentid, int UserID)
         {
 
-            var errors = ModelState
-                .Where(x => x.Value.Errors.Count > 0)
-                .Select(x => new { x.Key, x.Value.Errors })
-                .ToArray();
 
-            if (!ModelState.IsValid || _context.Submissions == null || Submission == null)
+            if (!ModelState.IsValid || _context.Submissions == null)
             {
-                Submission.AssignmentID = Assignmentid;
-                Submission.UserID = UserID;
-                Submission.SubmissionDate = DateTime.Now;
+                return Page();
             }
-
-            _context.Submissions.Add(Submission);
+            var newSubmission = new Submission
+            {
+                AssignmentID = Assignmentid,
+                UserID = UserID,
+                SubmissionDate = DateTime.Now
+            };
+            _context.Submissions.Add(newSubmission);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Redirect("./SubmitSuccess");
         }
     }
 }
