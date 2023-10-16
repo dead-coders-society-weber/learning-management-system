@@ -6,6 +6,7 @@ using LMSV1.Models;
 using System;
 using System.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,9 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<LMSV1Context>(options =>
     //options.UseSqlServer(builder.Configuration.GetConnectionString("LMSV1Context") ?? throw new InvalidOperationException("Connection string 'LMSV1Context' not found.")));
-    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("deadcoderslmsv") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
+
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole<int>>()
