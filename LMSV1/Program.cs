@@ -15,8 +15,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddDbContext<LMSV1Context>(options =>
     //options.UseSqlServer(builder.Configuration.GetConnectionString("LMSV1Context") ?? throw new InvalidOperationException("Connection string 'LMSV1Context' not found.")));
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
-options.UseSqlServer(builder.Configuration.GetConnectionString("deadcoderslmsv") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
+//options.UseSqlServer(builder.Configuration.GetConnectionString("deadcoderslmsv") ?? throw new InvalidOperationException("Connection string 'LocalConnection' not found.")));
 
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
