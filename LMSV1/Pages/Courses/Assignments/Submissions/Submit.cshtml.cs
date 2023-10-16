@@ -36,7 +36,12 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         public async Task<IActionResult> OnPostAsync(int Assignmentid, int UserID)
         {
 
-          if (!ModelState.IsValid || _context.Submissions == null || Submission == null)
+            var errors = ModelState
+                .Where(x => x.Value.Errors.Count > 0)
+                .Select(x => new { x.Key, x.Value.Errors })
+                .ToArray();
+
+            if (!ModelState.IsValid || _context.Submissions == null || Submission == null)
             {
                 Submission.AssignmentID = Assignmentid;
                 Submission.UserID = UserID;
