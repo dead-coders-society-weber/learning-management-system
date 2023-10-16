@@ -22,7 +22,7 @@ namespace LMSV1.Data
         public DbSet<Course> Courses { get; set; } = default!;
         public DbSet<Department> Departments { get; set; } = default!;
         public DbSet<Assignment> Assignments { get; set; } = default!;
-        public DbSet<Submission> Submission { get; set; } = default!;
+        public DbSet<Submission> Submissions { get; set; } = default!;
         public DbSet<PaymentInformation> PaymentInformation { get; set; } = default!;
         public object Assignment { get; internal set; }
 

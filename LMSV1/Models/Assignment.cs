@@ -39,6 +39,8 @@ public class Assignment
     [Display(Name = "Course ID")]
     public int CourseID { get; set; }  // Foreign Key
     public Course Course { get; set; }
+
+    public ICollection<Submission>? Submissions { get; set; }
 }
 
 public enum SubmissionType
@@ -48,4 +50,5 @@ public enum SubmissionType
     [Display(Name = "Text Entry")]
     TextEntry
 }
+
 

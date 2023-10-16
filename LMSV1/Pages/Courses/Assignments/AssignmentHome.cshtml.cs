@@ -14,6 +14,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+
 namespace LMSV1.Pages.Courses.Assignments
 {
     public class AssignmentHomeModel : PageModel
@@ -56,8 +57,8 @@ namespace LMSV1.Pages.Courses.Assignments
         }
 
    
-        public Assignment Assignment { get; set; } = default!;
-        public Submission Submission { get; set; } = default;
+        public Assignment Assignments { get; set; } = default!;
+        public Submission Submissions { get; set; } = default;
         //This grabs the users email to be concatenated with the filename so that the download link with work properly
         //public User FileNamePartial { get; set; } = default!;
 
@@ -83,7 +84,7 @@ namespace LMSV1.Pages.Courses.Assignments
             }
             else 
             {
-                Assignment = assignment;
+                Assignments = assignment;
             }
             return Page();
         }
@@ -115,15 +116,19 @@ namespace LMSV1.Pages.Courses.Assignments
                 //TEST CODE FOR THE TEXT SUBMISSION SECTION
                 if (ModelState.IsValid)
                 {
+                    var user = await _userManager.GetUserAsync(User);
                     var newSubmission = new Submission
                     {
+                        AssignmentID = Assignments.AssignmentID,
+                        UserID = user.Id,
                         TextSubmission = TextMessage,
+                        SubmissionDate = DateTime.Now,
+
                     };
 
-                    _context.Submission.Add(newSubmission);
+                    _context.Submissions.Add(newSubmission);
                     await _context.SaveChangesAsync();
                 }
-                //END TEST CODE HERE
             }
             // If dropdown list is selected for File submission
             else
