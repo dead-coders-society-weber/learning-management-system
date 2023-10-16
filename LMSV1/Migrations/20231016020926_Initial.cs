@@ -334,8 +334,8 @@ namespace LMSV1.Migrations
                 columns: new[] { "Id", "Address1", "Address2", "Birthdate", "City", "ConcurrencyStamp", "Email", "FirstName", "LastName", "Link1", "Link2", "Link3", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "ProfileImage", "Role", "SecurityStamp", "State", "UserName", "Zip" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "c0ee2b27-c917-4753-abc1-35b352be2617", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAENjckAp8gkIF5u6p9gI1C2zkl71zW1SwOSjE/Kl+pOfvi+LiefU+e4i5NPPgvATGHQ==", "/Uploads/stock-profile-image.jpg", "Instructor", "a8c2af48-79fd-4f37-bcba-0bbf1c20f329", null, "Instructor1@gmail.com", null },
-                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "fcb3dc70-daa1-4b6f-a1fa-154301a8d9c3", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEHFqX8nSPtRPv5Lo5vnPgSk6YZLeavd/JVnTS9XfjjPegr1pEv+qCl9lyX1mxZm7cQ==", "/Uploads/stock-profile-image.jpg", "Student", "7b034312-569a-4ee6-ab0e-4b45b5b31c98", null, "Student1@gmail.com", null }
+                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "f08f90e9-cc18-4b23-908e-cde0878c99eb", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEIln952IZ7eFo/BZ9A+VMQ/JtdoVpBAdA+dJJqx5A2iGPyvxy3LQ3E/jebsoS3SSHA==", "/Uploads/stock-profile-image.jpg", "Instructor", "1ba06363-f146-49b9-a9cd-a62224c7334a", null, "Instructor1@gmail.com", null },
+                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "39524992-6098-40eb-941a-402c3944449d", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEKkWhDUSCGxL1QzmeDoQW6oNcAQEnmJH6b/bGEyrdJJX/M8Y/Lq1BWS3GlN61cCt7g==", "/Uploads/stock-profile-image.jpg", "Student", "42a2b037-a806-4155-ae11-d6180590715c", null, "Student1@gmail.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -355,7 +355,7 @@ namespace LMSV1.Migrations
             migrationBuilder.InsertData(
                 table: "Enrollment",
                 columns: new[] { "EnrollmentID", "CourseID", "EnrollmentDate", "Grade", "StudentID" },
-                values: new object[] { 1, 3750, new DateTime(2023, 10, 15, 17, 32, 27, 599, DateTimeKind.Local).AddTicks(9495), null, 2 });
+                values: new object[] { 1, 3750, new DateTime(2023, 10, 15, 20, 9, 26, 387, DateTimeKind.Local).AddTicks(4691), null, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignment_CourseID",

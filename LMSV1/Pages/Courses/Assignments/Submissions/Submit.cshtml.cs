@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using LMSV1.Data;
 using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace LMSV1.Pages.Courses.Assignments.Submissions
 {
@@ -23,14 +24,24 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
         public IActionResult OnGet()
         {
-        ViewData["AssignmentID"] = new SelectList(_context.Assignments, "AssignmentID", "AssignmentID");
-        ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
+        //ViewData["AssignmentID"] = new SelectList(_context.Assignments, "AssignmentID", "AssignmentID");
+        //ViewData["UserID"] = new SelectList(_context.Users, "Id", "Id");
             return Page();
         }
 
         [BindProperty]
         public Submission Submission { get; set; } = default!;
-        
+
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        public class InputModel
+        {
+            [Display(Name = "File Name")]
+            public string? FileName { get; set; }
+            [Display(Name = "Text Submission")]
+            public string? TextSubmission { get; set; }
+        }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync(int Assignmentid, int UserID)
