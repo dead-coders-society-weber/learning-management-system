@@ -1,5 +1,4 @@
 using LMSV1.Data;
-using LMSV1.Migrations;
 using LMSV1.Models;
 using LMSV1.Pages;
 using LMSV1.Pages.Courses.Student;

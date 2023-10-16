@@ -287,7 +287,7 @@ namespace LMSV1.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AssignmentID = table.Column<int>(type: "int", nullable: true),
                     UserID = table.Column<int>(type: "int", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TextSubmission = table.Column<string>(type: "nvarchar(max)", maxLength: 5000, nullable: true),
                     Score = table.Column<double>(type: "float", nullable: true),
                     SubmissionDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -334,8 +334,8 @@ namespace LMSV1.Migrations
                 columns: new[] { "Id", "Address1", "Address2", "Birthdate", "City", "ConcurrencyStamp", "Email", "FirstName", "LastName", "Link1", "Link2", "Link3", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "ProfileImage", "Role", "SecurityStamp", "State", "UserName", "Zip" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "27635433-7be7-45b4-9a49-9a45426c01a6", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAECFVTcLjSHMYga7IXWcvecvrWwGdQaaNUumYAsdu+pQSqUQEw960zLx2fPyH9KXfEQ==", "/Uploads/stock-profile-image.jpg", "Instructor", "e56f167c-8d03-4b17-88c6-dbb291fb7f87", null, "Instructor1@gmail.com", null },
-                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "4f8d7c37-a141-4a79-b199-429c77713d7d", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAENl3o42Crrta+U2BWYWNS4heLk1RQOuSX9VeIzG4rQtWAfhKMMKdj04Lm2vEihCTfQ==", "/Uploads/stock-profile-image.jpg", "Student", "ac3f87b4-ba9e-456f-ae46-d40ecf321e6a", null, "Student1@gmail.com", null }
+                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "c0ee2b27-c917-4753-abc1-35b352be2617", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAENjckAp8gkIF5u6p9gI1C2zkl71zW1SwOSjE/Kl+pOfvi+LiefU+e4i5NPPgvATGHQ==", "/Uploads/stock-profile-image.jpg", "Instructor", "a8c2af48-79fd-4f37-bcba-0bbf1c20f329", null, "Instructor1@gmail.com", null },
+                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "fcb3dc70-daa1-4b6f-a1fa-154301a8d9c3", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEHFqX8nSPtRPv5Lo5vnPgSk6YZLeavd/JVnTS9XfjjPegr1pEv+qCl9lyX1mxZm7cQ==", "/Uploads/stock-profile-image.jpg", "Student", "7b034312-569a-4ee6-ab0e-4b45b5b31c98", null, "Student1@gmail.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -355,7 +355,7 @@ namespace LMSV1.Migrations
             migrationBuilder.InsertData(
                 table: "Enrollment",
                 columns: new[] { "EnrollmentID", "CourseID", "EnrollmentDate", "Grade", "StudentID" },
-                values: new object[] { 1, 3750, new DateTime(2023, 10, 15, 15, 33, 2, 413, DateTimeKind.Local).AddTicks(4136), null, 2 });
+                values: new object[] { 1, 3750, new DateTime(2023, 10, 15, 17, 32, 27, 599, DateTimeKind.Local).AddTicks(9495), null, 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignment_CourseID",

@@ -1,0 +1,65 @@
+﻿@page "{id:int}"
+@model LMSV1.Pages.Courses.Assignments.Submissions.IndexModel
+@using LMSV1.Models;
+
+@{
+    ViewData["Title"] = "Submissions";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Submission[0].Assignment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submission[0].User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submission[0].FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submission[0].TextSubmission)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submission[0].Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Submission[0].SubmissionDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Submission) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Assignment.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TextSubmission)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubmissionDate)
+            </td>
+            <td>
+                <a asp-page="./Details" asp-route-id="@item.SubmissionID">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

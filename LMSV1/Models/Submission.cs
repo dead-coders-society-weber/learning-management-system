@@ -17,7 +17,6 @@ namespace LMSV1.Models
         [Display(Name = "Student ID")]
         public int UserID { get; set; }  // Foreign Key*/
         public User User { get; set; }
-        [Required]
         [Display(Name = "File Submission")]
         public string? FileName { get; set; }
         [StringLength(5000)]

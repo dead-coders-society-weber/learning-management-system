@@ -1,0 +1,55 @@
+﻿@page
+@model LMSV1.Pages.Courses.Assignments.Submissions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Submission</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submission.Assignment)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submission.Assignment.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submission.User)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submission.User.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submission.FileName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submission.FileName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submission.TextSubmission)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submission.TextSubmission)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submission.Score)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submission.Score)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Submission.SubmissionDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Submission.SubmissionDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Submission?.SubmissionID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

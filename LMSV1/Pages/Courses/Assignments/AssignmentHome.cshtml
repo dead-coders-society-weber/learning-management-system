@@ -34,37 +34,7 @@
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
 {
-    @* CODE FOR SUBMISSION SELECTION, STUDENT HAS OPTION TO SUBMIT EITHER A TEXT ENTRY OR UPLOAD A FILE*@
-    <form method="post" enctype="multipart/form-data">
-        @* <label for="SelectedInputType">Select Submission Type:</label>
-        <select name="SelectedInputType" value=SelectedInputType>
-            <option value="text">Text</option>
-            <option value="file">File</option>
-         </select> *@ 
-        @* @if (Model.Assignments.SubmissionType.ToString() == ("TextEntry")) *@
-        {
-            @*CODE FOR TEXT SUBMISSION, *@
-            <div class="form-group">
-                <label asp-for="TextMessage" class="control-label"></label>
-            <input asp-for="TextMessage" class="form-control" rows="8" cols="8"></input>
-            <span asp-validation-for="TextMessage" class="text-danger"></span>
-            <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
-        </div>
-        }
-        @* @if (Model.Assignments.SubmissionType.ToString() == ("File Upload")) *@
-        {
-            @*CODE FOR FILE SUBMISSION*@
-            <div class="form-group">
-                <span>Select File:</span>
-            <input type="file" name="postedFiles" multiple />
-            <input type="submit" value="Upload" asp-page-handler="Upload" />
-            <br />
-            <!--<span style="color:teal">@Html.Raw(Model.Message)</span>-->
-            <!--<a href="/Uploads/@Html.Raw(Model.Message)" download>@Html.Raw(Model.Message)</a>-->
-        </div>
-        }
-    </form>
-
+        <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
 }
 
 @if (await UserManager.IsInRoleAsync(user, "Instructor"))
