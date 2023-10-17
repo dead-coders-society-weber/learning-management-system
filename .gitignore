@@ -396,6 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/LMSV1/Migrations/20231017143025_User.cs
-/LMSV1/Migrations/20231017143025_User.Designer.cs
-/LMSV1/Migrations/LMSV1ContextModelSnapshot.cs

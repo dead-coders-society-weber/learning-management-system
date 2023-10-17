@@ -23,14 +23,15 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             events: allEvents,
-                nextDayThreshold: '07:00:00',
-                // other calendar options...
-                eventTimeFormat: { // like '14:30'
-                hour: '2-digit',
-                minute: '2-digit',
-                meridiem: true,
-                Duration: '00:01',
-                },
+            nextDayThreshold: '07:00:00',
+            eventDisplay: 'block',
+            // other calendar options...
+            eventTimeFormat: 
+            { // like '14:30'
+            hour: '2-digit',
+            minute: '2-digit',
+            meridiem: true,
+            },
         });
         calendar.render();
     });

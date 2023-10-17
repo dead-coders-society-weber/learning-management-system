@@ -105,6 +105,11 @@ div.fc-event-title {
     white-space: normal;
 }
 
+div.fc-event-time {
+    font-size: 9px;
+    white-space: normal;
+}
+
 #calendar {
     background-color: #f0f0f0;
 }

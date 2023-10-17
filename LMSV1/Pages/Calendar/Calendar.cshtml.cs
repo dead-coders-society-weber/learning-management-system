@@ -23,7 +23,7 @@ namespace LMSV1.Pages.Calendar
         }
 
         public List<Course> courses { get; set; }
-        public List<CalendarEvent> CourseSchedule { get; set; }
+        public List<CalendarCourseEvent> CourseSchedule { get; set; }
         public List<CalendarAssignmentEvent> AssignmentSchedule { get; set; }
         public User CurrentStudent { get; private set; }
 
@@ -39,7 +39,7 @@ namespace LMSV1.Pages.Calendar
             CurrentStudent = await _context.Users.Include(s => s.Enrollments).FirstOrDefaultAsync(s => s.Id == user.Id);
 
             // Create a List of CalendarEvent objects to be passed into the Calendar
-            CourseSchedule = new List<CalendarEvent>();
+            CourseSchedule = new List<CalendarCourseEvent>();
             AssignmentSchedule = new List<CalendarAssignmentEvent>();
             // Create a List of Courses to be used for Course and Assignment schedule
             courses = new List<Course>();
@@ -85,7 +85,7 @@ namespace LMSV1.Pages.Calendar
                 int[] array = days.ToArray();
 
                 // Create CalendarEvent object
-                var CalendarEvent = new CalendarEvent
+                var CalendarEvent = new CalendarCourseEvent
                 {
                     title = course.Title,
                     StartTime = startdate,
@@ -93,6 +93,7 @@ namespace LMSV1.Pages.Calendar
                     StartRecur = startDate,
                     EndRecur = endDate,
                     DaysOfWeek = array,
+                    Color = "#3c486b",
                 };
 
                 CourseSchedule.Add(CalendarEvent);
@@ -122,14 +123,15 @@ namespace LMSV1.Pages.Calendar
         {
             foreach (var assignment in assignments)
             {
-                var CalenderAssignmentEvent = new CalendarAssignmentEvent
+                var CalenderEvent = new CalendarAssignmentEvent
                 {
                     title = assignment.Title,
                     Start = assignment.DueDate,
                     End = assignment.DueDate,
+                    Color = "purple",
                 };
 
-                AssignmentSchedule.Add(CalenderAssignmentEvent);
+                AssignmentSchedule.Add(CalenderEvent);
             }
 
 
@@ -157,7 +159,7 @@ namespace LMSV1.Pages.Calendar
         // Model for the CalendarEvent object 
         // To display objects on the calendar they must be a certain type 
         // Our current model does not use DateTime fields in the Course model
-        public class CalendarEvent
+        public class CalendarCourseEvent
         {
             public string title { get; set; }
             public TimeSpan StartTime { get; set; }
@@ -165,6 +167,7 @@ namespace LMSV1.Pages.Calendar
             public TimeSpan EndTime { get; set; }
             public DateTime EndRecur { get; set; }
             public int[] DaysOfWeek { get; set; }
+            public string Color { get; set; }
         }
         // Model for CalendarAssignmentEvent object
         // Since assignments are not recurring,
@@ -172,9 +175,10 @@ namespace LMSV1.Pages.Calendar
         public class CalendarAssignmentEvent
         {
             public string title { get; set; }
-
             public DateTime Start { get; set; }
             public DateTime End { get; set; }
+            public string EventType = "assignment";
+            public string Color { get; set; }
         }
     }
 }
