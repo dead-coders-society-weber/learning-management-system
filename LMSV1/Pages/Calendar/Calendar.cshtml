@@ -12,15 +12,24 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        /* 
+        All Course events and assignment events will be serialized separately,
+        Once serialized, join them together into a single variable to be passed into the calendar method
+        */
+        var courseEvents = @Html.Raw(Json.Serialize(Model.CourseSchedule));
+        var assEvents = @Html.Raw(Json.Serialize(Model.AssignmentSchedule));
+        var allEvents = courseEvents.concat(assEvents);
+
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            events: 
-                @Html.Raw(Json.Serialize(Model.CourseSchedule)),
+            events: allEvents,
+                nextDayThreshold: '07:00:00',
                 // other calendar options...
                 eventTimeFormat: { // like '14:30'
                 hour: '2-digit',
                 minute: '2-digit',
                 meridiem: true,
+                Duration: '00:01',
                 },
         });
         calendar.render();

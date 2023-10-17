@@ -22,13 +22,15 @@ namespace LMSV1.Pages.Calendar
             _userManager = userManager;
         }
 
+        public List<Course> courses { get; set; }
         public List<CalendarEvent> CourseSchedule { get; set; }
+        public List<CalendarAssignmentEvent> AssignmentSchedule { get; set; }
         public User CurrentStudent { get; private set; }
 
         // variable used to specify the start date for classes
         public DateTime startDate = new DateTime(2023, 8, 15);
         // variable used to especify the end date for classes
-        public DateTime endDate = new DateTime(2023, 12, 15);
+        public DateTime endDate = new DateTime(2023, 12, 16);
 
         public async Task OnGetAsync()
         {
@@ -38,14 +40,20 @@ namespace LMSV1.Pages.Calendar
 
             // Create a List of CalendarEvent objects to be passed into the Calendar
             CourseSchedule = new List<CalendarEvent>();
-            CourseSchedule = GetCoursesFromDataSource(CreateCourseSchedule(CurrentStudent));
+            AssignmentSchedule = new List<CalendarAssignmentEvent>();
+            // Create a List of Courses to be used for Course and Assignment schedule
+            courses = new List<Course>();
+            // Generate courses the student is enrolled them and add to StudentSchedule
+            CreateCourseSchedule(CurrentStudent);
+            GetCoursesFromDataSource();
+            // Generate assignments for the courses the student is enrolled in.
+            GetAssignmentsFromDataSource(CreateAssignmentSchedule());
         }
 
         // Method will convert objects in a list into the appropriate datatype to be displayed on the calendar
-        private List<CalendarEvent> GetCoursesFromDataSource(List<Course> courses)
+        private void GetCoursesFromDataSource()
         {
-            var events = new List<CalendarEvent>();
-
+            // iterate through course list:
             foreach (var course in courses)
             {
                 // convert timespan to datetime format
@@ -76,33 +84,74 @@ namespace LMSV1.Pages.Calendar
                 }
                 int[] array = days.ToArray();
 
+                // Create CalendarEvent object
                 var CalendarEvent = new CalendarEvent
                 {
                     title = course.Title,
                     StartTime = startdate,
                     EndTime = enddate,
-                    StartRecur = new DateTime(2023, 08, 15),    
-                    EndRecur = new DateTime(2023, 12, 16),      
-                    DaysOfWeek = array,         
+                    StartRecur = startDate,
+                    EndRecur = endDate,
+                    DaysOfWeek = array,
                 };
 
-                events.Add(CalendarEvent);
+                CourseSchedule.Add(CalendarEvent);
             }
-            return events;
         }
 
         // Method will parse the user's current enrollments with the Course List to create a list of Courses
-        public List<Course> CreateCourseSchedule(User user)
+        public void CreateCourseSchedule(User user)
         {
             var enrollment = user.Enrollments.ToList();
             var course = _context.Courses.ToList();
-            List<Course> courses = new List<Course>();
 
-            for (int i = 0; i < user.Enrollments.Count; i++)
+            for (int i = 0; i < enrollment.Count; i++)
             {
-                courses.Add(enrollment[i].Course);
+                for (int j = 0; j < course.Count; j++)
+                {
+                    if (enrollment[i].CourseID == course[j].CourseID)
+                    {
+                        courses.Add(course[j]);
+                    }
+                }
             }
-            return courses;
+        }
+
+        // Method will convert assignment objects into CalendarEvent objects for the student's currently enrolled courses
+        public void GetAssignmentsFromDataSource(List<Assignment> assignments)
+        {
+            foreach (var assignment in assignments)
+            {
+                var CalenderAssignmentEvent = new CalendarAssignmentEvent
+                {
+                    title = assignment.Title,
+                    Start = assignment.DueDate,
+                    End = assignment.DueDate,
+                };
+
+                AssignmentSchedule.Add(CalenderAssignmentEvent);
+            }
+
+
+        }
+
+        // Method will parse the user's current courses with assignments list to create a list of assignments that are due
+        public List<Assignment> CreateAssignmentSchedule()
+        {
+            var assignment = _context.Assignments.ToList();
+            List<Assignment> assignments = new List<Assignment>();
+
+            for (int i = 0; i < courses.Count; i++)
+            {
+                for (int j = 0; j < assignment.Count; j++)
+                {
+                    if (courses[i].CourseID == assignment[j].CourseID)
+                    {
+                        assignments.Add(assignment[j]);
+                    }
+                }
+            }
+            return assignments;
         }
 
         // Model for the CalendarEvent object 
@@ -116,6 +165,16 @@ namespace LMSV1.Pages.Calendar
             public TimeSpan EndTime { get; set; }
             public DateTime EndRecur { get; set; }
             public int[] DaysOfWeek { get; set; }
+        }
+        // Model for CalendarAssignmentEvent object
+        // Since assignments are not recurring,
+        // They require a new model due to conflicting parameters
+        public class CalendarAssignmentEvent
+        {
+            public string title { get; set; }
+
+            public DateTime Start { get; set; }
+            public DateTime End { get; set; }
         }
     }
 }
