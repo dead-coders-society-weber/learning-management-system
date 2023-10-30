@@ -103,5 +103,101 @@ namespace LSMV1Test
             }
             Assert.AreEqual(initialEnrollmentCount + 1, finalEnrollmentCount);
         }
+
+        [TestMethod]
+        //One of two unit tests added from QUINN
+        public void TestStudentAccountCreation() 
+        {
+            //Grab the initial count of the users
+            int intialUserCount = Context.Users.Count();
+
+            //Test the creation of a new student
+            User newUser = new User
+            {
+                Id = 3,
+                Email = "TestStudent@email.com",
+                NormalizedEmail = "TESTSTUDENT@EMAIL.COM",
+                UserName = "TestStudent@email.com",
+                NormalizedUserName = "TESTSTUDENT@EMAIL.COM",
+                Password = "ABC123!",
+                FirstName = "Plain",
+                LastName = "Jane",
+                Birthdate = new DateTime(1995,5,5),
+                Role = "Student",
+                
+                // add stock img by default for profile image
+                ProfileImage = "/Uploads/stock-profile-image.jpg",
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            //Save this information into the database
+            Context.Users.Add(newUser);
+            Context.SaveChanges();
+
+            //Grab the new count for the number of users
+            int finalUserCount = Context.Users.Count();
+
+            //check if increased by 1
+            if (finalUserCount == intialUserCount + 1)
+            {
+                // Test passes
+                Console.WriteLine("test passed.");
+            }
+            else
+            {
+                // Test fails
+                Console.WriteLine("test failed.");
+            }
+            Assert.AreEqual(intialUserCount + 1, finalUserCount);
+
+        }
+
+        [TestMethod]
+        //Two of Two unit tests added from QUINN
+        public void TestInstructorAccountCreation() 
+        {
+            //Grab the initial count of the users
+            int intialUserCount = Context.Users.Count();
+
+            //Test the creation of a new instructor
+            User newUser = new User
+            {
+                Id = 4,
+                Email = "TestInstructor@email.com",
+                NormalizedEmail = "TESTINSTRUCTOR@EMAIL.COM",
+                UserName = "TestInstructor@email.com",
+                NormalizedUserName = "TESTINSTRUCTOR@EMAIL.COM",
+                Password = "ABC123!",
+                FirstName = "Plain",
+                LastName = "Jane",
+                Birthdate = new DateTime(1995, 5, 5),
+                Role = "Instructor",
+
+                // add stock img by default for profile image
+                ProfileImage = "/Uploads/stock-profile-image.jpg",
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            //Save this information into the database
+            Context.Users.Add(newUser);
+            Context.SaveChanges();
+
+            //Grab the new count for the number of users
+            int finalUserCount = Context.Users.Count();
+
+            //check if increased by 1
+            if (finalUserCount == intialUserCount + 1)
+            {
+                // Test passes
+                Console.WriteLine("test passed.");
+            }
+            else
+            {
+                // Test fails
+                Console.WriteLine("test failed.");
+            }
+            Assert.AreEqual(intialUserCount + 1, finalUserCount);
+        }
+
     }
 }
