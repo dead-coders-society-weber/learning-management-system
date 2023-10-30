@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/LMSV120231029172452/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsdeadcoderslmsv_69165CA333",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/deadcoders/databases/deadcoderslmsv",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:deadcoderslmsv"
+    }
+  }
+}
