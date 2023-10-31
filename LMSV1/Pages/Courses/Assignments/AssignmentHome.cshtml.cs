@@ -55,7 +55,6 @@ namespace LMSV1.Pages.Courses.Assignments
             _userManager = userManager;
             Environment = _environment;
         }
-
    
         public Assignment Assignments { get; set; } = default!;
         public Submission Submissions { get; set; } = default;

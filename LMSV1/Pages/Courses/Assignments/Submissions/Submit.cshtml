@@ -1,6 +1,6 @@
 ﻿@page
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
-@model LMSV1.Pages.Courses.Assignments.Submissions.CreateModel
+@model LMSV1.Pages.Courses.Assignments.Submissions.SubmitModel
 @{
     ViewData["Title"] = "Submit Assignment";
 }
@@ -8,15 +8,17 @@
 <h1>Submit Assignment</h1>
 <hr />
 <div class="row">
-    @* @if (Model.Assignment.SubmissionType.ToString() == ("File Upload")) *@
+    @if (Model.Assignment.SubmissionType == Models.SubmissionType.FileUpload)
     {
         <div class="col-md-4">
             <form method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <span>Select File:</span>
                 <input type="file" name="postedFiles" multiple asp-for="Input.FileName" />
-                <input type="submit" value="Upload" asp-page-handler="Upload" />
                 <br />
+                <div class="form-group">
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+                </div>
                 <span style="color:green">@Html.Raw(Model.Message)</span>
             </form>
         </div>
@@ -26,23 +28,22 @@
                 <input asp-for="Input.FileName" class="form-control" />
                 <span asp-validation-for="Input.FileName" class="text-danger"></span>
             </div> *@
-    @* @if (Model.Assignment.SubmissionType.ToString() == ("Text Entry")) *@
+    @if (Model.Assignment.SubmissionType == Models.SubmissionType.TextEntry)
      {
         <div class="col-md-4">
-            <form method="post">
+            <form method ="post">
                  <div class="form-group">
                 <label asp-for="Input.TextSubmission" class="control-label"></label>
                 <input asp-for="Input.TextSubmission" class="form-control" />
                 <span asp-validation-for="Input.TextSubmission" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Upload" class="btn btn-primary" />
-            </div>
-                </form>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Upload" class="btn btn-primary" />
+                </div>
+            </form>
         </div>
      }
 </div>
-
 
 <div>
     @* <a asp-page="../Assignment" asp-route-id="@Model.Submission.AssignmentID">Back to List</a> *@
