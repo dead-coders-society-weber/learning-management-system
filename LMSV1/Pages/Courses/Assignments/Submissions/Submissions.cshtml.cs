@@ -35,6 +35,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 .Where(s => s.AssignmentID == id).ToListAsync();
 
             }
+            ViewData["AssignmentId"] = id;
             return Page();
         }
     }

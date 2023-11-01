@@ -23,7 +23,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         [BindProperty]
         public Submission Submission { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, int? assId)
         {
             if (id == null || _context.Submissions == null)
             {
@@ -31,13 +31,16 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             }
 
             var submission =  await _context.Submissions.FirstOrDefaultAsync(m => m.SubmissionID == id);
+
             if (submission == null)
             {
                 return NotFound();
             }
+
             Submission = submission;
-           ViewData["AssignmentID"] = new SelectList(_context.Assignments, "AssignmentID", "Description");
-           ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email");
+            ViewData["AssignmentID"] = new SelectList(_context.Assignments, "AssignmentID", "Description");
+            ViewData["id"] = assId;
+            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email");
             return Page();
         }
 

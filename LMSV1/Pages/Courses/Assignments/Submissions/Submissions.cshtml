@@ -1,16 +1,19 @@
-﻿@page "{id:int}"
+﻿@page
 @model LMSV1.Pages.Courses.Assignments.Submissions.IndexModel
+@using Microsoft.AspNetCore.Identity
 @using LMSV1.Models;
 
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Submissions";
+    var user = await UserManager.GetUserAsync(User);
 }
 
-<h1>Index</h1>
+<h1>Submissions</h1>
 
-<p>
+@* <p>
     <a asp-page="Create">Create New</a>
-</p>
+</p> *@
 <table class="table">
     <thead>
         <tr>
@@ -57,7 +60,7 @@
                 @Html.DisplayFor(modelItem => item.SubmissionDate)
             </td>
             <td>
-                <a asp-page="./Details" asp-route-id="@item.SubmissionID">Details</a> |
+                <a asp-page="./Edit" asp-route-id="@item.SubmissionID" asp-rout-assId="@ViewData["AssignmentId"]">Grade</a> |
             </td>
         </tr>
 }

@@ -1,6 +1,6 @@
 ﻿@page
 @model LMSV1.Pages.Courses.Assignments.Submissions.EditModel
-
+@using LMSV1.Models
 @{
     ViewData["Title"] = "Edit";
 }
@@ -52,7 +52,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Submissions" asp-route-id="@ViewData["id"]">Back to List</a>
 </div>
 
 @section Scripts {
