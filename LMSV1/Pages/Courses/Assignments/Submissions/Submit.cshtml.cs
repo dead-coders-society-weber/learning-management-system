@@ -30,7 +30,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             _environment = environment;
             _userManager = userManager;
         }
-        // OnGet
+        // OnGet method
         public async Task<IActionResult> OnGetAsync(int Assignmentid, int UserID)
         {
             Assignment = _context.Assignments
@@ -51,6 +51,8 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             public string? TextSubmission { get; set; }
         }
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+        // OnPost method
+        // Has 2 separate functions depending on whether the assignment is a FileUpload or Text entry
         public async Task<IActionResult> OnPostAsync(int Assignmentid, int UserID, List<IFormFile>?postedFiles)
         {
             if (!ModelState.IsValid || _context.Submissions == null)
@@ -63,7 +65,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 string wwwPath = this._environment.WebRootPath; //Get root path of wwwroot folder
                 string contentPath = this._environment.ContentRootPath;
 
-                string path = Path.Combine(this._environment.WebRootPath, "Upload"); //Formatted wwwroot path.
+                string path = Path.Combine(this._environment.WebRootPath, "Uploads"); //Formatted wwwroot path.
                 if (!Directory.Exists(path))//If the directory does not exist we will create it.
                 {
                     Directory.CreateDirectory(path); //Create directory

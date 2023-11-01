@@ -5,54 +5,59 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Grade Submission</h1>
 
-<h4>Submission</h4>
+<h3>Submission Id: @Model.Submission.SubmissionID</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form method="post">
+        <!--Display submission data-->
+        <div id="submission-display-form" style="display:block;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Submission.SubmissionID" />
-            <div class="form-group">
-                <label asp-for="Submission.AssignmentID" class="control-label"></label>
-                <select asp-for="Submission.AssignmentID" class="form-control" asp-items="ViewBag.AssignmentID"></select>
-                <span asp-validation-for="Submission.AssignmentID" class="text-danger"></span>
+            <div class="form-floating mb-3">
+                <h5>Assignment Title:</h5>
+                <p>@Model.Assignment.Title</p>
             </div>
-            <div class="form-group">
-                <label asp-for="Submission.UserID" class="control-label"></label>
-                <select asp-for="Submission.UserID" class="form-control" asp-items="ViewBag.UserID"></select>
-                <span asp-validation-for="Submission.UserID" class="text-danger"></span>
+            <div class="form-floating mb-3">
+                <h5>Assignment Description:</h5>
+                <p>@Model.Assignment.Description</p>
             </div>
-            <div class="form-group">
-                <label asp-for="Submission.FileName" class="control-label"></label>
-                <input asp-for="Submission.FileName" class="form-control" />
-                <span asp-validation-for="Submission.FileName" class="text-danger"></span>
+            @if (Model.Assignment.SubmissionType == Models.SubmissionType.FileUpload)
+            {
+                <div class="form-floating mb-3">
+                    <h5>File(s) submitted:</h5>
+                    <p>@Model.Submission.FileName | 
+                        <a asp-page-handler="Download" asp-route-filename="@Model.Submission.FileName">Download File</a></p>
+                </div>
+            }
+            @if (Model.Assignment.SubmissionType == Models.SubmissionType.TextEntry)
+            {
+                <div class="form-floating mb-3">
+                    <h5>Text entry submitted:</h5>
+                    <p>@Model.Submission.TextSubmission</p>
+                </div>
+            }
+            <div class="form-floating mb-3">
+                <h5>Submission Date:</h5>
+                <p>@Model.Submission.SubmissionDate</p>
             </div>
+        <form method="post" id="submission-grade-entry" enctype="multipart/form-data">
             <div class="form-group">
-                <label asp-for="Submission.TextSubmission" class="control-label"></label>
-                <input asp-for="Submission.TextSubmission" class="form-control" />
-                <span asp-validation-for="Submission.TextSubmission" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Submission.Score" class="control-label"></label>
-                <input asp-for="Submission.Score" class="form-control" />
+                <h5>Submission Grade:</h5>
+                    <input asp-for="Input.Score" class="form-control" id="score" name="score" value="@Model.Submission.Score" />
+                    <p>/ <b>@Model.Assignment.MaxPoints </b> (Max Points)</p>
                 <span asp-validation-for="Submission.Score" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Submission.SubmissionDate" class="control-label"></label>
-                <input asp-for="Submission.SubmissionDate" class="form-control" />
-                <span asp-validation-for="Submission.SubmissionDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+        </div>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Submissions" asp-route-id="@ViewData["id"]">Back to List</a>
+    <a asp-page="./Submissions" asp-route-id="@ViewData["assId"]" asp-route-cid="@ViewData["CourseId"]">Back to Submissions List</a>
 </div>
 
 @section Scripts {

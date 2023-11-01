@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LMSV1.Data;
 using LMSV1.Models;
+using System.IO;
+using NuGet.ContentModel;
 
 namespace LMSV1.Pages.Courses.Assignments.Submissions
 {
@@ -22,7 +24,10 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
         [BindProperty]
         public Submission Submission { get; set; } = default!;
-
+        [BindProperty]
+        public Assignment Assignment { get; set; } = default!;
+        // OnGet method
+        // submission and assignment id are passed from previous page
         public async Task<IActionResult> OnGetAsync(int? id, int? assId)
         {
             if (id == null || _context.Submissions == null)
@@ -30,33 +35,50 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 return NotFound();
             }
 
+            // Validate submission and assignment using passed in submission/assignment ids
             var submission =  await _context.Submissions.FirstOrDefaultAsync(m => m.SubmissionID == id);
-
-            if (submission == null)
+            var assignment = await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentID == assId);
+            if (submission == null || assignment == null)
             {
                 return NotFound();
             }
-
+            // Store submission and assignment once validated
             Submission = submission;
-            ViewData["AssignmentID"] = new SelectList(_context.Assignments, "AssignmentID", "Description");
-            ViewData["id"] = assId;
-            ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email");
+            Assignment = assignment;
+
+            //ViewData["AssignmentID"] = new SelectList(_context.Assignments, "AssignmentID", "Description");
+            //ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email");
+
+            // store ids for navigation
+            ViewData["id"] = submission.SubmissionID;
+            ViewData["assId"] = assId;
+
             return Page();
         }
 
+        [BindProperty]
+        public InputModel Input { get; set; }
+        public class InputModel
+        {
+            public int Score { get; set; }
+        }
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id, int? assId, int? cid, int score)
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
-            _context.Attach(Submission).State = EntityState.Modified;
+            //_context.Attach(Submission).State = EntityState.Modified;
+
+            var submission = await _context.Submissions.FirstOrDefaultAsync(m => m.SubmissionID == id);
+            var assignment = await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentID == assId);
 
             try
             {
+                submission.Score = score;
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -71,12 +93,33 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 }
             }
 
-            return RedirectToPage("./Index");
+            ViewData["CourseId"] = cid;
+
+            return RedirectToPage("./Submissions", new { id = assId , cid = cid });
         }
 
         private bool SubmissionExists(int id)
         {
           return (_context.Submissions?.Any(e => e.SubmissionID == id)).GetValueOrDefault();
+        }
+
+        // Method for downloading files
+        public IActionResult OnGetDownload(string filename)
+        {
+            // Get the path to the file within the wwwroot folder
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Upload", filename);
+
+            // Check if the file exists
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            //Read the File data into Byte Array.  
+            byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+
+            //Send the File to Download.  
+            return File(bytes, "application/octet-stream", filename);
         }
     }
 }

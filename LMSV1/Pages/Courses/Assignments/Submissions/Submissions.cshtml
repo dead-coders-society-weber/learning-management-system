@@ -39,30 +39,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Submission) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Assignment.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FileName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TextSubmission)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Score)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SubmissionDate)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.SubmissionID" asp-rout-assId="@ViewData["AssignmentId"]">Grade</a> |
-            </td>
-        </tr>
-}
+    @foreach (var item in Model.Submission) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Assignment.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TextSubmission)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Score)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubmissionDate)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.SubmissionID" asp-route-assId="@ViewData["AssignmentId"]" asp-route-cid="@ViewData["CourseId"]">Grade</a>
+                </td>
+            </tr>
+    }
     </tbody>
+    <tfoot>
+        <a asp-page="/Courses/CourseHome" asp-route-id="@ViewData["CourseId"]">Back to Assignments</a>
+    </tfoot>
 </table>

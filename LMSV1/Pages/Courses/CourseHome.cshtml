@@ -45,7 +45,7 @@
                         <div>
                             <a asp-page="./Assignments/AssignmentEdit" asp-route-id="@item.AssignmentID">Edit</a> |
                             <a asp-page="./Assignments/AssignmentDelete" asp-route-id="@item.AssignmentID">Delete</a> |
-                            <a asp-page="./Assignments/Submissions/Submissions" asp-route-id="@item.AssignmentID">Submissions</a>
+                            <a asp-page="./Assignments/Submissions/Submissions" asp-route-id="@item.AssignmentID" asp-route-cid="@Model.Course.CourseID">Submissions</a>
                         </div>
                     }
                 </td>

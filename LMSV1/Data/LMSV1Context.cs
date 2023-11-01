@@ -224,10 +224,34 @@ namespace LMSV1.Data
                     }
                 );
             });
+            
+            builder.Entity<Assignment>(b =>
+            {
+                b.ToTable("Assignment");
+
+                // seed assignments
+                //b.HasData(
+                //    new Assignment
+                //    {
+
+                //    }
+                //);
+            });
+
+            builder.Entity<Submission>(b =>
+            {
+                b.ToTable("Submission");
+
+                // seed submissions
+                //b.HasData(
+                //    new Submission
+                //    {
+
+                //    }
+                //);
+            });
 
             // customize table names
-            builder.Entity<Assignment>().ToTable("Assignment");
-            builder.Entity<Submission>().ToTable("Submission");
             builder.Entity<PaymentInformation>().ToTable("PaymentInformation");
             builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
             builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");

@@ -14,12 +14,16 @@
             <form method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <span>Select File:</span>
-                <input type="file" name="postedFiles" multiple asp-for="Input.FileName" />
+                @* removed ability to submit multiple files for now, will add back later
+                    multiple asp-for="Input.FileName
+                *@
+                <input type="file" name="postedFiles" asp-for="Input.FileName" />
                 <br />
                 <div class="form-group">
                     <input type="submit" value="Upload" class="btn btn-primary" />
                 </div>
-                <span style="color:green">@Html.Raw(Model.Message)</span>
+                @* disabled, successful file submission navigates to success page
+                    <span style="color:green">@Html.Raw(Model.Message)</span>*@
             </form>
         </div>
      }
