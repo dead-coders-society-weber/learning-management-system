@@ -4,6 +4,7 @@ using LMSV1.Pages;
 using LMSV1.Pages.Courses.Student;
 using LMSV1.Pages.Student;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis.Emit;
@@ -13,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Drawing.Text;
 using System.Security;
+using System.Security.Claims;
 
 namespace LSMV1Test 
 {
@@ -198,6 +200,42 @@ namespace LSMV1Test
             }
             Assert.AreEqual(intialUserCount + 1, finalUserCount);
         }
+        [TestMethod]
+        public void UserRoleAssignment_Test()
+        {
+            // Manually create a user
+            var user = new User {
+                Id = 10,
+                Email = "TestInstructor@email.com",
+                NormalizedEmail = "TESTINSTRUCTOR@EMAIL.COM",
+                UserName = "TestInstructor@email.com",
+                NormalizedUserName = "TESTINSTRUCTOR@EMAIL.COM",
+                Password = "ABC123!",
+                FirstName = "Robert",
+                LastName = "Carburn",
+                Birthdate = new DateTime(1998, 2, 13),
+                Role = "Instructor",
+            };
 
+            Context.Users.Add(user);
+            Context.SaveChanges();
+
+            // Assign the "Instructor" role to the user
+            user.Role = "Instructor";
+            Context.SaveChanges();
+            //check if increased by 1
+            if (user.Role == "Instructor")
+            {
+                // Test passes
+                Console.WriteLine("test passed.");
+            }
+            else
+            {
+                // Test fails
+                Console.WriteLine("test failed.");
+            }
+            // Assert: Verify that the user has been assigned the "Instructor" role
+            Assert.AreEqual("Instructor", user.Role);
+        }
     }
 }
