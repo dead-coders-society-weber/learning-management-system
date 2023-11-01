@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LMSV1.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -334,8 +334,8 @@ namespace LMSV1.Migrations
                 columns: new[] { "Id", "Address1", "Address2", "Birthdate", "City", "ConcurrencyStamp", "Email", "FirstName", "LastName", "Link1", "Link2", "Link3", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "ProfileImage", "Role", "SecurityStamp", "State", "UserName", "Zip" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "2710f5fc-2a88-4522-9655-8bec7fbaef15", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEBt9sS5vr/lQLViiZ8fWItEgLCq+g19yTfCg4SyxKPs0C1QVYUSxJhMGwODRMwZZtw==", "/Uploads/stock-profile-image.jpg", "Instructor", "944bb2c0-5fd3-4b62-9456-e85bd462a101", null, "Instructor1@gmail.com", null },
-                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "bbe06693-0d62-4726-a643-45e2ae5a8f85", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEGLUSOcuJ5cdfxizpEB3zWz8Ca0QuhO72wjslQf8km2uVviRx0vc25Hsg+YUHriULA==", "/Uploads/stock-profile-image.jpg", "Student", "8474c8d5-06ad-4899-a230-eaa2c091b218", null, "Student1@gmail.com", null }
+                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "c1bbfdbf-e678-4817-821d-4a9609c49b21", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEE81thfpB+LDGdt5ymozdV5UsJJkNtxiYyW0ye/jpqR6eaa4uyCVDXX5DIpcB0r0bA==", "/Uploads/stock-profile-image.jpg", "Instructor", "219a807b-cf86-4007-87c8-c14be759b4e1", null, "Instructor1@gmail.com", null },
+                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "60dd9745-0452-4ec0-8783-682599d2cf78", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEIfcDuNduKMUi9DbmpIUcdf4+4YEnOFQYpZvcQEvJlE9pqWx9jK09aOsl+eMAVeTSw==", "/Uploads/stock-profile-image.jpg", "Student", "3f1e7d7f-c7c6-4cdf-ab71-2062b0bd445d", null, "Student1@gmail.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -353,9 +353,23 @@ namespace LMSV1.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Assignment",
+                columns: new[] { "AssignmentID", "CourseID", "Description", "DueDate", "MaxPoints", "SubmissionType", "Title" },
+                values: new object[,]
+                {
+                    { 1, 3750, "Upload a File for this Assignment", new DateTime(2023, 11, 3, 23, 59, 59, 0, DateTimeKind.Unspecified), 100, 0, "File Upload Assignment" },
+                    { 2, 3750, "Enter Text for this Assignment", new DateTime(2023, 11, 5, 23, 59, 59, 0, DateTimeKind.Unspecified), 75, 1, "Text Entry Assignment" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Enrollment",
                 columns: new[] { "EnrollmentID", "CourseID", "EnrollmentDate", "Grade", "StudentID" },
-                values: new object[] { 1, 3750, new DateTime(2023, 10, 29, 19, 22, 19, 340, DateTimeKind.Local).AddTicks(4785), null, 2 });
+                values: new object[] { 1, 3750, new DateTime(2023, 11, 1, 12, 21, 42, 341, DateTimeKind.Local).AddTicks(7548), null, 2 });
+
+            migrationBuilder.InsertData(
+                table: "Submission",
+                columns: new[] { "SubmissionID", "AssignmentID", "FileName", "Score", "SubmissionDate", "TextSubmission", "UserID" },
+                values: new object[] { 1, 2, null, 60.0, new DateTime(2023, 11, 1, 12, 21, 42, 341, DateTimeKind.Local).AddTicks(8025), "Here is some text.", 2 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignment_CourseID",

@@ -230,12 +230,28 @@ namespace LMSV1.Data
                 b.ToTable("Assignment");
 
                 // seed assignments
-                //b.HasData(
-                //    new Assignment
-                //    {
-
-                //    }
-                //);
+                b.HasData(
+                    new Assignment
+                    {
+                        AssignmentID = 1,
+                        Title = "File Upload Assignment",
+                        Description = "Upload a File for this Assignment",
+                        MaxPoints = 100,
+                        DueDate = new DateTime(2023, 11, 03, 23, 59, 59),
+                        SubmissionType = SubmissionType.FileUpload,
+                        CourseID = 3750
+                    },
+                    new Assignment
+                    {
+                        AssignmentID = 2,
+                        Title = "Text Entry Assignment",
+                        Description = "Enter Text for this Assignment",
+                        MaxPoints = 75,
+                        DueDate = new DateTime(2023, 11, 05, 23, 59, 59),
+                        SubmissionType = SubmissionType.TextEntry,
+                        CourseID = 3750
+                    }
+                );
             });
 
             builder.Entity<Submission>(b =>
@@ -243,12 +259,17 @@ namespace LMSV1.Data
                 b.ToTable("Submission");
 
                 // seed submissions
-                //b.HasData(
-                //    new Submission
-                //    {
-
-                //    }
-                //);
+                b.HasData(
+                    new Submission
+                    {
+                        SubmissionID = 1,
+                        AssignmentID = 2,
+                        UserID = 2,
+                        TextSubmission = "Here is some text.",
+                        Score = 60,
+                        SubmissionDate = DateTime.Now
+                    }
+                );
             });
 
             // customize table names

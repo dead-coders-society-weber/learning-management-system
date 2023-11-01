@@ -48,14 +48,27 @@ namespace LMSV1.Pages.Courses.Assignments
             {
                 return NotFound();
             }
+
+            // Query the Assignment and any Submissions from DB
             var assignment = await _context.Assignments.FindAsync(id);
 
+            // Uncomment if submissions need to be deleted if the assignment is deleted
+            //var submissionsToDelete = _context.Submissions.Where(e => e.AssignmentID == id).ToList();
+
+            // Remove assignment from DB
             if (assignment != null)
             {
                 Assignment = assignment;
                 _context.Assignments.Remove(Assignment);
-                await _context.SaveChangesAsync();
             }
+
+            // Remove any submissions for assignment, uncomment if we decide to delete submissions, once the assignment is deleted
+            //if (submissionsToDelete.Any())
+            //{
+            //    _context.Submissions.RemoveRange(submissionsToDelete);
+            //}
+
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("./SuccessPage");
         }
