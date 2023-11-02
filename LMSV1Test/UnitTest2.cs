@@ -10,12 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.SqlServer.Server;
 using SQLitePCL;
 
-/*
- * Making the test where student can submit a file upload assignment.
- * Teacher can grade the file upload assignment
- *  /
- */
-
 namespace LMSV1.Pages.Courses.Assignments.Submissions
 //namespace LMSV1Test
 {
@@ -29,9 +23,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         public void Student_Submit_Assignment_File_Test()
         {
             //Using seed data for this test
-            //Using InstructorID 1
-            //Use student ID: 2
-            //Use Assignment ID: 1
+            //Using InstructorID 1,student ID: 2, Assignment ID: 1
             //File upload does not upload yet. Only the database is filled.
             Console.WriteLine("Test to check if a student can submit an assignment file.");
             int intialSubmissionCount = Context.Submissions.Count();
