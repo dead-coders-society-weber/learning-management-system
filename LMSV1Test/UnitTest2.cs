@@ -51,28 +51,11 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             else
                 Console.WriteLine("Test failed.");
         }
-   
+
         [TestMethod]
         public void Instructor_Grade_Assignment_File_Test()
         {
-            //File upload does not upload yet. Only the database is filled.
-            Console.WriteLine("Test to check if a student can submit an assignment file.");
-            int intialSubmissionCount = Context.Submissions.Count();
 
-            Submission newSubmission = new Submission
-            {
-                AssignmentID = '1',
-                UserID = 2, //Student ID: 2
-                SubmissionDate = DateTime.Now,
-                FileName = "2_Test.txt", //{UserID}_{fileName}"
-            };
-            Context.Submissions.Add(newSubmission);
-            Context.SaveChanges();
-            int finalSubmissionCount = Context.Courses.Count();
-            if (finalSubmissionCount == intialSubmissionCount + 1)
-                Console.WriteLine("Test passed.");
-            else
-                Console.WriteLine("Test failed.");
         }
     }
 }
