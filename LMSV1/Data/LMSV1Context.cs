@@ -231,7 +231,8 @@ namespace LMSV1.Data
 
                 // seed assignments
                 b.HasData(
-                    new Assignment
+                    // Assignment for File upload
+                    new Assignment 
                     {
                         AssignmentID = 1,
                         Title = "File Upload Assignment",
@@ -241,6 +242,7 @@ namespace LMSV1.Data
                         SubmissionType = SubmissionType.FileUpload,
                         CourseID = 3750
                     },
+                    // Assignment for Text entry
                     new Assignment
                     {
                         AssignmentID = 2,
@@ -260,6 +262,7 @@ namespace LMSV1.Data
 
                 // seed submissions
                 b.HasData(
+                    // Text submission for Text entry assignment
                     new Submission
                     {
                         SubmissionID = 1,
@@ -269,6 +272,7 @@ namespace LMSV1.Data
                         Score = null,
                         SubmissionDate = DateTime.Now
                     },
+                    // File submission for File upload assignment
                     new Submission
                     {
                         SubmissionID = 2,
