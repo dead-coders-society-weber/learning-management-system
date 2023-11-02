@@ -6,15 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using LMSV1.Data;
 using LMSV1.Models;
+using LMSV1.Pages.Courses.Assignments.Submissions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.SqlServer.Server;
 using SQLitePCL;
 
-namespace LMSV1.Pages.Courses.Assignments.Submissions
-//namespace LMSV1Test
+//namespace LMSV1.Pages.Courses.Assignments.Submissions
+namespace LMSV1Test
 {
     [TestClass]
-    internal class UnitTest2
+    public class UnitTest2
     {
         private static DbContextOptions<LMSV1Context> options = new DbContextOptionsBuilder<LMSV1Context>().UseInMemoryDatabase(databaseName: "mockDB").Options;
         private readonly LMSV1Context Context = new LMSV1Context(options);
@@ -30,10 +31,12 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
             Submission newSubmission = new Submission
             {
-                AssignmentID = '1',
+                SubmissionID = 5,
+                AssignmentID = 2,
                 UserID = 2, //Student ID: 2
-                SubmissionDate = DateTime.Now,
                 FileName = "2_Test.txt", //{UserID}_{fileName}"
+                Score = null,
+                SubmissionDate = DateTime.Now
             };
             Context.Submissions.Add(newSubmission);
             Context.SaveChanges();
@@ -45,9 +48,46 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         }
 
         [TestMethod]
-        public void Instructor_Grade_Assignment_File_Test()
+        public async Task Instructor_Grade_Assignment_File_Test()
         {
+            // Create user file submission
+            Submission newSubmission = new Submission
+            {
+                SubmissionID = 4,
+                AssignmentID = 2,
+                UserID = 2,
+                FileName = "2_assignment3.txt",
+                Score = null,
+                SubmissionDate = DateTime.Now
+            };
 
+            // Add submission to DB
+            Context.Submissions.Add(newSubmission);
+            Context.SaveChanges();
+
+            // Set submission id
+            int submissionId = 4;
+
+            // Create page model with context
+            var editModel = new EditModel(Context);
+
+            // Simulate grading from instrucotr
+            int score = 80;
+            await editModel.OnPostAsync(submissionId, 2, score);
+
+            // check if grade is updated
+            var submission = Context.Submissions.FindAsync(submissionId).Result;
+            if (submission != null)
+            {
+                Console.WriteLine("Test Passed.");
+            }
+            else
+            {
+                Console.WriteLine("Test Failed.");
+            }
+
+            // Run unit test
+            Assert.AreEqual(80, submission.Score);
         }
     }
 }

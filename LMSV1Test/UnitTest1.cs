@@ -277,9 +277,9 @@ namespace LSMV1Test
         public async Task InstructorCanGradeTextEntryAssignmentAsync()
         {
             // Manually create submission
-            var user = new Submission
+            var newSubmission = new Submission
             {
-                SubmissionID = 1,
+                SubmissionID = 3,
                 AssignmentID = 2,
                 UserID = 2,
                 TextSubmission = "Here is some text.",
@@ -287,18 +287,18 @@ namespace LSMV1Test
                 SubmissionDate = DateTime.Now
             };
 
-            Context.Submissions.Add(user);
+            Context.Submissions.Add(newSubmission);
             Context.SaveChanges();
 
             // set submission id
-            int submissionId = 1;
+            int submissionId = 3;
 
             // create page model with context
             var editModel = new EditModel(Context);
 
             // simulate grading from instructor
             int score = 60;
-            await editModel.OnPostAsync(submissionId, 1, score);
+            await editModel.OnPostAsync(submissionId, 2, score);
 
             // check if grade is updated
             var submission = Context.Submissions.FindAsync(submissionId).Result;
