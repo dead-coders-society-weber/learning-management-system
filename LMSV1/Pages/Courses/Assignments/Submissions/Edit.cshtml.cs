@@ -28,7 +28,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         public Assignment Assignment { get; set; } = default!;
         // OnGet method
         // submission and assignment id are passed from previous page
-        public async Task<IActionResult> OnGetAsync(int? id, int? assId)
+        public async Task<IActionResult> OnGetAsync(int? id, int? assId, int? cId)
         {
             if (id == null || _context.Submissions == null)
             {
@@ -52,6 +52,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             // store ids for navigation
             ViewData["id"] = submission.SubmissionID;
             ViewData["assId"] = assId;
+            ViewData["cId"] = cId;
 
             return Page();
         }

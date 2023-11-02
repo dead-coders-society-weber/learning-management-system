@@ -21,7 +21,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
         public IList<Submission> Submission { get;set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int? id, int? cId)
         {
             if (id == null)
             {
@@ -35,8 +35,10 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 .Where(s => s.AssignmentID == id).ToListAsync();
 
             }
-            ViewData["AssignmentId"] = id;
-            ViewData["CourseId"] = Submission.First().Assignment.CourseID;
+            ViewData["assId"] = id;
+            // Submission.First().Assignment.CourseID breaks if _context.Submissions is null,
+            // had to switch to using CourseId parameter passed in from previous page
+            ViewData["cId"] = cId;
             return Page();
         }
     }
