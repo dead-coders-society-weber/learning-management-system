@@ -24,8 +24,6 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
         [BindProperty]
         public Submission Submission { get; set; } = default!;
-        [BindProperty]
-        public Assignment Assignment { get; set; } = default!;
         // OnGet method
         // submission and assignment id are passed from previous page
         public async Task<IActionResult> OnGetAsync(int? id, int? assId, int? cId)
@@ -36,15 +34,13 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             }
 
             // Validate submission and assignment using passed in submission/assignment ids
-            var submission =  await _context.Submissions.FirstOrDefaultAsync(m => m.SubmissionID == id);
-            var assignment = await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentID == assId);
-            if (submission == null || assignment == null)
+            var submission =  await _context.Submissions.Include(s => s.User).Include(s => s.Assignment).FirstOrDefaultAsync(s => s.SubmissionID == id);
+            if (submission == null)
             {
                 return NotFound();
             }
             // Store submission and assignment once validated
             Submission = submission;
-            Assignment = assignment;
 
             //ViewData["AssignmentID"] = new SelectList(_context.Assignments, "AssignmentID", "Description");
             //ViewData["UserID"] = new SelectList(_context.Users, "Id", "Email");
@@ -106,7 +102,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         public IActionResult OnGetDownload(string filename)
         {
             // Get the path to the file within the wwwroot folder
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Upload", filename);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Uploads", filename);
 
             // Check if the file exists
             if (!System.IO.File.Exists(filePath))

@@ -23,12 +23,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Submission[0].User)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Submission[0].FileName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Submission[0].TextSubmission)
-            </th>
+            @if (Model.Submission.Count > 0 && Model.Submission[0].FileName != null)
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Submission[0].FileName)
+                </th>
+            }
+            else
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.Submission[0].TextSubmission)
+                </th>
+            }
             <th>
                 @Html.DisplayNameFor(model => model.Submission[0].Score)
             </th>
@@ -47,14 +53,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.User.Email)
                 </td>
+                @if (item.FileName != null)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FileName)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TextSubmission)
+                    </td>
+                }
                 <td>
-                    @Html.DisplayFor(modelItem => item.FileName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TextSubmission)
-                </td>
-                <td>
-                    @if (item.Score is not null)
+                    @if (item.Score != null)
                     {
                         @Html.DisplayFor(modelItem => item.Score)
                     }
@@ -67,7 +79,7 @@
                     @Html.DisplayFor(modelItem => item.SubmissionDate)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.SubmissionID"
+                    <a asp-page="./Grade" asp-route-id="@item.SubmissionID"
                        asp-route-assId="@ViewData["assId"]"
                        asp-route-cId="@ViewData["cId"]">
                         Grade

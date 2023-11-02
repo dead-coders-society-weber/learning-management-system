@@ -37,7 +37,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             }
             ViewData["assId"] = id;
             // Submission.First().Assignment.CourseID breaks if _context.Submissions is null,
-            // had to switch to using CourseId parameter passed in from previous page
+            // switched to using CourseId parameter passed in from previous page for now
             ViewData["cId"] = cId;
             return Page();
         }

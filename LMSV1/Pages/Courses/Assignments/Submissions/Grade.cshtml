@@ -7,7 +7,7 @@
 
 <h1>Grade Submission</h1>
 
-<h3>Submission Id: @Model.Submission.SubmissionID</h3>
+<h3>User: @Model.Submission.User.Email</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -16,13 +16,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating mb-3">
                 <h5>Assignment Title:</h5>
-                <p>@Model.Assignment.Title</p>
+                <p>@Model.Submission.Assignment.Title</p>
             </div>
             <div class="form-floating mb-3">
                 <h5>Assignment Description:</h5>
-                <p>@Model.Assignment.Description</p>
+                <p>@Model.Submission.Assignment.Description</p>
             </div>
-            @if (Model.Assignment.SubmissionType == Models.SubmissionType.FileUpload)
+            @if (Model.Submission.Assignment.SubmissionType == Models.SubmissionType.FileUpload)
             {
                 <div class="form-floating mb-3">
                     <h5>File(s) submitted:</h5>
@@ -30,7 +30,7 @@
                         <a asp-page-handler="Download" asp-route-filename="@Model.Submission.FileName">Download File</a></p>
                 </div>
             }
-            @if (Model.Assignment.SubmissionType == Models.SubmissionType.TextEntry)
+            else
             {
                 <div class="form-floating mb-3">
                     <h5>Text entry submitted:</h5>
@@ -45,7 +45,7 @@
             <div class="form-group">
                 <h5>Submission Grade:</h5>
                     <input asp-for="Input.Score" class="form-control" id="score" name="score" value="@Model.Submission.Score" />
-                    <p>/ <b>@Model.Assignment.MaxPoints </b> (Max Points)</p>
+                    <p>/ <b>@Model.Submission.Assignment.MaxPoints </b> (Max Points)</p>
                 <span asp-validation-for="Submission.Score" class="text-danger"></span>
             </div>
             <div class="form-group">

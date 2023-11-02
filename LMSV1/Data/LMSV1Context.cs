@@ -268,6 +268,15 @@ namespace LMSV1.Data
                         TextSubmission = "Here is some text.",
                         Score = null,
                         SubmissionDate = DateTime.Now
+                    },
+                    new Submission
+                    {
+                        SubmissionID = 2,
+                        AssignmentID = 1,
+                        UserID = 2,
+                        FileName = "2_test submission.txt",
+                        Score = null,
+                        SubmissionDate = DateTime.Now
                     }
                 );
             });
