@@ -21,7 +21,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
         public IList<Submission> Submission { get;set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id, int? cid)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
@@ -36,7 +36,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
             }
             ViewData["AssignmentId"] = id;
-            ViewData["CourseId"] = cid;
+            ViewData["CourseId"] = Submission.First().Assignment.CourseID;
             return Page();
         }
     }

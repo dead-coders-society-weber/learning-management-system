@@ -1,6 +1,7 @@
 using LMSV1.Data;
 using LMSV1.Models;
 using LMSV1.Pages;
+using LMSV1.Pages.Courses.Assignments.Submissions;
 using LMSV1.Pages.Courses.Student;
 using LMSV1.Pages.Student;
 using Microsoft.AspNetCore.Identity;
@@ -236,6 +237,79 @@ namespace LSMV1Test
             }
             // Assert: Verify that the user has been assigned the "Instructor" role
             Assert.AreEqual("Instructor", user.Role);
+        }
+
+        [TestMethod]
+        public async Task StudentCanSubmitTextEntryAsync()
+        {
+            // get initial count of submissions
+            int initialSubmissionCount = Context.Submissions.Count();
+
+            // set the student and assignment ids
+            int studentId = 2;
+            int assignmentId = 2;
+
+            // create page model with context
+            var submitModel = new SubmitModel(Context, null, null);
+
+            // simulate input and submission from student
+            submitModel.Input = new SubmitModel.InputModel();
+            submitModel.Input.TextSubmission = "Test Text Submission";
+            await submitModel.OnPostAsync(studentId, assignmentId, null);
+
+            // get final count of submissions
+            int finalSubmissionCount = Context.Submissions.Count();
+
+            // check if submission count increased by 1
+            if (finalSubmissionCount == initialSubmissionCount + 1) {
+                // Test passes
+                Console.WriteLine("test passed.");
+            } else {
+                // Test fails
+                Console.WriteLine("test failed.");
+            }
+
+            // run unit test
+            Assert.AreEqual(initialSubmissionCount + 1, finalSubmissionCount);
+        }
+
+        [TestMethod]
+        public async Task InstructorCanGradeTextEntryAssignmentAsync()
+        {
+            // Manually create submission
+            var user = new Submission
+            {
+                SubmissionID = 1,
+                AssignmentID = 2,
+                UserID = 2,
+                TextSubmission = "Here is some text.",
+                Score = null,
+                SubmissionDate = DateTime.Now
+            };
+
+            Context.Submissions.Add(user);
+            Context.SaveChanges();
+
+            // set submission id
+            int submissionId = 1;
+
+            // create page model with context
+            var editModel = new EditModel(Context);
+
+            // simulate grading from instructor
+            int score = 60;
+            await editModel.OnPostAsync(submissionId, 1, score);
+
+            // check if grade is updated
+            var submission = Context.Submissions.FindAsync(submissionId).Result;
+            if (submission.Score is not null) {
+                Console.WriteLine("test passed.");
+            } else {
+                Console.WriteLine("test failed.");
+            }
+
+            // run unit test
+            Assert.AreEqual(60, submission.Score);
         }
     }
 }

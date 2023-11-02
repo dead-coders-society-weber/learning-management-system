@@ -266,7 +266,7 @@ namespace LMSV1.Data
                         AssignmentID = 2,
                         UserID = 2,
                         TextSubmission = "Here is some text.",
-                        Score = 60,
+                        Score = null,
                         SubmissionDate = DateTime.Now
                     }
                 );

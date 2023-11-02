@@ -60,7 +60,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 return Page();
             }
             // If file submission
-            if (postedFiles.Count != 0)
+            if (postedFiles is not null)
             {
                 string wwwPath = this._environment.WebRootPath; //Get root path of wwwroot folder
                 string contentPath = this._environment.ContentRootPath;

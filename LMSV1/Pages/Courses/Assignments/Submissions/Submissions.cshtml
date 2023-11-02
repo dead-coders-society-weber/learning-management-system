@@ -60,7 +60,7 @@
                     @Html.DisplayFor(modelItem => item.SubmissionDate)
                 </td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.SubmissionID" asp-route-assId="@ViewData["AssignmentId"]" asp-route-cid="@ViewData["CourseId"]">Grade</a>
+                    <a asp-page="./Edit" asp-route-id="@item.SubmissionID" asp-route-assId="@ViewData["AssignmentId"]">Grade</a>
                 </td>
             </tr>
     }
