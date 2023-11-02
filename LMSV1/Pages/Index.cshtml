@@ -20,19 +20,18 @@
                 <p>No courses registered</p>
             } else {
                 @foreach (var item in Model.Courses) {
-                    <!--This is the information displayed insdie the card-->
-                    <!--When clicking the individual card it will take you to that courses assignment page depending on the course ID-->
-                    <a asp-page="/Courses/CourseHome" asp-route-id="@item.CourseID" style="text-decoration:none; color:inherit;">
-                        <div class="card-container">
-                            <div class="card">
-                                <p><b>@Html.DisplayFor(modelItem => item.DepartmentID) @Html.DisplayFor(modelItem => item.CourseID) - @Html.DisplayFor(modelItem => item.Title)</b></p>
-                                <p><b>Location: </b>@Html.DisplayFor(modelItem => item.Location)</p>               
-                                 <p><b>Meet days: </b>@Html.DisplayFor(modelItem => item.MeetDays)</p>               
-                                <p><b>Time: </b>@Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
-                            </div>
+                <!--This is the information displayed insdie the card-->
+                <!--When clicking the individual card it will take you to that courses assignment page depending on the course ID-->
+                <a asp-page="/Courses/CourseHome" asp-route-id="@item.CourseID" style="text-decoration:none; color:inherit;">
+                    <div class="card-container">
+                        <div class="card">
+                            <p><b>@Html.DisplayFor(modelItem => item.DepartmentID) @Html.DisplayFor(modelItem => item.CourseID) - @Html.DisplayFor(modelItem => item.Title)</b></p>
+                            <p><b>Location: </b>@Html.DisplayFor(modelItem => item.Location)</p>               
+                                <p><b>Meet days: </b>@Html.DisplayFor(modelItem => item.MeetDays)</p>               
+                            <p><b>Time: </b>@Html.DisplayFor(modelItem => item.StartTime) - @Html.DisplayFor(modelItem => item.EndTime)</p>
                         </div>
-                    </a>
-                }
+                    </div>
+                </a>}
             }
         </div>
 

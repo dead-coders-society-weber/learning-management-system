@@ -1,8 +1,11 @@
-﻿using LMSV1.Models;
+﻿using LMSV1.Data;
+using LMSV1.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace LMSV1.Pages
 {
@@ -11,12 +14,15 @@ namespace LMSV1.Pages
         //Created to reference the database
         private readonly LMSV1.Data.LMSV1Context _context;
         private readonly UserManager<User> _userManager;
+        private readonly IMemoryCache _memoryCache;
 
         //Allows us to look at the database and reference information inside of it
-        public IndexModel(LMSV1.Data.LMSV1Context context, UserManager<User> userManager)
+        public IndexModel(LMSV1.Data.LMSV1Context context, UserManager<User> userManager,
+            IMemoryCache memoryCache)
         {
             _context = context;
             _userManager = userManager;
+            _memoryCache = memoryCache;
         }
 
         //A list created of the course information, considering that there are multiple courses
@@ -36,9 +42,31 @@ namespace LMSV1.Pages
 
             if (user != null)
             {
+                // get courses
+                Courses = await GetCoursesCache(user);
+
+                // get all assignments from enrolled courses
+                Assignments = await _context.Enrollments
+                    .Where(e => e.StudentID == user.Id)
+                    .SelectMany(e => e.Course.Assignments)
+                    .Where(a => a.DueDate >= DateTime.Now)
+                    .OrderBy(a => a.DueDate)
+                    .Include(a => a.Course)
+                    .ToListAsync();
+            }
+
+            return Page();
+        }
+
+        public async Task<IList<Course>> GetCoursesCache(User user)
+        {
+            var courses = _memoryCache.Get<IList<Course>>("courses");
+
+            if(courses == null)
+            {
                 if (user.Role == "Instructor")
                 {
-                    Courses = await _context.Courses
+                    courses = await _context.Courses
                         .Where(c => c.InstructorID == user.Id)
                         .ToListAsync();
                 }
@@ -46,22 +74,16 @@ namespace LMSV1.Pages
                 if (user.Role == "Student")
                 {
                     // get only courses the user is enrolled in
-                    Courses = await _context.Enrollments
-                     .Where(e => e.StudentID == user.Id)
-                     .Select(e => e.Course)
-                     .ToListAsync();
-
-                    // get all assignments from enrolled courses
-                    Assignments = await _context.Enrollments
-                     .Where(e => e.StudentID == user.Id)
-                     .SelectMany(e => e.Course.Assignments)
-                     .Where(a => a.DueDate >=  DateTime.Now)
-                     .OrderBy(a => a.DueDate)
-                     .ToListAsync();
+                    courses = await _context.Enrollments
+                        .Where(e => e.StudentID == user.Id)
+                        .Select(e => e.Course)
+                        .ToListAsync();
                 }
+
+                _memoryCache.Set("courses", courses, TimeSpan.FromDays(5));
             }
 
-            return Page();
+            return courses;
         }
     }
 }
