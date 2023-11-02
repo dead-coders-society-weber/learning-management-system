@@ -3,40 +3,16 @@
 @{
     ViewData["Title"] = "Account";
 }
-
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <h1>Tuition Costs Due: $1,000</h1>
-            <div class="form-group">
-                <label asp-for="paymentInformation.cardName" class="control-label"></label>
-                <input asp-for="paymentInformation.cardName" class="form-control" />
-                <span asp-validation-for="paymentInformation.cardName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="paymentInformation.cardNumber" class="control-label"></label>
-                <input asp-for="paymentInformation.cardNumber" class="form-control" />
-                <span asp-validation-for="paymentInformation.cardNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="paymentInformation.expiration" class="control-label"></label>
-                <input asp-for="paymentInformation.expiration" class="form-control" />
-                <span asp-validation-for="paymentInformation.expiration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="paymentInformation.cVV" class="control-label"></label>
-                <input asp-for="paymentInformation.cVV" class="form-control" />
-                <span asp-validation-for="paymentInformation.cVV" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="paymentInformation.paymentAmount" class="control-label"></label>
-                <input asp-for="paymentInformation.paymentAmount" class="form-control" />
-                <span asp-validation-for="paymentInformation.paymentAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Submit Payment" class="btn btn-primary" />
-            </div>
-        </form>
+<script src="https://js.stripe.com/v3/"></script>
+<section>
+    <div class="product">
+        <div class="description">
+            <h3>Tuition Payment</h3>
+            <h5>$20.00</h5>
+        </div>
     </div>
-</div>
+    <form method="POST">
+        <input type="text" name="amount" /> 
+        <button type="submit" id="checkout-button">Checkout</button>
+    </form>
+</section>
