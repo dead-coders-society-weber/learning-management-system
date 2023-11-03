@@ -60,7 +60,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 return Page();
             }
             // If file submission
-            if (postedFiles is not null)
+            if (postedFiles.Count > 0)
             {
                 string wwwPath = this._environment.WebRootPath; //Get root path of wwwroot folder
                 string contentPath = this._environment.ContentRootPath;
@@ -72,7 +72,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 }
 
                 List<string> uploadedFiles = new List<string>();
-                foreach (IFormFile postedFile in postedFiles)//traverse file collection
+                foreach (IFormFile postedFile in postedFiles) //traverse file collection
                 {
                     string fileName = Path.GetFileName(postedFile.FileName); //get file name and store in variable
                     string combinedName = $"{UserID}_{fileName}"; // add user id to file name (example: userName_fileName.ext)
