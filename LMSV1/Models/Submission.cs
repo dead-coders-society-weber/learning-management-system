@@ -27,7 +27,7 @@ namespace LMSV1.Models
         public double? Score { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [Display(Name = "Submission Date and Time")]
         public DateTime SubmissionDate { get; set; }
     }
 }
