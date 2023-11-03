@@ -61,7 +61,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
         }
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync(int? id, int? assId, int score)
+        public async Task<IActionResult> OnPostAsync(int? id, int? assId, int? cId, int score)
         {
             //if (!ModelState.IsValid)
             //{
@@ -90,7 +90,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 }
             }
 
-            return RedirectToPage("./Submissions", new { id = assId });
+            return RedirectToPage("./Submissions", new { id = assId, cId = cId });
         }
 
         private bool SubmissionExists(int id)
