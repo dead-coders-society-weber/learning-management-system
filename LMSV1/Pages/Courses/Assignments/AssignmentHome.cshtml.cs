@@ -76,10 +76,10 @@ namespace LMSV1.Pages.Courses.Assignments
                 .Include(s => s.Assignment)
                 .Include(s => s.User)
                 .Where(s => s.AssignmentID == id).ToListAsync();
-
             }
             ViewData["assId"] = id;
             ViewData["cId"] = cId;
+            
             // END OF DATA ADDITION
 
             //If you can make this change dynamically with a ceratin = statement it could work
@@ -95,6 +95,8 @@ namespace LMSV1.Pages.Courses.Assignments
             }
 
             var assignment = await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentID == id);
+            var submission = _context.Submissions.Where(m => m.UserID == user.Id)
+                .FirstOrDefault(m => m.AssignmentID == id);
             if (assignment == null)
             {
                 return NotFound();
@@ -102,6 +104,10 @@ namespace LMSV1.Pages.Courses.Assignments
             else 
             {
                 Assignments = assignment;
+            }
+            if (submission != null)
+            {
+                Submissions = submission;
             }
             return Page();
         }
