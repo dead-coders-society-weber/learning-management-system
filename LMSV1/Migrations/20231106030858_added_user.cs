@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LMSV1.Migrations
 {
     /// <inheritdoc />
-    public partial class added_notification : Migration
+    public partial class added_user : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,23 +23,6 @@ namespace LMSV1.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Department", x => x.DepartmentID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PaymentInformation",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    cardName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    cardNumber = table.Column<long>(type: "bigint", nullable: false),
-                    expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    cVV = table.Column<int>(type: "int", nullable: false),
-                    paymentAmount = table.Column<float>(type: "real", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PaymentInformation", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -363,8 +346,9 @@ namespace LMSV1.Migrations
                 columns: new[] { "Id", "Address1", "Address2", "Birthdate", "City", "ConcurrencyStamp", "Email", "FirstName", "LastName", "Link1", "Link2", "Link3", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "ProfileImage", "Role", "SecurityStamp", "State", "UserName", "Zip" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "d5f0f2a5-8f52-48cc-8bb2-0571dec2d5fc", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEDeqBAOjVE50aIRyUmsB5UlkJU9iu5ZDv2iwLX5FlSv9TM+tzsAAIVBUGZPe9WWAvQ==", "/Uploads/stock-profile-image.jpg", "Instructor", "e1045ec6-f978-4e2e-b787-8b4615151f10", null, "Instructor1@gmail.com", null },
-                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "0299fe47-678d-41b3-9b0c-25c946a7c7e1", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEGX12ZnbFuQzdJhPA8UnzOF+87sprWy8KPtX5jEd1QN/vTsOGeEiL3kBOLrf9XgJWQ==", "/Uploads/stock-profile-image.jpg", "Student", "7a619d45-cdb1-439d-87d1-dcd4455bdfcc", null, "Student1@gmail.com", null }
+                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "d8fc9a2a-ac3b-4256-89ca-032daebc13d6", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEBZ0zOtwdq6bWyHNFYcOLV96HRCEq/H8mMl0X+QQRuIJl/LjUKmof95WtjwUTnuEcQ==", "/Uploads/stock-profile-image.jpg", "Instructor", "bc63cd0a-4e29-4094-9043-ceae9c3e0ce2", null, "Instructor1@gmail.com", null },
+                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "9870065e-b9b7-47a1-b57a-3892b80d1622", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAECGuJWGMdaOLVcsDCqeN2wS42wL2g6jjLsEuQoUha7/8uDDxECKsdjJVD8lxSF6l/A==", "/Uploads/stock-profile-image.jpg", "Student", "ea941dd8-1aa6-4bc8-b32d-d8e0be34dba3", null, "Student1@gmail.com", null },
+                    { 3, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "566d5fc3-543f-40e4-b1f8-e7f87e208be0", "Instructor2@gmail.com", "John2", "Doe", null, null, null, "INSTRUCTOR2@GMAIL.COM", "INSTRUCTOR2@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAECc08LxnIdsy5lucS8OSB9xOH8V0UVtu7HnS77dtU3kostvJRxZ7k6A1fMGulBmq5g==", "/Uploads/stock-profile-image.jpg", "Instructor", "2d299670-5e9e-429c-8b68-d95ecd951122", null, "Instructor2@gmail.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -378,7 +362,8 @@ namespace LMSV1.Migrations
                 values: new object[,]
                 {
                     { 1, 1 },
-                    { 2, 2 }
+                    { 2, 2 },
+                    { 1, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -393,15 +378,15 @@ namespace LMSV1.Migrations
             migrationBuilder.InsertData(
                 table: "Enrollment",
                 columns: new[] { "EnrollmentID", "CourseID", "EnrollmentDate", "Grade", "StudentID" },
-                values: new object[] { 1, 3750, new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(4753), null, 2 });
+                values: new object[] { 1, 3750, new DateTime(2023, 11, 5, 20, 8, 58, 842, DateTimeKind.Local).AddTicks(2549), null, 2 });
 
             migrationBuilder.InsertData(
                 table: "Submission",
                 columns: new[] { "SubmissionID", "AssignmentID", "FileName", "Score", "SubmissionDate", "TextSubmission", "UserID" },
                 values: new object[,]
                 {
-                    { 1, 2, null, null, new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(6028), "Here is some text.", 2 },
-                    { 2, 1, "2_test submission.txt", null, new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(6039), null, 2 }
+                    { 1, 2, null, null, new DateTime(2023, 11, 5, 20, 8, 58, 842, DateTimeKind.Local).AddTicks(4768), "Here is some text.", 2 },
+                    { 2, 1, "2_test submission.txt", null, new DateTime(2023, 11, 5, 20, 8, 58, 842, DateTimeKind.Local).AddTicks(4782), null, 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -497,9 +482,6 @@ namespace LMSV1.Migrations
 
             migrationBuilder.DropTable(
                 name: "Notification");
-
-            migrationBuilder.DropTable(
-                name: "PaymentInformation");
 
             migrationBuilder.DropTable(
                 name: "RoleClaims");

@@ -60,7 +60,7 @@ namespace LMSV1.Pages
 
         public async Task<IList<Course>> GetCoursesCache(User user)
         {
-            var courses = _memoryCache.Get<IList<Course>>("courses");
+            var courses = _memoryCache.Get<IList<Course>>("courses_" + user.Id.ToString());
 
             if(courses == null)
             {

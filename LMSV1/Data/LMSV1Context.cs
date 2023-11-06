@@ -95,12 +95,29 @@ namespace LMSV1.Data
                         // add stock img by default for profile image
                         ProfileImage = "/Uploads/stock-profile-image.jpg",
                         SecurityStamp = Guid.NewGuid().ToString()
-                    }
+                    },
+                    new User
+                    {
+                        Id = 3,
+                        Email = "Instructor2@gmail.com",
+                        NormalizedEmail = "INSTRUCTOR2@GMAIL.COM",
+                        UserName = "Instructor2@gmail.com",
+                        NormalizedUserName = "INSTRUCTOR2@GMAIL.COM",
+                        Password = password,
+                        FirstName = "John2",
+                        LastName = "Doe",
+                        Birthdate = new DateTime(1995, 1, 1),
+                        Role = "Instructor",
+                        // add stock img by default for profile image
+                        ProfileImage = "/Uploads/stock-profile-image.jpg",
+                        SecurityStamp = Guid.NewGuid().ToString()
+                    },
                 };
 
                 PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
                 users[0].PasswordHash = passwordHasher.HashPassword(users[0], password);
                 users[1].PasswordHash = passwordHasher.HashPassword(users[1], password);
+                users[2].PasswordHash = passwordHasher.HashPassword(users[2], password);
 
                 b.HasData(users);
             });
@@ -143,6 +160,11 @@ namespace LMSV1.Data
                     {
                         UserId = 2,
                         RoleId = 2,
+                    },
+                    new IdentityUserRole<int>
+                    {
+                        RoleId = 1,
+                        UserId = 3,
                     }
                 );
             });
