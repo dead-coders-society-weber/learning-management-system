@@ -122,11 +122,12 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
                 Submission submission = _context.Submissions
                 .AsNoTracking()
                 .FirstOrDefault(a => a.UserID == UserID && a.AssignmentID == Assignmentid);
+                if (submission != null)
+                {
+                    _context.Submissions.Remove(submission);
 
-                _context.Submissions.Remove(submission);
-
-                _context.SaveChanges();
-
+                    _context.SaveChanges();
+                }
             } while (submission != null);
         }
     }
