@@ -59,6 +59,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             {
                 return Page();
             }
+            SubmissionExists(Assignmentid, UserID);
             // If file submission
             if (postedFiles.Count > 0)
             {
@@ -109,6 +110,19 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             await _context.SaveChangesAsync();
 
             return Redirect("./SubmitSuccess");
+        }
+        // Checks the DB for a previous assignment for the current student and removes it
+        public void SubmissionExists(int Assignmentid, int UserID)
+        {
+            Submission submission = _context.Submissions
+                .AsNoTracking()
+                .FirstOrDefault(a => a.UserID == UserID);
+
+            if (submission != null)
+            {
+                _context.Submissions.Remove(submission);
+            }
+            _context.SaveChanges();
         }
     }
 }
