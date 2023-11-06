@@ -17,7 +17,7 @@ namespace LMSV1.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.12")
+                .HasAnnotation("ProductVersion", "7.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -212,9 +212,41 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 1,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 11, 1, 12, 21, 42, 341, DateTimeKind.Local).AddTicks(7548),
+                            EnrollmentDate = new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(4753),
                             StudentID = 2
                         });
+                });
+
+            modelBuilder.Entity("LMSV1.Models.Notification", b =>
+                {
+                    b.Property<int>("NotificationID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificationID"));
+
+                    b.Property<int>("AssignmentID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Event")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("NotificationID");
+
+                    b.HasIndex("AssignmentID");
+
+                    b.HasIndex("StudentID");
+
+                    b.ToTable("Notification", (string)null);
                 });
 
             modelBuilder.Entity("LMSV1.Models.PaymentInformation", b =>
@@ -286,9 +318,16 @@ namespace LMSV1.Migrations
                         {
                             SubmissionID = 1,
                             AssignmentID = 2,
-                            Score = 60.0,
-                            SubmissionDate = new DateTime(2023, 11, 1, 12, 21, 42, 341, DateTimeKind.Local).AddTicks(8025),
+                            SubmissionDate = new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(6028),
                             TextSubmission = "Here is some text.",
+                            UserID = 2
+                        },
+                        new
+                        {
+                            SubmissionID = 2,
+                            AssignmentID = 1,
+                            FileName = "2_test submission.txt",
+                            SubmissionDate = new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(6039),
                             UserID = 2
                         });
                 });
@@ -392,34 +431,34 @@ namespace LMSV1.Migrations
                         {
                             Id = 1,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "c1bbfdbf-e678-4817-821d-4a9609c49b21",
+                            ConcurrencyStamp = "d5f0f2a5-8f52-48cc-8bb2-0571dec2d5fc",
                             Email = "Instructor1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR1@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE81thfpB+LDGdt5ymozdV5UsJJkNtxiYyW0ye/jpqR6eaa4uyCVDXX5DIpcB0r0bA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDeqBAOjVE50aIRyUmsB5UlkJU9iu5ZDv2iwLX5FlSv9TM+tzsAAIVBUGZPe9WWAvQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "219a807b-cf86-4007-87c8-c14be759b4e1",
+                            SecurityStamp = "e1045ec6-f978-4e2e-b787-8b4615151f10",
                             UserName = "Instructor1@gmail.com"
                         },
                         new
                         {
                             Id = 2,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "60dd9745-0452-4ec0-8783-682599d2cf78",
+                            ConcurrencyStamp = "0299fe47-678d-41b3-9b0c-25c946a7c7e1",
                             Email = "Student1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT1@GMAIL.COM",
                             NormalizedUserName = "STUDENT1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIfcDuNduKMUi9DbmpIUcdf4+4YEnOFQYpZvcQEvJlE9pqWx9jK09aOsl+eMAVeTSw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGX12ZnbFuQzdJhPA8UnzOF+87sprWy8KPtX5jEd1QN/vTsOGeEiL3kBOLrf9XgJWQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "3f1e7d7f-c7c6-4cdf-ab71-2062b0bd445d",
+                            SecurityStamp = "7a619d45-cdb1-439d-87d1-dcd4455bdfcc",
                             UserName = "Student1@gmail.com"
                         });
                 });
@@ -636,6 +675,25 @@ namespace LMSV1.Migrations
                     b.Navigation("Student");
                 });
 
+            modelBuilder.Entity("LMSV1.Models.Notification", b =>
+                {
+                    b.HasOne("LMSV1.Models.Assignment", "Assignment")
+                        .WithMany("Notifications")
+                        .HasForeignKey("AssignmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("LMSV1.Models.User", "Student")
+                        .WithMany("Notifications")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Assignment");
+
+                    b.Navigation("Student");
+                });
+
             modelBuilder.Entity("LMSV1.Models.Submission", b =>
                 {
                     b.HasOne("LMSV1.Models.Assignment", "Assignment")
@@ -706,6 +764,8 @@ namespace LMSV1.Migrations
 
             modelBuilder.Entity("LMSV1.Models.Assignment", b =>
                 {
+                    b.Navigation("Notifications");
+
                     b.Navigation("Submissions");
                 });
 
@@ -726,6 +786,8 @@ namespace LMSV1.Migrations
                     b.Navigation("Courses");
 
                     b.Navigation("Enrollments");
+
+                    b.Navigation("Notifications");
 
                     b.Navigation("Submissions");
                 });

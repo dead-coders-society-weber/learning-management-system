@@ -73,7 +73,7 @@ namespace LMSV1Test
 
             // Simulate grading from instrucotr
             int score = 80;
-            await editModel.OnPostAsync(submissionId, 2, score);
+            await editModel.OnPostAsync(submissionId, 2, 1, score);
 
             // check if grade is updated
             var submission = Context.Submissions.FindAsync(submissionId).Result;

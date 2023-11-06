@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using LMSV1.Data;
 using LMSV1.Models;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace LMSV1.Pages.Courses.Assignments
 {
@@ -58,6 +59,7 @@ namespace LMSV1.Pages.Courses.Assignments
         {
             if (ModelState.IsValid)
             {
+                // create new assignment
                 var newAssignment = new Assignment
                 {
                     CourseID = id,
@@ -69,14 +71,31 @@ namespace LMSV1.Pages.Courses.Assignments
                     SubmissionType = Input.SubmissionType,
                 };
 
-                _context.Assignments.Add(newAssignment);
+                var assignment = _context.Assignments.Add(newAssignment);
                 await _context.SaveChangesAsync();
 
-                // var errors = ModelState
-                //              .Where(x => x.Value.Errors.Count > 0)
-                //              .Select(x => new { x.Key, x.Value.Errors })
-                //              .ToArray();
+                // create new notification for all students in course
+                var enrollments = await _context.Enrollments
+                                        .Where(e => e.CourseID == id)
+                                        .Include(e => e.Student)
+                                        .ToListAsync();
+                enrollments.ForEach(async enrollment =>
+                {
+                    var newNotification = new Notification
+                    {
+                        Event = NotificationEvent.AssignmentCreation,
+                        IsRead = false,
+                        CreatedDate = DateTime.Now,
+                        StudentID = enrollment.StudentID,
+                        Student = enrollment.Student,
+                        AssignmentID = assignment.Entity.AssignmentID,
+                        Assignment = assignment.Entity
+                    };
 
+                    _context.Notifications.Add(newNotification);
+                });
+
+                await _context.SaveChangesAsync();
                 return RedirectToPage("./SuccessPage");
             }
 

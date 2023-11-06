@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using Stripe;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,5 +49,34 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+// api endpoint to get unread notification for user
+app.MapGet("/api/notifications/unread/{id}", async (int id, LMSV1Context db) =>
+{
+    var notifications = await db.Notifications
+                                .Where(n => n.StudentID == id && !n.IsRead)
+                                .Select(n => new {
+                                    n.NotificationID,
+                                    Event = n.Event.ToString(),
+                                    Course = n.Assignment.Course.CourseName,
+                                    Assignment = n.Assignment.Title
+                                })
+                                .ToListAsync();
+    return Results.Ok(notifications);
+}).RequireAuthorization();
+
+// api endpoint to change notification when read
+app.MapPost("/api/notifications/markasread/{notificationId}", async (int notificationId, LMSV1Context db, HttpContext http) =>
+{
+    var userId = http.User.FindFirstValue(ClaimTypes.NameIdentifier); // Get the user id from the claims
+    var notification = await db.Notifications.FirstOrDefaultAsync(n => n.NotificationID == notificationId);
+    if (notification != null && notification.StudentID.ToString() == userId) // Make sure to check if the notification belongs to the user
+    {
+        notification.IsRead = true;
+        await db.SaveChangesAsync();
+        return Results.Ok();
+    }
+    return Results.NotFound();
+}).RequireAuthorization();
 
 app.Run();

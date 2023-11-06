@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LMSV1.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class added_notification : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -280,6 +280,35 @@ namespace LMSV1.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notification",
+                columns: table => new
+                {
+                    NotificationID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Event = table.Column<int>(type: "int", nullable: false),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StudentID = table.Column<int>(type: "int", nullable: false),
+                    AssignmentID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.NotificationID);
+                    table.ForeignKey(
+                        name: "FK_Notification_Assignment_AssignmentID",
+                        column: x => x.AssignmentID,
+                        principalTable: "Assignment",
+                        principalColumn: "AssignmentID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Notification_User_StudentID",
+                        column: x => x.StudentID,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Submission",
                 columns: table => new
                 {
@@ -334,8 +363,8 @@ namespace LMSV1.Migrations
                 columns: new[] { "Id", "Address1", "Address2", "Birthdate", "City", "ConcurrencyStamp", "Email", "FirstName", "LastName", "Link1", "Link2", "Link3", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "ProfileImage", "Role", "SecurityStamp", "State", "UserName", "Zip" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "c1bbfdbf-e678-4817-821d-4a9609c49b21", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEE81thfpB+LDGdt5ymozdV5UsJJkNtxiYyW0ye/jpqR6eaa4uyCVDXX5DIpcB0r0bA==", "/Uploads/stock-profile-image.jpg", "Instructor", "219a807b-cf86-4007-87c8-c14be759b4e1", null, "Instructor1@gmail.com", null },
-                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "60dd9745-0452-4ec0-8783-682599d2cf78", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEIfcDuNduKMUi9DbmpIUcdf4+4YEnOFQYpZvcQEvJlE9pqWx9jK09aOsl+eMAVeTSw==", "/Uploads/stock-profile-image.jpg", "Student", "3f1e7d7f-c7c6-4cdf-ab71-2062b0bd445d", null, "Student1@gmail.com", null }
+                    { 1, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "d5f0f2a5-8f52-48cc-8bb2-0571dec2d5fc", "Instructor1@gmail.com", "John", "Doe", null, null, null, "INSTRUCTOR1@GMAIL.COM", "INSTRUCTOR1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEDeqBAOjVE50aIRyUmsB5UlkJU9iu5ZDv2iwLX5FlSv9TM+tzsAAIVBUGZPe9WWAvQ==", "/Uploads/stock-profile-image.jpg", "Instructor", "e1045ec6-f978-4e2e-b787-8b4615151f10", null, "Instructor1@gmail.com", null },
+                    { 2, null, null, new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "0299fe47-678d-41b3-9b0c-25c946a7c7e1", "Student1@gmail.com", "John", "Doe", null, null, null, "STUDENT1@GMAIL.COM", "STUDENT1@GMAIL.COM", "Abc123!", "AQAAAAIAAYagAAAAEGX12ZnbFuQzdJhPA8UnzOF+87sprWy8KPtX5jEd1QN/vTsOGeEiL3kBOLrf9XgJWQ==", "/Uploads/stock-profile-image.jpg", "Student", "7a619d45-cdb1-439d-87d1-dcd4455bdfcc", null, "Student1@gmail.com", null }
                 });
 
             migrationBuilder.InsertData(
@@ -364,12 +393,16 @@ namespace LMSV1.Migrations
             migrationBuilder.InsertData(
                 table: "Enrollment",
                 columns: new[] { "EnrollmentID", "CourseID", "EnrollmentDate", "Grade", "StudentID" },
-                values: new object[] { 1, 3750, new DateTime(2023, 11, 1, 12, 21, 42, 341, DateTimeKind.Local).AddTicks(7548), null, 2 });
+                values: new object[] { 1, 3750, new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(4753), null, 2 });
 
             migrationBuilder.InsertData(
                 table: "Submission",
                 columns: new[] { "SubmissionID", "AssignmentID", "FileName", "Score", "SubmissionDate", "TextSubmission", "UserID" },
-                values: new object[] { 1, 2, null, 60.0, new DateTime(2023, 11, 1, 12, 21, 42, 341, DateTimeKind.Local).AddTicks(8025), "Here is some text.", 2 });
+                values: new object[,]
+                {
+                    { 1, 2, null, null, new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(6028), "Here is some text.", 2 },
+                    { 2, 1, "2_test submission.txt", null, new DateTime(2023, 11, 4, 21, 50, 55, 444, DateTimeKind.Local).AddTicks(6039), null, 2 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Assignment_CourseID",
@@ -394,6 +427,16 @@ namespace LMSV1.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollment_StudentID",
                 table: "Enrollment",
+                column: "StudentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notification_AssignmentID",
+                table: "Notification",
+                column: "AssignmentID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notification_StudentID",
+                table: "Notification",
                 column: "StudentID");
 
             migrationBuilder.CreateIndex(
@@ -451,6 +494,9 @@ namespace LMSV1.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Enrollment");
+
+            migrationBuilder.DropTable(
+                name: "Notification");
 
             migrationBuilder.DropTable(
                 name: "PaymentInformation");

@@ -24,7 +24,7 @@ namespace LMSV1.Data
         public DbSet<Assignment> Assignments { get; set; } = default!;
         public DbSet<Submission> Submissions { get; set; } = default!;
         public DbSet<PaymentInformation> PaymentInformation { get; set; } = default!;
-        public object Assignment { get; internal set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -56,6 +56,10 @@ namespace LMSV1.Data
                 b.HasMany(e => e.Courses)
                  .WithOne(e => e.Instructor)
                  .HasForeignKey(e => e.InstructorID);
+                b.HasMany(e => e.Notifications)
+                 .WithOne(e => e.Student)
+                 .HasForeignKey(e => e.StudentID)
+                 .OnDelete(DeleteBehavior.Restrict);
 
                 // seed users
                 string password = "Abc123!";
@@ -229,6 +233,11 @@ namespace LMSV1.Data
             {
                 b.ToTable("Assignment");
 
+                // add foreign key constraints
+                b.HasMany(e => e.Notifications)
+                 .WithOne(e => e.Assignment)
+                 .HasForeignKey(e => e.AssignmentID);
+
                 // seed assignments
                 b.HasData(
                     // Assignment for File upload
@@ -286,6 +295,7 @@ namespace LMSV1.Data
             });
 
             // customize table names
+            builder.Entity<Notification>().ToTable("Notification");
             builder.Entity<PaymentInformation>().ToTable("PaymentInformation");
             builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
             builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");

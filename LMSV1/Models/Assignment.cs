@@ -41,6 +41,7 @@ public class Assignment
     public Course Course { get; set; }
 
     public ICollection<Submission>? Submissions { get; set; }
+    public ICollection<Notification> Notifications { get; set; }
 }
 
 public enum SubmissionType

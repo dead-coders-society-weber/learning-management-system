@@ -5,6 +5,7 @@
 @inject UserManager<User> UserManager
 
 @{
+    bool isUserSignedIn = SignInManager.IsSignedIn(User);
     var user = await UserManager.GetUserAsync(User);
 }
 
@@ -14,6 +15,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - LMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/LMSV1.styles.css" asp-append-version="true" />
@@ -24,7 +26,7 @@
             <div class="container">
                 <a class="navbar-brand" asp-page="/Index">LMS</a>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @if (SignInManager.IsSignedIn(User))
+                    @if (isUserSignedIn)
                     {
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
@@ -73,7 +75,14 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/fullcalendar/index.global.min.js"></script>
-
+    @if (isUserSignedIn)
+    {{
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                fetchUnreadNotifications(@user.Id);
+            });
+        </script>
+    }}
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

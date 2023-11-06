@@ -77,6 +77,21 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             {
                 submission.Score = score;
                 await _context.SaveChangesAsync();
+
+                // send notification to student
+                var newNotification = new Notification
+                {
+                    Event = NotificationEvent.AssignmentGraded,
+                    IsRead = false,
+                    CreatedDate = DateTime.Now,
+                    StudentID = submission.UserID,
+                    Student = submission.User,
+                    AssignmentID = assignment.AssignmentID,
+                    Assignment = assignment
+                };
+
+                _context.Notifications.Add(newNotification);
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

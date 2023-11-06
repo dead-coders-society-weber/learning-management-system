@@ -3,10 +3,25 @@
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
+    @if (await UserManager.IsInRoleAsync(user, "Student"))
+    {
+        <li class="nav-item dropdown">
+            <button class="notification-bell-container dropbtn">
+                <i class="fas fa-bell" id="notificationBell"></i>
+                <span id="notificationCount"></span>
+            </button>
+            <div class="dropdown-content" id="notificationPopup">
+                <!-- Unread notifications will be populated here -->
+            </div>
+        </li>
+    }
     <li class="nav-item">
         <a class="nav-link" asp-area="" asp-page="/Calendar/Calendar">Calendar</a>
     </li>
