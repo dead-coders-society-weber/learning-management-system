@@ -72,25 +72,6 @@
     <!--Take this out when the dynamic change is made-->
     <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
 
-   @*  foreach (var attempt in Model.SubmissionGrade)
-    {
-
-        if (attempt.SubmissionAttempts == 0)
-        {
-            <!--This will allow the student to submit more attempts-->
-            <p>
-                <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit New Attempt</a>
-            </p>
-        }
-
-        if (attempt.SubmissionAttempts == 1)
-        {
-            //This takes the average score and displays it at the bottom of the page
-            double? finalScore = score;
-            <h6>Final Score: </h6>
-            <p>@finalScore</p>
-        }
-    } *@
 
     <!--Pie Chart to display for students only-->
     <html>
@@ -112,8 +93,8 @@
 
                 // Create the data table.
                 var data = new google.visualization.DataTable();
-                data.addColumn('string', 'Topping');
-                data.addColumn('number', 'Slices');
+                data.addColumn('string', 'LetterGrade');
+                //data.addColumn('number', 'Slices');
                 data.addRows([
                     ['A (100% to 90%)', 1],
                     ['B (89% to 80%)', 1],
