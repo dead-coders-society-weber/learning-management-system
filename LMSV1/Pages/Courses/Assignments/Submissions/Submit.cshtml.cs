@@ -111,18 +111,23 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
             return Redirect("./SubmitSuccess");
         }
+
+        Submission submission = null;
+
         // Checks the DB for a previous assignment for the current student and removes it
         public void SubmissionExists(int Assignmentid, int UserID)
         {
-            Submission submission = _context.Submissions
-                .AsNoTracking()
-                .FirstOrDefault(a => a.UserID == UserID);
-
-            if (submission != null)
+            do
             {
+                Submission submission = _context.Submissions
+                .AsNoTracking()
+                .FirstOrDefault(a => a.UserID == UserID && a.AssignmentID == Assignmentid);
+
                 _context.Submissions.Remove(submission);
-            }
-            _context.SaveChanges();
+
+                _context.SaveChanges();
+
+            } while (submission != null);
         }
     }
 }

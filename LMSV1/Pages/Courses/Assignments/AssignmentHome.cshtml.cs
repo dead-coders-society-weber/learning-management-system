@@ -84,6 +84,15 @@ namespace LMSV1.Pages.Courses.Assignments
             else 
             {
                 Assignments = assignment;
+
+                if (assignment.DueDate < DateTime.Now)
+                {
+                    ViewData["PastDue"] = true;
+                }
+                else
+                {
+                    ViewData["PastDue"] = false;
+                }
             }
             return Page();
         }

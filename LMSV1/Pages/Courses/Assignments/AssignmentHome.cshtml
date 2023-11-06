@@ -34,7 +34,11 @@
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
 {
-        <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
+    @* @if (Model.Assignments.)
+    {
+        
+    } *@
+    <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
 }
 
 @if (await UserManager.IsInRoleAsync(user, "Instructor"))
