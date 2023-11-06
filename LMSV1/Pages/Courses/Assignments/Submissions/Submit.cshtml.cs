@@ -111,7 +111,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
 
             return Redirect("./SubmitSuccess");
         }
-
+        // Submission variable setup for checking for previous entry in DB
         Submission submission = null;
 
         // Checks the DB for a previous assignment for the current student and removes it
