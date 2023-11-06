@@ -34,13 +34,13 @@
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
 {
-<<<<<<< HEAD
+@* <<<<<<< HEAD
     @* @if (Model.Assignments.)
     {
         
-    } *@
+    } 
     <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
-=======
+======= *@
 
     //Used to keep track of the score locally and the number of submitted attempts to find the average score
     double? score = 0.0;
@@ -141,7 +141,7 @@
         <div id="chart_div"></div>
     </body>
     </html>
->>>>>>> 50123b490868ca4a2a912633261783ebf44e2cd0
+@* >>>>>>> 50123b490868ca4a2a912633261783ebf44e2cd0 *@
 }
 
 @if (await UserManager.IsInRoleAsync(user, "Instructor"))

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20231106030858_added_user")]
-    partial class added_user
+    [Migration("20231106060732_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,7 +215,7 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 1,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 11, 5, 20, 8, 58, 842, DateTimeKind.Local).AddTicks(2549),
+                            EnrollmentDate = new DateTime(2023, 11, 5, 23, 7, 32, 447, DateTimeKind.Local).AddTicks(9528),
                             StudentID = 2
                         });
                 });
@@ -292,7 +292,7 @@ namespace LMSV1.Migrations
                         {
                             SubmissionID = 1,
                             AssignmentID = 2,
-                            SubmissionDate = new DateTime(2023, 11, 5, 20, 8, 58, 842, DateTimeKind.Local).AddTicks(4768),
+                            SubmissionDate = new DateTime(2023, 11, 5, 23, 7, 32, 448, DateTimeKind.Local).AddTicks(673),
                             TextSubmission = "Here is some text.",
                             UserID = 2
                         },
@@ -301,7 +301,7 @@ namespace LMSV1.Migrations
                             SubmissionID = 2,
                             AssignmentID = 1,
                             FileName = "2_test submission.txt",
-                            SubmissionDate = new DateTime(2023, 11, 5, 20, 8, 58, 842, DateTimeKind.Local).AddTicks(4782),
+                            SubmissionDate = new DateTime(2023, 11, 5, 23, 7, 32, 448, DateTimeKind.Local).AddTicks(685),
                             UserID = 2
                         });
                 });
@@ -405,51 +405,51 @@ namespace LMSV1.Migrations
                         {
                             Id = 1,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "d8fc9a2a-ac3b-4256-89ca-032daebc13d6",
+                            ConcurrencyStamp = "e38dc9c7-4235-45be-88d7-678abe6395d5",
                             Email = "Instructor1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR1@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBZ0zOtwdq6bWyHNFYcOLV96HRCEq/H8mMl0X+QQRuIJl/LjUKmof95WtjwUTnuEcQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFSJaSXlVhnPiqdl8r7s9tjLxoDHqrMO+fCAUWyNJuBgaAPAcneaAQDbGFp0RGSvKQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "bc63cd0a-4e29-4094-9043-ceae9c3e0ce2",
+                            SecurityStamp = "96e00cc8-4153-474a-86b5-6cad24acdf2c",
                             UserName = "Instructor1@gmail.com"
                         },
                         new
                         {
                             Id = 2,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9870065e-b9b7-47a1-b57a-3892b80d1622",
+                            ConcurrencyStamp = "fdaa6ac7-ee25-498b-a943-9b0ecf5d811a",
                             Email = "Student1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT1@GMAIL.COM",
                             NormalizedUserName = "STUDENT1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAECGuJWGMdaOLVcsDCqeN2wS42wL2g6jjLsEuQoUha7/8uDDxECKsdjJVD8lxSF6l/A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECg/Hd+VWMK+968Yjev4ohPiKMQTr3cPM88xVHTqqJvYrOmdVvD4lQ6+whuiJCBuvQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "ea941dd8-1aa6-4bc8-b32d-d8e0be34dba3",
+                            SecurityStamp = "6d58cb83-8f14-4e6d-a870-431a7703d5c2",
                             UserName = "Student1@gmail.com"
                         },
                         new
                         {
                             Id = 3,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "566d5fc3-543f-40e4-b1f8-e7f87e208be0",
+                            ConcurrencyStamp = "65fd47c1-8549-4e75-b784-ebc1703b17cf",
                             Email = "Instructor2@gmail.com",
                             FirstName = "John2",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR2@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR2@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAECc08LxnIdsy5lucS8OSB9xOH8V0UVtu7HnS77dtU3kostvJRxZ7k6A1fMGulBmq5g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJm3JDnCNVp5fCwGUr1HI0GhuKZXQRfwR92USmo3wjuOUIq9PWKKACQLZObO07pUqA==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "2d299670-5e9e-429c-8b68-d95ecd951122",
+                            SecurityStamp = "0023e5e6-84a5-4fc1-b624-71503e11fcaa",
                             UserName = "Instructor2@gmail.com"
                         });
                 });
