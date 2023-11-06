@@ -61,14 +61,32 @@ namespace LMSV1.Pages.Courses.Assignments
         //This grabs the users email to be concatenated with the filename so that the download link with work properly
         //public User FileNamePartial { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public IList<Submission> SubmissionGrade { get; set; } = default!;
+
+
+        public async Task<IActionResult> OnGetAsync(int? id, int? cId)
         {
-            
+            //INFO ADDED BY QUINN HERE, used for grabbing the grade submission//
+            //Set the signed in user information the this variable
+            var user = await _userManager.GetUserAsync(User);
+
+            if (_context.Submissions != null)
+            {
+                SubmissionGrade = await _context.Submissions
+                .Include(s => s.Assignment)
+                .Include(s => s.User)
+                .Where(s => s.AssignmentID == id).ToListAsync();
+
+            }
+            ViewData["assId"] = id;
+            ViewData["cId"] = cId;
+            // END OF DATA ADDITION
+
             //If you can make this change dynamically with a ceratin = statement it could work
             //this.Message = "Student1@gmail.comTestFile2.rtf";
 
             //Set the signed in user information the this variable
-            var user = await _userManager.GetUserAsync(User);
+           // var user = await _userManager.GetUserAsync(User);
 
 
             if (id == null || _context.Assignments == null)

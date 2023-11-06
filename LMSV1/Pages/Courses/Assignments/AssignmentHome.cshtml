@@ -34,11 +34,114 @@
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
 {
+<<<<<<< HEAD
     @* @if (Model.Assignments.)
     {
         
     } *@
     <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
+=======
+
+    //Used to keep track of the score locally and the number of submitted attempts to find the average score
+    double? score = 0.0;
+    int? attempt = 0;
+
+    @foreach (var item in Model.SubmissionGrade)
+    {
+        <h6>New attempt submitted</h6>
+        <!--If the users attempt has been graded it will show otherwise it will inform the student it has not yet been graded-->
+        @if (item.Score != null)
+        {
+            <p>
+                Score for this attempt:
+                @Html.DisplayFor(modelItem => item.Score)
+            </p>
+            score += item.Score;
+            attempt += 1;
+           
+        }
+        else
+        {
+            <p>THIS ATTEMPT HAS NOT YET BEEN GRADED</p>
+        }
+    }
+    //This takes the average score and displays it at the bottom of the page
+    double? finalScore = score / attempt;
+    <h6>Final Score: </h6>
+    <p>@finalScore</p>
+    <!--Take this out when the dynamic change is made-->
+    <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
+
+   @*  foreach (var attempt in Model.SubmissionGrade)
+    {
+
+        if (attempt.SubmissionAttempts == 0)
+        {
+            <!--This will allow the student to submit more attempts-->
+            <p>
+                <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit New Attempt</a>
+            </p>
+        }
+
+        if (attempt.SubmissionAttempts == 1)
+        {
+            //This takes the average score and displays it at the bottom of the page
+            double? finalScore = score;
+            <h6>Final Score: </h6>
+            <p>@finalScore</p>
+        }
+    } *@
+
+    <!--Pie Chart to display for students only-->
+    <html>
+    <head>
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+            function drawChart() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                data.addRows([
+                    ['A (100% to 90%)', 1],
+                    ['B (89% to 80%)', 1],
+                    ['C (79% to 70%)', 1],
+                    ['D (69% to 60%)', 1],
+                    ['F (59% to 0%)', 1]
+                ]);
+
+                // Set chart options
+                var options = {
+                    'title': 'Class Average for this Assignment',
+                    'width': 500,
+                    'height': 400
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            }
+        </script>
+    </head>
+
+    <body>
+        <!--Div that will hold the pie chart-->
+        <div id="chart_div"></div>
+    </body>
+    </html>
+>>>>>>> 50123b490868ca4a2a912633261783ebf44e2cd0
 }
 
 @if (await UserManager.IsInRoleAsync(user, "Instructor"))
