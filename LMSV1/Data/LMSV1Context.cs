@@ -23,7 +23,6 @@ namespace LMSV1.Data
         public DbSet<Department> Departments { get; set; } = default!;
         public DbSet<Assignment> Assignments { get; set; } = default!;
         public DbSet<Submission> Submissions { get; set; } = default!;
-        public DbSet<PaymentInformation> PaymentInformation { get; set; } = default!;
         public DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -296,7 +295,6 @@ namespace LMSV1.Data
 
             // customize table names
             builder.Entity<Notification>().ToTable("Notification");
-            builder.Entity<PaymentInformation>().ToTable("PaymentInformation");
             builder.Entity<IdentityUserClaim<int>>().ToTable("UserClaims");
             builder.Entity<IdentityUserLogin<int>>().ToTable("UserLogins");
             builder.Entity<IdentityRoleClaim<int>>().ToTable("RoleClaims");

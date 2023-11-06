@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace LMSV1.Models;
@@ -64,6 +65,9 @@ public class User : IdentityUser<int>
 
     [DataType(DataType.ImageUrl)]
     public string? ProfileImage { get; set; }
+
+    [DataType(DataType.Currency)]
+    public long? TuitionOwed { get; set; }
 
     public ICollection<Enrollment>? Enrollments { get; set; }
     public ICollection<Course>? Courses { get; set;}
