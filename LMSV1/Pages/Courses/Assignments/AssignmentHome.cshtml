@@ -34,13 +34,16 @@
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
 {
-@* <<<<<<< HEAD
-    @* @if (Model.Assignments.)
+@* <<<<<<< HEAD *@
+    @if (Model.Assignments.DueDate > DateTime.Now)
     {
-        
+        <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
     } 
-    <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
-======= *@
+    else
+    {
+        <h5>This assignment is locked. No more submissions can be made past the due date.</h5>
+    }
+    @* ======= *@
 
     //Used to keep track of the score locally and the number of submitted attempts to find the average score
     double? score = 0.0;
@@ -69,8 +72,6 @@
     double? finalScore = score / attempt;
     <h6>Final Score: </h6>
     <p>@finalScore</p>
-    <!--Take this out when the dynamic change is made-->
-    <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
 
 
     <!--Pie Chart to display for students only-->

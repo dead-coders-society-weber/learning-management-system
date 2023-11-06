@@ -266,9 +266,19 @@ namespace LMSV1.Data
                     {
                         AssignmentID = 1,
                         Title = "File Upload Assignment",
-                        Description = "Upload a File for this Assignment",
+                        Description = "This is a File Upload assignment test that is past due.",
                         MaxPoints = 100,
                         DueDate = new DateTime(2023, 11, 03, 23, 59, 59),
+                        SubmissionType = SubmissionType.FileUpload,
+                        CourseID = 3750
+                    },
+                    new Assignment
+                    {
+                        AssignmentID = 3,
+                        Title = "New File Assignment",
+                        Description = "This is an assignment that needs a File Upload.",
+                        MaxPoints = 200,
+                        DueDate = new DateTime(2023, 11, 09, 23, 59, 59),
                         SubmissionType = SubmissionType.FileUpload,
                         CourseID = 3750
                     },
@@ -277,9 +287,19 @@ namespace LMSV1.Data
                     {
                         AssignmentID = 2,
                         Title = "Text Entry Assignment",
-                        Description = "Enter Text for this Assignment",
+                        Description = "This is a Text entry assignment test that is past due.",
                         MaxPoints = 75,
                         DueDate = new DateTime(2023, 11, 05, 23, 59, 59),
+                        SubmissionType = SubmissionType.TextEntry,
+                        CourseID = 3750
+                    },
+                    new Assignment
+                    {
+                        AssignmentID = 4,
+                        Title = "New Text Assignment",
+                        Description = "This is an assignment that needs a Text entry.",
+                        MaxPoints = 150,
+                        DueDate = new DateTime(2023, 11, 12, 23, 59, 59),
                         SubmissionType = SubmissionType.TextEntry,
                         CourseID = 3750
                     }
