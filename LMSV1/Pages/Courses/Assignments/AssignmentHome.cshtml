@@ -56,13 +56,12 @@
         <br />
     </div>
     @* ======= *@
-    
+
     //Used to keep track of the score locally and the number of submitted attempts to find the average score
     double? score = 0.0;
     int? attempt = 0;
-
-    @foreach (var item in Model.SubmissionGrade)
-    {
+    var item = Model.Submissions;
+ 
         <h6>New attempt submitted</h6>
         <!--If the users attempt has been graded it will show otherwise it will inform the student it has not yet been graded-->
         @if (item.Score != null)
@@ -77,18 +76,49 @@
         }
         else
         {
-            <p>THIS ATTEMPT HAS NOT YET BEEN GRADED</p>
-        }
+        <p>THIS ATTEMPT HAS NOT YET BEEN GRADED</p>
     }
+
     //This takes the average score and displays it at the bottom of the page
     double? finalScore = score / attempt;
     <h6>Final Score: </h6>
     <p>@finalScore</p>
 
 
+
+   @*  //Start of pie chart code this is what needs to be done to get the values to work correctly
+       with the pie chart but javascript wont recognize the c# code
+    var scoreA = 0;
+    var scoreB = 0;
+    var scoreC = 0;
+    var scoreD = 0;
+    var scoreF = 0;
+
+    @foreach (var points in Model.SubmissionGrade)
+    {
+        if (points.Score >= 90)
+        {
+            scoreA += 1;
+        }
+        if (points.Score >= 80 && points.Score <= 89.9)
+        {
+            scoreB += 1;
+        }
+        if (points.Score >= 70 && points.Score <= 79.9)
+        {
+            scoreC += 1;
+        }
+        if (points.Score >= 60 && points.Score <= 69.9)
+        {
+            scoreD += 1;
+        }
+        if (points.Score <= 59.9)
+        {
+            scoreF += 1;
+        }
+    } *@
     <!--Pie Chart to display for students only-->
-    <html>
-    <head>
+    
         <!--Load the AJAX API-->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
@@ -99,6 +129,24 @@
             // Set a callback to run when the Google Visualization API is loaded.
             google.charts.setOnLoadCallback(drawChart);
 
+            //To pass the variables into the pie chart another function is made here
+            function GradeA() 
+            {
+                //This value passes through the function when hard coded but the foreach is not recognized
+                var scoreA = 5;
+                
+                //Here is the problem we need this code translated to where javascript can recognize it
+               @* @foreach (var points in Model.SubmissionGrade)
+                {
+
+                    if (points.Score >= 90)
+                    {
+                        scoreA += 1;
+                    }
+                 }*@
+                 return scoreA;
+            }
+
             // Callback that creates and populates a data table,
             // instantiates the pie chart, passes in the data and
             // draws it.
@@ -107,18 +155,18 @@
                 // Create the data table.
                 var data = new google.visualization.DataTable();
                 data.addColumn('string', 'LetterGrade');
-                //data.addColumn('number', 'Slices');
+                data.addColumn('number', 'GradeAmounts');
                 data.addRows([
-                    ['A (100% to 90%)', 1],
-                    ['B (89% to 80%)', 1],
-                    ['C (79% to 70%)', 1],
-                    ['D (69% to 60%)', 1],
-                    ['F (59% to 0%)', 1]
+                    ['A', GradeA()],
+                    ['B', 1],
+                    ['C', 1],
+                    ['D', 1],
+                    ['F', 2]
                 ]);
 
                 // Set chart options
                 var options = {
-                    'title': 'Class Average for this Assignment',
+                    'title': 'Class Average For This Assignment',
                     'width': 500,
                     'height': 400
                 };
@@ -128,13 +176,14 @@
                 chart.draw(data, options);
             }
         </script>
-    </head>
+    
 
     <body>
         <!--Div that will hold the pie chart-->
         <div id="chart_div"></div>
     </body>
-    </html>
+    
+    
 @* >>>>>>> 50123b490868ca4a2a912633261783ebf44e2cd0 *@
 }
 
