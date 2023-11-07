@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20231106060732_Init")]
-    partial class Init
+    [Migration("20231107110216_main")]
+    partial class main
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace LMSV1.Migrations
                         {
                             AssignmentID = 1,
                             CourseID = 3750,
-                            Description = "Upload a File for this Assignment",
+                            Description = "This is a File Upload assignment test that is past due.",
                             DueDate = new DateTime(2023, 11, 3, 23, 59, 59, 0, DateTimeKind.Unspecified),
                             MaxPoints = 100,
                             SubmissionType = 0,
@@ -74,13 +74,33 @@ namespace LMSV1.Migrations
                         },
                         new
                         {
+                            AssignmentID = 3,
+                            CourseID = 3750,
+                            Description = "This is an assignment that needs a File Upload.",
+                            DueDate = new DateTime(2023, 11, 9, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            MaxPoints = 200,
+                            SubmissionType = 0,
+                            Title = "New File Assignment"
+                        },
+                        new
+                        {
                             AssignmentID = 2,
                             CourseID = 3750,
-                            Description = "Enter Text for this Assignment",
+                            Description = "This is a Text entry assignment test that is past due.",
                             DueDate = new DateTime(2023, 11, 5, 23, 59, 59, 0, DateTimeKind.Unspecified),
                             MaxPoints = 75,
                             SubmissionType = 1,
                             Title = "Text Entry Assignment"
+                        },
+                        new
+                        {
+                            AssignmentID = 4,
+                            CourseID = 3750,
+                            Description = "This is an assignment that needs a Text entry.",
+                            DueDate = new DateTime(2023, 11, 12, 23, 59, 59, 0, DateTimeKind.Unspecified),
+                            MaxPoints = 150,
+                            SubmissionType = 1,
+                            Title = "New Text Assignment"
                         });
                 });
 
@@ -215,7 +235,7 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 1,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 11, 5, 23, 7, 32, 447, DateTimeKind.Local).AddTicks(9528),
+                            EnrollmentDate = new DateTime(2023, 11, 7, 4, 2, 16, 567, DateTimeKind.Local).AddTicks(1501),
                             StudentID = 2
                         });
                 });
@@ -292,7 +312,7 @@ namespace LMSV1.Migrations
                         {
                             SubmissionID = 1,
                             AssignmentID = 2,
-                            SubmissionDate = new DateTime(2023, 11, 5, 23, 7, 32, 448, DateTimeKind.Local).AddTicks(673),
+                            SubmissionDate = new DateTime(2023, 11, 7, 4, 2, 16, 567, DateTimeKind.Local).AddTicks(4835),
                             TextSubmission = "Here is some text.",
                             UserID = 2
                         },
@@ -301,7 +321,7 @@ namespace LMSV1.Migrations
                             SubmissionID = 2,
                             AssignmentID = 1,
                             FileName = "2_test submission.txt",
-                            SubmissionDate = new DateTime(2023, 11, 5, 23, 7, 32, 448, DateTimeKind.Local).AddTicks(685),
+                            SubmissionDate = new DateTime(2023, 11, 7, 4, 2, 16, 567, DateTimeKind.Local).AddTicks(4882),
                             UserID = 2
                         });
                 });
@@ -405,51 +425,51 @@ namespace LMSV1.Migrations
                         {
                             Id = 1,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "e38dc9c7-4235-45be-88d7-678abe6395d5",
+                            ConcurrencyStamp = "513628b8-fa7d-44b2-ac44-ec228d90aa16",
                             Email = "Instructor1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR1@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFSJaSXlVhnPiqdl8r7s9tjLxoDHqrMO+fCAUWyNJuBgaAPAcneaAQDbGFp0RGSvKQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOrbekcAQTv9lQBJXs6dEbJMmgvM1FN/3ghaGhfc4b8K3sHtL9Jg8wDPX0tttsPakQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "96e00cc8-4153-474a-86b5-6cad24acdf2c",
+                            SecurityStamp = "b1c246b0-820c-4f65-beea-13d92efb0412",
                             UserName = "Instructor1@gmail.com"
                         },
                         new
                         {
                             Id = 2,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "fdaa6ac7-ee25-498b-a943-9b0ecf5d811a",
+                            ConcurrencyStamp = "c33185f8-ea98-4dfa-a5ff-35bc9a6d028a",
                             Email = "Student1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT1@GMAIL.COM",
                             NormalizedUserName = "STUDENT1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAECg/Hd+VWMK+968Yjev4ohPiKMQTr3cPM88xVHTqqJvYrOmdVvD4lQ6+whuiJCBuvQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECWWbDsTjVZ7eRhRM+lj/1MlFzxPSlWvnygg8RjhHvCTjEdqkA0hemPevIS/yku1uQ==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "6d58cb83-8f14-4e6d-a870-431a7703d5c2",
+                            SecurityStamp = "f1e5cd4e-300a-42a4-8e85-18e661bd4bb8",
                             UserName = "Student1@gmail.com"
                         },
                         new
                         {
                             Id = 3,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "65fd47c1-8549-4e75-b784-ebc1703b17cf",
+                            ConcurrencyStamp = "c7dabff1-2266-426c-ae6b-25688b42b702",
                             Email = "Instructor2@gmail.com",
                             FirstName = "John2",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR2@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR2@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJm3JDnCNVp5fCwGUr1HI0GhuKZXQRfwR92USmo3wjuOUIq9PWKKACQLZObO07pUqA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOv9OAM3Y8Sd0YWR3loeoGrQT7GrWfmlx2JioyI+egsmSDu/0o/N6QHvBP68r7kGSw==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "0023e5e6-84a5-4fc1-b624-71503e11fcaa",
+                            SecurityStamp = "16c8dddb-ac0e-45b4-8867-bbeff2139fa5",
                             UserName = "Instructor2@gmail.com"
                         });
                 });
