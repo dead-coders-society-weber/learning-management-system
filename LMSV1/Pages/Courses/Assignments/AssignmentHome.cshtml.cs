@@ -87,7 +87,7 @@ namespace LMSV1.Pages.Courses.Assignments
             //this.Message = "Student1@gmail.comTestFile2.rtf";
 
             //Set the signed in user information the this variable
-           // var user = await _userManager.GetUserAsync(User);
+            // var user = await _userManager.GetUserAsync(User);
 
 
             if (id == null || _context.Assignments == null)

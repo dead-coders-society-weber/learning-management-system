@@ -24,7 +24,6 @@
             <th>Max Points</th>
             <th>Due Date</th>
             <th>Submission Type</th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -64,5 +63,15 @@
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
 {
+    @* Display the student's current grade and points for the course displayed*@
+    <div class="justify-content-evenly">
+        <p>
+            <h4><u>Grade</u></h4>
+            <h5>@Model.pointsPercentage % - @Model.finalGrade</h5> <br />
+            <u>Points (Earned / Total)</u> <br />
+            <b>@Model.pointsEarned / @Model.pointsTotal</b> <br />
+        </p>
+    </div>
+    
     <a asp-page="../Index">Back to Dashboard</a>
 }

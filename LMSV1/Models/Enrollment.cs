@@ -8,10 +8,11 @@ namespace LMSV1.Models;
  This class contains the necesssary information about each course that will be created
 and submit it into the database for storage
  */
-public enum Grade
-{
-    A, B, C, D, F
-}
+// Changed grade field to a string to reflect the grading criteria outlined in the class syllabus
+//public enum Grade
+//{
+//    A, B, C, D, F
+//}
 
 public class Enrollment
 {
@@ -21,7 +22,7 @@ public class Enrollment
     
     [Display(Name = "Grade")]
     [DisplayFormat(NullDisplayText = "No grade")]
-    public Grade? Grade { get; set; }
+    public string? Grade { get; set; }
 
     [Display(Name = "Enrollment Date")]
     public DateTime EnrollmentDate { get; set; }
