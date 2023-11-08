@@ -84,6 +84,17 @@
     else if (await UserManager.IsInRoleAsync(user, "Student"))
         {
         //Student chart goes here
+        @* Display the student's current grade and points for the course displayed*@
+        <div>
+            <center>
+            <p>
+                <h4><u>Grade</u></h4>
+                <h5>@Model.pointsPercentage % - @Model.finalGrade</h5> <br />
+                <u>Points (Earned / Total)</u> <br />
+                <b>@Model.pointsEarned / @Model.pointsTotal</b> <br />
+            </p>
+            </center>
+        </div>
         }
 
 </div>
@@ -137,15 +148,5 @@
 
 @if (await UserManager.IsInRoleAsync(user, "Student"))
 {
-    @* Display the student's current grade and points for the course displayed*@
-    <div class="justify-content-evenly">
-        <p>
-            <h4><u>Grade</u></h4>
-            <h5>@Model.pointsPercentage % - @Model.finalGrade</h5> <br />
-            <u>Points (Earned / Total)</u> <br />
-            <b>@Model.pointsEarned / @Model.pointsTotal</b> <br />
-        </p>
-    </div>
-    
     <a asp-page="../Index">Back to Dashboard</a>
 }
