@@ -22,7 +22,7 @@
     @if (await UserManager.IsInRoleAsync(user, "Instructor"))
         {
         //Instructor chart goes here
-    }
+        }
     else if (await UserManager.IsInRoleAsync(user, "Student"))
         {
         //Student chart goes here
