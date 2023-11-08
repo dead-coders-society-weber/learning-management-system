@@ -5,8 +5,13 @@
 
 @inject UserManager<User> UserManager
 @{
+    // var userLogged;
     ViewData["Title"] = Model.Course.CourseName;
     var user = await UserManager.GetUserAsync(User);
+    // if (await UserManager.IsInRoleAsync(user, "Instructor"))
+    // {
+    //     user
+    // }
 
 }
 <div id="col-1">
@@ -19,7 +24,7 @@
 </p>
 </div>
 <div id="col-2">
-    @if (await UserManager.IsInRoleAsync(user, "Instructor")){
+    @if (user.Role == "Instructor"){
                 //Instructor chart goes here
         var vara = 0;
         var varam = 0;
@@ -49,8 +54,6 @@
                             break;
             }
         <p>
-               
-
             <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             <script type="text/javascript">
               google.charts.load('current', {'packages':['corechart']});
@@ -81,7 +84,7 @@
         </script>
         </p>
         }
-    else if (await UserManager.IsInRoleAsync(user, "Student"))
+    else if (user.Role == "Student")
         {
         //Student chart goes here
         @* Display the student's current grade and points for the course displayed*@
@@ -125,7 +128,7 @@
                 <td>@Html.DisplayFor(modelItem => item.DueDate)</td>
                 <td>@Html.DisplayFor(modelItem => item.SubmissionType)</td>
                 <td>
-                    @if (await UserManager.IsInRoleAsync(user, "Instructor")) {
+                    @if (user.Role == "Instructor") {
                         <div>
                             <a asp-page="./Assignments/AssignmentEdit" asp-route-id="@item.AssignmentID">Edit</a> |
                             <a asp-page="./Assignments/AssignmentDelete" asp-route-id="@item.AssignmentID">Delete</a> |
@@ -139,14 +142,14 @@
     </tbody>
 </table>
 
-@if (await UserManager.IsInRoleAsync(user, "Instructor"))
+@if (user.Role == "Instructor")
 {
     <a asp-page="./Assignments/AssignmentCreate" asp-route-id="@Model.Course.CourseID">Create new assignment</a>
     <br />
     <a asp-page="./Instructor/CourseManager">Back to Course Manager</a>
 }
 
-@if (await UserManager.IsInRoleAsync(user, "Student"))
+@if (user.Role == "Student")
 {
     <a asp-page="../Index">Back to Dashboard</a>
 }
