@@ -65,6 +65,7 @@ namespace LMSV1.Pages.Courses.Assignments
         public IList<Submission> SubmissionGrade { get; set; } = default!;
 
 
+
         public async Task<IActionResult> OnGetAsync(int? id, int? cId)
         {
             //INFO ADDED BY QUINN HERE, used for grabbing the grade submission//

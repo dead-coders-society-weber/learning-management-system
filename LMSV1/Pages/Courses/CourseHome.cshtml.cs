@@ -64,7 +64,7 @@ namespace LMSV1.Pages.Courses
             {
                 CalculateGrade(id, user);
             }
-            //If a user is an instructor, prepoplulate the variables for the instructorschart.
+            //If a user is an instructor, prepoplulate the variables for the instructors chart.
             if (user.Role == "Instructor")
             { 
                 Grades = await _context.Enrollments

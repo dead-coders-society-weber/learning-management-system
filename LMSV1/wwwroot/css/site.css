@@ -208,7 +208,7 @@ footer {
     position: relative;
     width: 50%;
     float: left;
-    height: 200px;
+    height: 300px;
     background-color: #f0f0f0;
     z-index: 1010101010;
 }
@@ -217,7 +217,7 @@ footer {
     position: relative;
     width: 50%;
     float: left;
-    height: 200px;
+    height: 300px;
     background-color: #f0f0f0;
     z-index: 1010101010;
     border: 2px solid #fff; /* Optional: Add a border around the circle */

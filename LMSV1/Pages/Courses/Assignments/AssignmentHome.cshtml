@@ -16,32 +16,114 @@
 
 @*<h1>@Model.Assignment.CourseID Assignment - @Model.Assignment.Title</h1>*@
 
-<div>
+<div id="col-1">
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.Title)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.Title)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.Description)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.Description)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.MaxPoints)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.MaxPoints)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.DueDate)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.DueDate)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Assignments.CourseID)</dt>
-        <dd class="col-sm-10">@Html.DisplayFor(model => model.Assignments.CourseID)</dd>
-        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Submissions.Score)</dt>
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Assignments.Title)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Assignments.Title)</dd>
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Assignments.Description)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Assignments.Description)</dd>
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Assignments.MaxPoints)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Assignments.MaxPoints)</dd>
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Assignments.DueDate)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Assignments.DueDate)</dd>
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Assignments.CourseID)</dt>
+        <dd class="col-sm-8">@Html.DisplayFor(model => model.Assignments.CourseID)</dd>
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Submissions.Score)</dt>
         @if (Model.Submissions != null && Model.Submissions.Score != null)
         {
-            <dd class="col-sm-10">@Html.DisplayFor(model => model.Submissions.Score)</dd>
+            <dd class="col-sm-8">@Html.DisplayFor(model => model.Submissions.Score)</dd>
         }
         else
         {
-            <dd class="col-sm-10"><b>Not Yet Graded.</b></dd>
+            <dd class="col-sm-8"><b>Not Yet Graded.</b></dd>
         }
     </dl>
 </div>
+<div id="col-2">
+    @* @if (user.Role == "Student"){ *@
+        @{
+    //Start of pie chart code this is what needs to be done to get the values to work correctly
+    //with the pie chart but javascript wont recognize the c# code
+    var scoreA = 0;
+    var scoreB = 0;
+    var scoreC = 0;
+    var scoreD = 0;
+    var scoreE = 0;
+    var maxScore = Model.Assignments.MaxPoints;
 
-@if (await UserManager.IsInRoleAsync(user, "Student"))
+        <!--Pie Chart to display for students only-->
+
+        <!--Load the AJAX API-->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart'] });
+
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
+
+        @foreach (var points in Model.SubmissionGrade)
+        {
+            double scoredPoints = double.Parse(points.Score.ToString());
+            double scoreRatio = (scoredPoints / maxScore) * 100;
+
+            if (scoreRatio >= 90)
+            {
+                scoreA++;
+            }
+            if (scoreRatio >= 80 && scoreRatio <= 89.9)
+            {
+                scoreB++;
+            }
+            if (scoreRatio >= 70 && scoreRatio <= 79.9)
+            {
+                scoreC++;
+            }
+            if (scoreRatio >= 60 && scoreRatio <= 69.9)
+            {
+                scoreD++;
+            }
+            if (scoreRatio <= 59.9)
+            {
+                scoreE++;
+            }
+        }
+
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+            function drawChart() {
+
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'LetterGrade');
+                data.addColumn('number', 'GradeAmounts');
+                data.addRows([
+                    ['A', @scoreA],
+                    ['B', @scoreB],
+                    ['C', @scoreC],
+                    ['D', @scoreD],
+                    ['E', @scoreE]
+                ]);
+
+                // Set chart options
+                var options = {
+                    'title': 'Class Average For This Assignment'
+                };
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('col-2'));
+                chart.draw(data, options);
+            }
+        </script>
+        } 
+</div>
+
+
+<p></p>
+@if (user.Role == "Student")
 {
 @* <<<<<<< HEAD *@
     @if (Model.Assignments.DueDate > DateTime.Now)
@@ -81,103 +163,15 @@
             <p>THIS ATTEMPT HAS NOT YET BEEN GRADED</p>
         }
 
-        //This takes the average score and displays it at the bottom of the page
+    
+    //This takes the average score and displays it at the bottom of the page
         double? finalScore = score / attempt;
         <h6>Final Score: </h6>
         <p>@finalScore</p>
     }
+
+
     
-
-   @*  //Start of pie chart code this is what needs to be done to get the values to work correctly
-       with the pie chart but javascript wont recognize the c# code
-    var scoreA = 0;
-    var scoreB = 0;
-    var scoreC = 0;
-    var scoreD = 0;
-    var scoreF = 0;
-
-    @foreach (var points in Model.SubmissionGrade)
-    {
-        if (points.Score >= 90)
-        {
-            scoreA += 1;
-        }
-        if (points.Score >= 80 && points.Score <= 89.9)
-        {
-            scoreB += 1;
-        }
-        if (points.Score >= 70 && points.Score <= 79.9)
-        {
-            scoreC += 1;
-        }
-        if (points.Score >= 60 && points.Score <= 69.9)
-        {
-            scoreD += 1;
-        }
-        if (points.Score <= 59.9)
-        {
-            scoreF += 1;
-        }
-    } *@
-    <!--Pie Chart to display for students only-->
-    
-        <!--Load the AJAX API-->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <script type="text/javascript">
-
-            // Load the Visualization API and the corechart package.
-            google.charts.load('current', { 'packages': ['corechart'] });
-
-            // Set a callback to run when the Google Visualization API is loaded.
-            google.charts.setOnLoadCallback(drawChart);
-
-            //To pass the variables into the pie chart another function is made here
-            function GradeA() 
-            {
-                //This value passes through the function when hard coded but the foreach is not recognized
-                var scoreA = 5;
-                
-                //Here is the problem we need this code translated to where javascript can recognize it
-               @* @foreach (var points in Model.SubmissionGrade)
-                {
-
-                    if (points.Score >= 90)
-                    {
-                        scoreA += 1;
-                    }
-                 }*@
-                 return scoreA;
-            }
-
-            // Callback that creates and populates a data table,
-            // instantiates the pie chart, passes in the data and
-            // draws it.
-            function drawChart() {
-
-                // Create the data table.
-                var data = new google.visualization.DataTable();
-                data.addColumn('string', 'LetterGrade');
-                data.addColumn('number', 'GradeAmounts');
-                data.addRows([
-                    ['A', GradeA()],
-                    ['B', 1],
-                    ['C', 1],
-                    ['D', 1],
-                    ['F', 2]
-                ]);
-
-                // Set chart options
-                var options = {
-                    'title': 'Class Average For This Assignment',
-                    'width': 500,
-                    'height': 400
-                };
-
-                // Instantiate and draw our chart, passing in some options.
-                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-                chart.draw(data, options);
-            }
-        </script>
     
 
     <body>
