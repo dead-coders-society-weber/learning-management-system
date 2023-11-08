@@ -13,13 +13,14 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Identity.Client;
 
 
 namespace LMSV1.Pages.Courses.Assignments
 {
-    public class AssignmentHomeModel : PageModel
+    public class AssignmentHomeModel : PageModel 
     {
- 
+
         //Testing this method for the text submission
         [BindProperty]
         public string TextMessage { get; set; }     
