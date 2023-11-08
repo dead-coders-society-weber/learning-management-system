@@ -7,7 +7,9 @@
 @{
     ViewData["Title"] = Model.Course.CourseName;
     var user = await UserManager.GetUserAsync(User);
+
 }
+<div id="col-1">
 <h1>@Model.Course.CourseName</h1>
 <h2>@Model.Course.Title</h2>
 <p>
@@ -15,6 +17,18 @@
    <b>Meet days:</b> @Model.Course.MeetDays <br />
    <b>Time:</b> @Model.Course.StartTime - @Model.Course.EndTime <br />
 </p>
+</div>
+<div id="col-2">
+    @if (await UserManager.IsInRoleAsync(user, "Instructor"))
+        {
+        //Instructor chart goes here
+    }
+    else if (await UserManager.IsInRoleAsync(user, "Student"))
+        {
+        //Student chart goes here
+        }
+
+</div>
 <h3>Assignments</h3>
 <table class="table">
     <thead>
