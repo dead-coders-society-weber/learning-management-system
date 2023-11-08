@@ -46,7 +46,7 @@
 @* <<<<<<< HEAD *@
     @if (Model.Assignments.DueDate > DateTime.Now)
     {
-        <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id">Submit Assignment</a>
+        <a asp-page="./Submissions/Submit" asp-route-Assignmentid="@Model.Assignments.AssignmentID" asp-route-UserID="@user.Id"><b>Submit Assignment</b></a>
     } 
     else
     {
@@ -57,11 +57,13 @@
     </div>
     @* ======= *@
 
-    //Used to keep track of the score locally and the number of submitted attempts to find the average score
-    double? score = 0.0;
-    int? attempt = 0;
-    var item = Model.Submissions;
- 
+    @if (Model.Submissions != null)
+    {
+        //Used to keep track of the score locally and the number of submitted attempts to find the average score
+        double? score = 0.0;
+        int? attempt = 0;
+        var item = Model.Submissions;
+
         <h6>New attempt submitted</h6>
         <!--If the users attempt has been graded it will show otherwise it will inform the student it has not yet been graded-->
         @if (item.Score != null)
@@ -72,19 +74,19 @@
             </p>
             score += item.Score;
             attempt += 1;
-           
+
         }
         else
         {
-        <p>THIS ATTEMPT HAS NOT YET BEEN GRADED</p>
+            <p>THIS ATTEMPT HAS NOT YET BEEN GRADED</p>
+        }
+
+        //This takes the average score and displays it at the bottom of the page
+        double? finalScore = score / attempt;
+        <h6>Final Score: </h6>
+        <p>@finalScore</p>
     }
-
-    //This takes the average score and displays it at the bottom of the page
-    double? finalScore = score / attempt;
-    <h6>Final Score: </h6>
-    <p>@finalScore</p>
-
-
+    
 
    @*  //Start of pie chart code this is what needs to be done to get the values to work correctly
        with the pie chart but javascript wont recognize the c# code
