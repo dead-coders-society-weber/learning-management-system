@@ -38,7 +38,7 @@ namespace LMSV1.Pages.Courses
         public double pointsPercentage { get; set; }
         // Stores the grade earned for the course
         public string finalGrade { get; set; }
-
+        public IList<string> Grades { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             //Set the signed in user information the this variable
@@ -64,10 +64,19 @@ namespace LMSV1.Pages.Courses
             {
                 CalculateGrade(id, user);
             }
-            
+            //If a user is an instructor, prepoplulate the variables for the instructorschart.
+            if (user.Role == "Instructor")
+            { 
+                Grades = await _context.Enrollments
+                               .Where(e => e.CourseID == id)
+                               .Select(e => e.Grade)
+                               .ToListAsync();
+            }
+
             return Page();
         }
 
+        // Prepoluate the Instructor Chart.
         // Calculates the user(student) points earned, total points possible, and grade for the course
         public void CalculateGrade(int? cid, User user)
         {

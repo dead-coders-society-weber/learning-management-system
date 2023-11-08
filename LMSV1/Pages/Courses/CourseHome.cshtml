@@ -19,9 +19,67 @@
 </p>
 </div>
 <div id="col-2">
-    @if (await UserManager.IsInRoleAsync(user, "Instructor"))
-        {
-        //Instructor chart goes here
+    @if (await UserManager.IsInRoleAsync(user, "Instructor")){
+                //Instructor chart goes here
+        var vara = 0;
+        var varam = 0;
+        var varbp = 0;
+        var varb = 0;
+        var varbm = 0;
+        var varcp = 0;
+        var varc = 0;
+        var varlc = 0;
+        foreach (var item in Model.Grades)
+            switch (item)
+            {
+                case "A" :
+                case null :vara++;
+                            break;
+                case "A-" : varam++;
+                            break;
+                case "B+" : varbp++;
+                            break;
+                case "B" :  varb++;
+                            break;
+                case "B-" : varbm++;
+                            break;
+                case "C+" : varcp++;
+                            break;
+                default: varlc++;
+                            break;
+            }
+        <p>
+               
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                  ['Grade', 'Count'],
+                  ['A', @vara],
+                  ['A-', @varam],
+                  ['B+', @varbp],
+                  ['B',  @varb],
+                  ['B-', @varbm],
+                  ['C+', @varcp],
+                  ['C',  @varc],
+                  ['<C', @varlc]
+                ]);
+
+                var options = {
+                  title: 'Student Grades'
+                };
+
+            var chart = new google.visualization.PieChart(document.getElementById('col-2'));
+
+            chart.draw(data, options);
+          }
+        </script>
+        </p>
         }
     else if (await UserManager.IsInRoleAsync(user, "Student"))
         {
@@ -29,7 +87,9 @@
         }
 
 </div>
-<h3>Assignments</h3>
+
+<p>
+<h3>Assignments</h3></p>
 <table class="table">
     <thead>
         <tr>

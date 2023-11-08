@@ -204,20 +204,22 @@ body {
 footer {
     background-color: #3c486b;
 }
-col-1 {
+#col-1 {
     position: relative;
     width: 50%;
     float: left;
-    height: 100%;
-    background-color: #282828;
-    z-index: 1010101010
+    height: 200px;
+    background-color: #f0f0f0;
+    z-index: 1010101010;
 }
 
-col-2 {
+#col-2 { /* Chart style */
     position: relative;
     width: 50%;
     float: left;
-    height: 100%;
-    background-color: #0080ff;
-    z-index: 1010101010
+    height: 200px;
+    background-color: #f0f0f0;
+    z-index: 1010101010;
+    border: 2px solid #fff; /* Optional: Add a border around the circle */
+    border-color:darkgrey;
 }
