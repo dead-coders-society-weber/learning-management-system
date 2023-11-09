@@ -35,7 +35,7 @@
 
             @if (Model.Submissions != null && Model.Submissions.Score != null)
             {
-                <dd class="col-sm-8">@Html.DisplayFor(model => model.Submissions.Score)</dd>
+                <dd class="col-sm-8"><b>@Html.DisplayFor(model => model.Submissions.Score) - @Html.DisplayFor(model => model.SubmissionLetterGrade)</b></dd>
             }
             else
             {
