@@ -67,8 +67,6 @@ namespace LMSV1.Pages.Courses.Assignments
 
         public async Task<IActionResult> OnGetAsync(int? id, int? cId)
         {
-            //INFO ADDED BY QUINN HERE, used for grabbing the grade submission//
-            //Set the signed in user information the this variable
             var user = await _userManager.GetUserAsync(User);
 
             if (_context.Submissions != null)
@@ -81,8 +79,6 @@ namespace LMSV1.Pages.Courses.Assignments
 
             ViewData["assId"] = id;
             ViewData["cId"] = cId;
-            
-            // END OF DATA ADDITION
 
             //If you can make this change dynamically with a ceratin = statement it could work
             //this.Message = "Student1@gmail.comTestFile2.rtf";
