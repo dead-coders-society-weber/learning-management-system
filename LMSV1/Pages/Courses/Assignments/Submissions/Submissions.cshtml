@@ -6,7 +6,7 @@
 @inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Submissions";
-    var user = await UserManager.GetUserAsync(User);
+    var user = UserManager.GetUserAsync(User);
 }
 
 <h1>Submissions</h1>

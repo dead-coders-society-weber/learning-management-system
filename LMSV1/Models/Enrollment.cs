@@ -24,6 +24,12 @@ public class Enrollment
     [DisplayFormat(NullDisplayText = "No grade")]
     public string? Grade { get; set; }
 
+    [Display(Name = "Grade Percentage")]
+    public double? GradePercentage { get; set; }
+
+    [Display(Name = "Points Earned")]
+    public double? PointsEarned { get; set; }
+
     [Display(Name = "Enrollment Date")]
     public DateTime EnrollmentDate { get; set; }
 
