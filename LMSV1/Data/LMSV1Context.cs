@@ -290,6 +290,9 @@ namespace LMSV1.Data
                         StudentID = 2,
                         CourseID = 3750,
                         EnrollmentDate = DateTime.Now,
+                        Grade = "A+",
+                        GradePercentage = 100,
+                        PointsEarned = 400
                     },
                     new Enrollment  // Student enrollment (course participant)
                     {
@@ -297,6 +300,9 @@ namespace LMSV1.Data
                         StudentID = 4,
                         CourseID = 3750,
                         EnrollmentDate = DateTime.Now,
+                        Grade = "C+",
+                        GradePercentage = 78.8,
+                        PointsEarned = 315
                     },
                     new Enrollment  // Student enrollment (course participant)
                     {
@@ -304,6 +310,9 @@ namespace LMSV1.Data
                         StudentID = 5,
                         CourseID = 3750,
                         EnrollmentDate = DateTime.Now,
+                        Grade = "E",
+                        GradePercentage = 18.8,
+                        PointsEarned = 75
                     }
                 );
             });
@@ -324,7 +333,7 @@ namespace LMSV1.Data
                     {
                         AssignmentID = 1,
                         Title = "File Assignment 1",
-                        Description = "This is a File Upload assignment test that is past due.",
+                        Description = "This is a File Upload assignment test that is turned in and graded.",
                         MaxPoints = 100,
                         DueDate = new DateTime(2023, 11, 03, 23, 59, 59),
                         SubmissionType = SubmissionType.FileUpload,
@@ -355,7 +364,7 @@ namespace LMSV1.Data
                     {
                         AssignmentID = 2,
                         Title = "Text Assignment 1",
-                        Description = "This is a Text entry assignment test that is past due.",
+                        Description = "This is a Text entry assignment test that is turned in and graded.",
                         MaxPoints = 100,
                         DueDate = new DateTime(2023, 11, 05, 23, 59, 59),
                         SubmissionType = SubmissionType.TextEntry,

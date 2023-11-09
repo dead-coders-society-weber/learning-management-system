@@ -115,7 +115,12 @@ namespace LMSV1.Pages.Courses.Assignments
             // added this code to be more consistent with chart, can change later
             if (user.Role == "Student")
             {
-                double scoredPoints = double.Parse(submission.Score.ToString());
+                double scoredPoints = 0.0;
+                if (submission != null)
+                {
+                    scoredPoints = double.Parse(submission.Score.ToString());
+                }
+                
                 double scoreRatio = (scoredPoints / assignment.MaxPoints) * 100;
 
                 if (scoreRatio >= 90)
