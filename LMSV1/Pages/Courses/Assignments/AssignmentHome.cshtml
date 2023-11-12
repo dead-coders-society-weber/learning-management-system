@@ -29,14 +29,18 @@
         <dd class="col-sm-8">@Html.DisplayFor(model => model.Assignments.DueDate)</dd>
         <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Assignments.CourseID)</dt>
         <dd class="col-sm-8">@Html.DisplayFor(model => model.Assignments.CourseID)</dd>
-        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Submissions.Score)</dt>
-        @if (Model.Submissions != null && Model.Submissions.Score != null)
+        @if (user.Role == "Student")
         {
-            <dd class="col-sm-8">@Html.DisplayFor(model => model.Submissions.Score)</dd>
-        }
-        else
-        {
-            <dd class="col-sm-8"><b>Not Yet Graded.</b></dd>
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Submissions.Score)</dt>
+
+            @if (Model.Submissions != null && Model.Submissions.Score != null)
+            {
+                <dd class="col-sm-8"><b>@Html.DisplayFor(model => model.Submissions.Score) - @Html.DisplayFor(model => model.SubmissionLetterGrade)</b></dd>
+            }
+            else
+            {
+                <dd class="col-sm-8"><b>Not Yet Graded.</b></dd>
+            }
         }
     </dl>
 </div>
@@ -44,7 +48,6 @@
     @* @if (user.Role == "Student"){ *@
         @{
     //Start of pie chart code this is what needs to be done to get the values to work correctly
-    //with the pie chart but javascript wont recognize the c# code
     var scoreA = 0;
     var scoreB = 0;
     var scoreC = 0;
@@ -110,7 +113,7 @@
 
                 // Set chart options
                 var options = {
-                    'title': 'Class Average For This Assignment'
+                    'title': 'Class Grades for this assignment'
                 };
 
                 // Instantiate and draw our chart, passing in some options.
@@ -138,7 +141,7 @@
         <br />
     </div>
     @* ======= *@
-
+    @* Disabled, no multiple Scored attempt at this time
     @if (Model.Submissions != null)
     {
         //Used to keep track of the score locally and the number of submitted attempts to find the average score
@@ -169,10 +172,8 @@
         <h6>Final Score: </h6>
         <p>@finalScore</p>
     }
+    *@
 
-
-    
-    
 
     <body>
         <!--Div that will hold the pie chart-->

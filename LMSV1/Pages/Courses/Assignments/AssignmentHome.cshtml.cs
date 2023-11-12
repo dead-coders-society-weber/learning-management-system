@@ -14,7 +14,8 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.View;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Identity.Client;
-
+using static System.Formats.Asn1.AsnWriter;
+using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow.PointsToAnalysis;
 
 namespace LMSV1.Pages.Courses.Assignments
 {
@@ -61,15 +62,11 @@ namespace LMSV1.Pages.Courses.Assignments
         public Submission Submissions { get; set; } = default;
         //This grabs the users email to be concatenated with the filename so that the download link with work properly
         //public User FileNamePartial { get; set; } = default!;
-
+        public string SubmissionLetterGrade { get; set; }
         public IList<Submission> SubmissionGrade { get; set; } = default!;
-
-
 
         public async Task<IActionResult> OnGetAsync(int? id, int? cId)
         {
-            //INFO ADDED BY QUINN HERE, used for grabbing the grade submission//
-            //Set the signed in user information the this variable
             var user = await _userManager.GetUserAsync(User);
 
             if (_context.Submissions != null)
@@ -79,10 +76,9 @@ namespace LMSV1.Pages.Courses.Assignments
                 .Include(s => s.User)
                 .Where(s => s.AssignmentID == id).ToListAsync();
             }
+
             ViewData["assId"] = id;
             ViewData["cId"] = cId;
-            
-            // END OF DATA ADDITION
 
             //If you can make this change dynamically with a ceratin = statement it could work
             //this.Message = "Student1@gmail.comTestFile2.rtf";
@@ -99,6 +95,7 @@ namespace LMSV1.Pages.Courses.Assignments
             var assignment = await _context.Assignments.FirstOrDefaultAsync(m => m.AssignmentID == id);
             var submission = _context.Submissions.Where(m => m.UserID == user.Id)
                 .FirstOrDefault(m => m.AssignmentID == id);
+
             if (assignment == null)
             {
                 return NotFound();
@@ -110,6 +107,38 @@ namespace LMSV1.Pages.Courses.Assignments
             if (submission != null)
             {
                 Submissions = submission;
+            }
+            // added this code to be more consistent with chart, can change later
+            if (user.Role == "Student")
+            {
+                double scoredPoints = 0.0;
+                if (submission != null)
+                {
+                    scoredPoints = double.Parse(submission.Score.ToString());
+                }
+                
+                double scoreRatio = (scoredPoints / assignment.MaxPoints) * 100;
+
+                if (scoreRatio >= 90)
+                {
+                    SubmissionLetterGrade = "A";
+                }
+                if (scoreRatio >= 80 && scoreRatio <= 89.9)
+                {
+                    SubmissionLetterGrade = "B";
+                }
+                if (scoreRatio >= 70 && scoreRatio <= 79.9)
+                {
+                    SubmissionLetterGrade = "C";
+                }
+                if (scoreRatio >= 60 && scoreRatio <= 69.9)
+                {
+                    SubmissionLetterGrade = "D";
+                }
+                if (scoreRatio <= 59.9)
+                {
+                    SubmissionLetterGrade = "E";
+                }
             }
             return Page();
         }
@@ -132,60 +161,60 @@ namespace LMSV1.Pages.Courses.Assignments
 
         }
 
+        // Methods moved to Submit page
+        //public async Task<IActionResult> OnPostUploadAsync(List<IFormFile>? postedFiles, int? id)
+        //{
+        //    // If dropdown list is selected for Text submission
+        //    if (SelectedInputType == "text")
+        //    {
+        //        //TEST CODE FOR THE TEXT SUBMISSION SECTION
+        //        if (ModelState.IsValid)
+        //        {
+        //            var user = await _userManager.GetUserAsync(User);
+        //            var newSubmission = new Submission
+        //            {
+        //                AssignmentID = Assignments.AssignmentID,
+        //                UserID = user.Id,
+        //                TextSubmission = TextMessage,
+        //                SubmissionDate = DateTime.Now,
 
-        public async Task<IActionResult> OnPostUploadAsync(List<IFormFile>? postedFiles, int? id)
-        {
-            // If dropdown list is selected for Text submission
-            if (SelectedInputType == "text")
-            {
-                //TEST CODE FOR THE TEXT SUBMISSION SECTION
-                if (ModelState.IsValid)
-                {
-                    var user = await _userManager.GetUserAsync(User);
-                    var newSubmission = new Submission
-                    {
-                        AssignmentID = Assignments.AssignmentID,
-                        UserID = user.Id,
-                        TextSubmission = TextMessage,
-                        SubmissionDate = DateTime.Now,
+        //            };
 
-                    };
-
-                    _context.Submissions.Add(newSubmission);
-                    await _context.SaveChangesAsync();
-                }
-            }
-            // If dropdown list is selected for File submission
-            else
-            {
-                //Set the signed in user information the this variable
-                var user = await _userManager.GetUserAsync(User);
+        //            _context.Submissions.Add(newSubmission);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //    }
+        //    // If dropdown list is selected for File submission
+        //    else
+        //    {
+        //        //Set the signed in user information the this variable
+        //        var user = await _userManager.GetUserAsync(User);
 
 
-                string wwwPath = Environment.WebRootPath;
-                //string contentPath = Environment.ContentRootPath;
+        //        string wwwPath = Environment.WebRootPath;
+        //        //string contentPath = Environment.ContentRootPath;
 
-                string path = Path.Combine(wwwPath, "Uploads");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
+        //        string path = Path.Combine(wwwPath, "Uploads");
+        //        if (!Directory.Exists(path))
+        //        {
+        //            Directory.CreateDirectory(path);
+        //        }
 
-                List<string> uploadedFiles = new List<string>();
-                foreach (IFormFile postedFile in postedFiles)
-                {
-                    string fileName = Path.GetFileName(user + postedFile.FileName);
-                    using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
-                    {
-                        postedFile.CopyTo(stream);
-                        uploadedFiles.Add(fileName);
-                        //This sets the message to the student email + the file name
-                        //this.Message +=  FileNamePartial + postedFile.FileName;
-                    }
-                }
-            }
-            return RedirectToPage("./SubmissionSuccess");    //Using this will immediately take the user back to the assignment page without a notice  (user);            
-        }
+        //        List<string> uploadedFiles = new List<string>();
+        //        foreach (IFormFile postedFile in postedFiles)
+        //        {
+        //            string fileName = Path.GetFileName(user + postedFile.FileName);
+        //            using (FileStream stream = new FileStream(Path.Combine(path, fileName), FileMode.Create))
+        //            {
+        //                postedFile.CopyTo(stream);
+        //                uploadedFiles.Add(fileName);
+        //                //This sets the message to the student email + the file name
+        //                //this.Message +=  FileNamePartial + postedFile.FileName;
+        //            }
+        //        }
+        //    }
+        //    return RedirectToPage("./SubmissionSuccess");    //Using this will immediately take the user back to the assignment page without a notice  (user);            
+        //}
       
     }
 }

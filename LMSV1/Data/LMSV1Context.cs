@@ -112,12 +112,46 @@ namespace LMSV1.Data
                         ProfileImage = "/Uploads/stock-profile-image.jpg",
                         SecurityStamp = Guid.NewGuid().ToString()
                     },
+                    new User
+                    {
+                        Id = 4,
+                        Email = "Student4@gmail.com",
+                        NormalizedEmail = "STUDENT4@GMAIL.COM",
+                        UserName = "Student4@gmail.com",
+                        NormalizedUserName = "STUDENT4@GMAIL.COM",
+                        Password = password,
+                        FirstName = "Jane",
+                        LastName = "Doe",
+                        Birthdate = new DateTime(1995, 4, 4),
+                        Role = "Student",
+                        // add stock img by default for profile image
+                        ProfileImage = "/Uploads/stock-profile-image.jpg",
+                        SecurityStamp = Guid.NewGuid().ToString()
+                    },
+                    new User
+                    {
+                        Id = 5,
+                        Email = "Student5@gmail.com",
+                        NormalizedEmail = "STUDENT5@GMAIL.COM",
+                        UserName = "Student5@gmail.com",
+                        NormalizedUserName = "STUDENT5@GMAIL.COM",
+                        Password = password,
+                        FirstName = "Johnathan",
+                        LastName = "Doe",
+                        Birthdate = new DateTime(1995, 5, 5),
+                        Role = "Student",
+                        // add stock img by default for profile image
+                        ProfileImage = "/Uploads/stock-profile-image.jpg",
+                        SecurityStamp = Guid.NewGuid().ToString()
+                    }
                 };
 
                 PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
                 users[0].PasswordHash = passwordHasher.HashPassword(users[0], password);
                 users[1].PasswordHash = passwordHasher.HashPassword(users[1], password);
                 users[2].PasswordHash = passwordHasher.HashPassword(users[2], password);
+                users[3].PasswordHash = passwordHasher.HashPassword(users[3], password);
+                users[4].PasswordHash = passwordHasher.HashPassword(users[4], password);
 
                 b.HasData(users);
             });
@@ -165,6 +199,16 @@ namespace LMSV1.Data
                     {
                         RoleId = 1,
                         UserId = 3,
+                    },
+                    new IdentityUserRole<int>
+                    {
+                        UserId = 4,
+                        RoleId = 2,
+                    },
+                    new IdentityUserRole<int>
+                    {
+                        UserId = 5,
+                        RoleId = 2,
                     }
                 );
             });
@@ -246,6 +290,29 @@ namespace LMSV1.Data
                         StudentID = 2,
                         CourseID = 3750,
                         EnrollmentDate = DateTime.Now,
+                        Grade = "A+",
+                        GradePercentage = 100,
+                        PointsEarned = 400
+                    },
+                    new Enrollment  // Student enrollment (course participant)
+                    {
+                        EnrollmentID = 2,
+                        StudentID = 4,
+                        CourseID = 3750,
+                        EnrollmentDate = DateTime.Now,
+                        Grade = "C+",
+                        GradePercentage = 78.8,
+                        PointsEarned = 315
+                    },
+                    new Enrollment  // Student enrollment (course participant)
+                    {
+                        EnrollmentID = 3,
+                        StudentID = 5,
+                        CourseID = 3750,
+                        EnrollmentDate = DateTime.Now,
+                        Grade = "E",
+                        GradePercentage = 18.8,
+                        PointsEarned = 75
                     }
                 );
             });
@@ -265,8 +332,8 @@ namespace LMSV1.Data
                     new Assignment 
                     {
                         AssignmentID = 1,
-                        Title = "File Upload Assignment",
-                        Description = "This is a File Upload assignment test that is past due.",
+                        Title = "File Assignment 1",
+                        Description = "This is a File Upload assignment test that is turned in and graded.",
                         MaxPoints = 100,
                         DueDate = new DateTime(2023, 11, 03, 23, 59, 59),
                         SubmissionType = SubmissionType.FileUpload,
@@ -275,10 +342,20 @@ namespace LMSV1.Data
                     new Assignment
                     {
                         AssignmentID = 3,
-                        Title = "New File Assignment",
-                        Description = "This is an assignment that needs a File Upload.",
+                        Title = "File Assignment 2",
+                        Description = "This is an assignment that is past due, but one student has no submission.",
+                        MaxPoints = 100,
+                        DueDate = new DateTime(2023, 11, 08, 23, 59, 59),
+                        SubmissionType = SubmissionType.FileUpload,
+                        CourseID = 3750
+                    },
+                    new Assignment
+                    {
+                        AssignmentID = 5,
+                        Title = "File Assignment 3",
+                        Description = "This is an assignment that needs a File Upload and is not yet due.",
                         MaxPoints = 200,
-                        DueDate = new DateTime(2023, 11, 09, 23, 59, 59),
+                        DueDate = new DateTime(2023, 11, 11, 23, 59, 59),
                         SubmissionType = SubmissionType.FileUpload,
                         CourseID = 3750
                     },
@@ -286,9 +363,9 @@ namespace LMSV1.Data
                     new Assignment
                     {
                         AssignmentID = 2,
-                        Title = "Text Entry Assignment",
-                        Description = "This is a Text entry assignment test that is past due.",
-                        MaxPoints = 75,
+                        Title = "Text Assignment 1",
+                        Description = "This is a Text entry assignment test that is turned in and graded.",
+                        MaxPoints = 100,
                         DueDate = new DateTime(2023, 11, 05, 23, 59, 59),
                         SubmissionType = SubmissionType.TextEntry,
                         CourseID = 3750
@@ -296,8 +373,18 @@ namespace LMSV1.Data
                     new Assignment
                     {
                         AssignmentID = 4,
-                        Title = "New Text Assignment",
-                        Description = "This is an assignment that needs a Text entry.",
+                        Title = "Text Assignment 2",
+                        Description = "This is an assignment that is past due, but one student has no submission.",
+                        MaxPoints = 100,
+                        DueDate = new DateTime(2023, 11, 08, 23, 59, 59),
+                        SubmissionType = SubmissionType.TextEntry,
+                        CourseID = 3750
+                    },
+                    new Assignment
+                    {
+                        AssignmentID = 6,
+                        Title = "Text Assignment 3",
+                        Description = "This is an assignment that needs a Text entry and is not yet due.",
                         MaxPoints = 150,
                         DueDate = new DateTime(2023, 11, 12, 23, 59, 59),
                         SubmissionType = SubmissionType.TextEntry,
@@ -312,24 +399,96 @@ namespace LMSV1.Data
 
                 // seed submissions
                 b.HasData(
-                    // Text submission for Text entry assignment
+                    // File submission for File upload assignment
                     new Submission
                     {
                         SubmissionID = 1,
-                        AssignmentID = 2,
+                        AssignmentID = 1,
                         UserID = 2,
-                        TextSubmission = "Here is some text.",
-                        Score = null,
+                        FileName = "2_test submission.txt",
+                        Score = 100,
                         SubmissionDate = DateTime.Now
                     },
-                    // File submission for File upload assignment
                     new Submission
                     {
                         SubmissionID = 2,
                         AssignmentID = 1,
+                        UserID = 4,
+                        FileName = "4_test submission.txt",
+                        Score = 75,
+                        SubmissionDate = DateTime.Now
+                    },
+                    new Submission
+                    {
+                        SubmissionID = 3,
+                        AssignmentID = 1,
+                        UserID = 5,
+                        FileName = "5_test submission.txt",
+                        Score = 25,
+                        SubmissionDate = DateTime.Now
+                    }, 
+                    new Submission
+                    {
+                        SubmissionID = 4,
+                        AssignmentID = 3,
                         UserID = 2,
-                        FileName = "2_test submission.txt",
-                        Score = null,
+                        FileName = "2_test submission2.txt",
+                        Score = 100,
+                        SubmissionDate = DateTime.Now
+                    },
+                    new Submission
+                    {
+                        SubmissionID = 5,
+                        AssignmentID = 3,
+                        UserID = 4,
+                        FileName = "4_test submission2.txt",
+                        Score = 75,
+                        SubmissionDate = DateTime.Now
+                    },
+                    // Text submission for Text entry assignment
+                    new Submission
+                    {
+                        SubmissionID = 6,
+                        AssignmentID = 2,
+                        UserID = 2,
+                        TextSubmission = "Here is some text.",
+                        Score = 100,
+                        SubmissionDate = DateTime.Now
+                    },
+                    new Submission
+                    {
+                        SubmissionID = 7,
+                        AssignmentID = 2,
+                        UserID = 4,
+                        TextSubmission = "Here is some text.",
+                        Score = 90,
+                        SubmissionDate = DateTime.Now
+                    },
+                    new Submission
+                    {
+                        SubmissionID = 8,
+                        AssignmentID = 2,
+                        UserID = 5,
+                        TextSubmission = "Here is some text.",
+                        Score = 50,
+                        SubmissionDate = DateTime.Now
+                    },
+                    new Submission
+                    {
+                        SubmissionID = 9,
+                        AssignmentID = 4,
+                        UserID = 2,
+                        TextSubmission = "Here is some text.",
+                        Score = 100,
+                        SubmissionDate = DateTime.Now
+                    },
+                    new Submission
+                    {
+                        SubmissionID = 10,
+                        AssignmentID = 4,
+                        UserID = 4,
+                        TextSubmission = "Here is some text.",
+                        Score = 75,
                         SubmissionDate = DateTime.Now
                     }
                 );
