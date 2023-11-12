@@ -69,8 +69,8 @@
 
         @foreach (var points in Model.SubmissionGrade)
         {
-            double scoredPoints = double.Parse(points.Score.ToString());
-            double scoreRatio = (scoredPoints / maxScore) * 100;
+            double? scoredPoints = points.Score;
+            double? scoreRatio = (scoredPoints / maxScore) * 100;
 
             if (scoreRatio >= 90)
             {
