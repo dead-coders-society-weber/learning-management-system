@@ -179,6 +179,7 @@ li.nav-item:hover {
 }
 
 .notification-item {
+    z-index: 6;
     padding: 10px;
 }
 
@@ -211,9 +212,11 @@ footer {
     height: 300px;
     background-color: #f0f0f0;
     z-index: 1010101010;
+    z-index: 2;
 }
 
 #col-2 { /* Chart style */
+    
     position: relative;
     width: 50%;
     float: left;
@@ -222,4 +225,9 @@ footer {
     z-index: 1010101010;
     border: 2px solid #fff; /* Optional: Add a border around the circle */
     border-color:darkgrey;
+    z-index: 2;
+}
+
+#notificationPopup {
+    z-index: 6;
 }
