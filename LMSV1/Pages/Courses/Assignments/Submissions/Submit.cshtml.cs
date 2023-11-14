@@ -61,7 +61,7 @@ namespace LMSV1.Pages.Courses.Assignments.Submissions
             }
             SubmissionExists(Assignmentid, UserID);
             // If file submission
-            if (postedFiles.Count > 0)
+            if (postedFiles != null && postedFiles.Count > 0)
             {
                 string wwwPath = this._environment.WebRootPath; //Get root path of wwwroot folder
                 string contentPath = this._environment.ContentRootPath;

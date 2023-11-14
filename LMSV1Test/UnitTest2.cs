@@ -50,6 +50,20 @@ namespace LMSV1Test
         [TestMethod]
         public async Task Instructor_Grade_Assignment_File_Test()
         {
+            // Create text assignment
+            Assignment newAssignment = new Assignment
+            {
+                AssignmentID = 2,
+                Title = "Text Entry Assignment Test",
+                Description = "Assignment created for Unit Test",
+                MaxPoints = 100,
+                DueDate = DateTime.Now,
+                SubmissionType = SubmissionType.TextEntry,
+                CourseID = 1
+            };
+            Context.Assignments.Add(newAssignment);
+            Context.SaveChanges();
+
             // Create user file submission
             Submission newSubmission = new Submission
             {

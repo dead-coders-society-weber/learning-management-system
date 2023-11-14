@@ -117,7 +117,7 @@ namespace LSMV1Test
             //Test the creation of a new student
             User newUser = new User
             {
-                Id = 3,
+                Id = 6,
                 Email = "TestStudent@email.com",
                 NormalizedEmail = "TESTSTUDENT@EMAIL.COM",
                 UserName = "TestStudent@email.com",
@@ -165,7 +165,7 @@ namespace LSMV1Test
             //Test the creation of a new instructor
             User newUser = new User
             {
-                Id = 4,
+                Id = 7,
                 Email = "TestInstructor@email.com",
                 NormalizedEmail = "TESTINSTRUCTOR@EMAIL.COM",
                 UserName = "TestInstructor@email.com",
@@ -242,6 +242,7 @@ namespace LSMV1Test
         [TestMethod]
         public async Task StudentCanSubmitTextEntryAsync()
         {
+            
             // get initial count of submissions
             int initialSubmissionCount = Context.Submissions.Count();
 
@@ -276,10 +277,24 @@ namespace LSMV1Test
         [TestMethod]
         public async Task InstructorCanGradeTextEntryAssignmentAsync()
         {
+            // Create text assignment
+            Assignment newAssignment = new Assignment
+            {
+                AssignmentID = 2,
+                Title = "Text Entry Assignment Test",
+                Description = "Assignment created for Unit Test",
+                MaxPoints = 100,
+                DueDate = DateTime.Now,
+                SubmissionType = SubmissionType.TextEntry,
+                CourseID = 1
+            };
+            Context.Assignments.Add(newAssignment);
+            Context.SaveChanges();
+
             // Manually create submission
             var newSubmission = new Submission
             {
-                SubmissionID = 3,
+                SubmissionID = 7,
                 AssignmentID = 2,
                 UserID = 2,
                 TextSubmission = "Here is some text.",
@@ -291,7 +306,7 @@ namespace LSMV1Test
             Context.SaveChanges();
 
             // set submission id
-            int submissionId = 3;
+            int submissionId = 7;
 
             // create page model with context
             var editModel = new EditModel(Context);
