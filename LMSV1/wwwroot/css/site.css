@@ -231,3 +231,11 @@ footer {
 #notificationPopup {
     z-index: 6;
 }
+.SubmissionText
+{
+    width: 100%;
+    padding-right: 1em;
+    padding-left: 1em;
+    margin-right: auto;
+    margin-left: auto;
+}
