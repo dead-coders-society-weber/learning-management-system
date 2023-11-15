@@ -86,19 +86,75 @@
         }
     else if (user.Role == "Student")
         {
-        //Student chart goes here
-        @* Display the student's current grade and points for the course displayed*@
-        <div>
-            <center>
-            <p>
-                <h4><u>Grade</u></h4>
-                <h5>@Model.pointsPercentage % - @Model.finalGrade</h5> <br />
-                <u>Points (Earned / Total)</u> <br />
-                <b>@Model.pointsEarned / @Model.pointsTotal</b> <br />
-            </p>
-            </center>
-        </div>
-        }
+        //PieChart of overall students grades
+      
+        //Instructor chart goes here
+        var vara = 0;
+        var varam = 0;
+        var varbp = 0;
+        var varb = 0;
+        var varbm = 0;
+        var varcp = 0;
+        var varc = 0;
+        var varlc = 0;
+        foreach (var item in Model.Grades)
+            switch (item)
+            {
+                case "A":
+                case null:
+                    vara++;
+                    break;
+                case "A-":
+                    varam++;
+                    break;
+                case "B+":
+                    varbp++;
+                    break;
+                case "B":
+                    varb++;
+                    break;
+                case "B-":
+                    varbm++;
+                    break;
+                case "C+":
+                    varcp++;
+                    break;
+                default:
+                    varlc++;
+                    break;
+            }
+        <p>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+
+                    var data = google.visualization.arrayToDataTable([
+                        ['Grade', 'Count'],
+                        ['A', @vara],
+                        ['A-', @varam],
+                        ['B+', @varbp],
+                        ['B', @varb],
+                        ['B-', @varbm],
+                        ['C+', @varcp],
+                        ['C', @varc],
+                        ['<C', @varlc]
+                    ]);
+
+                    var options = {
+                        title: 'Class Averages Letter Grades'
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('col-2'));
+
+                    chart.draw(data, options);
+                }
+            </script>
+        </p>
+    }
+        
 
 </div>
 
@@ -154,3 +210,16 @@
 {
     <a asp-page="../Index">Back to Dashboard</a>
 }
+        
+//Student chart goes here
+@* Display the student's current grade and points for the course displayed*@
+<div>
+    <center>
+        <p>
+            <h4><u>Grade</u></h4>
+            <h5>@Model.pointsPercentage % - @Model.finalGrade</h5> <br />
+            <u>Points (Earned / Total)</u> <br />
+            <b>@Model.pointsEarned / @Model.pointsTotal</b> <br />
+        </p>
+    </center>
+</div>

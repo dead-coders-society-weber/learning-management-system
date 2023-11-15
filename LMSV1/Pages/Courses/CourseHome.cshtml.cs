@@ -73,6 +73,10 @@ namespace LMSV1.Pages.Courses
             // By default, if the instructor hasn't updated grades, the student will have full points
             if (user.Role == "Student")
             {
+                    Grades = await _context.Enrollments
+                               .Where(e => e.CourseID == id)
+                               .Select(e => e.Grade)
+                               .ToListAsync();
                 Enrollment enrollment = await _context.Enrollments
                     .Where(e => e.StudentID == user.Id).FirstOrDefaultAsync(e => e.CourseID == id);
                 // Display the max points possible in the class
