@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LMSV1.Migrations
 {
     [DbContext(typeof(LMSV1Context))]
-    [Migration("20231115042342_init")]
-    partial class init
+    [Migration("20231115163735_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -321,7 +321,7 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 1,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(3700),
+                            EnrollmentDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(1499),
                             Grade = "A+",
                             GradePercentage = 100.0,
                             PointsEarned = 400.0,
@@ -331,7 +331,7 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 2,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(3877),
+                            EnrollmentDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(1540),
                             Grade = "C+",
                             GradePercentage = 78.799999999999997,
                             PointsEarned = 315.0,
@@ -341,7 +341,7 @@ namespace LMSV1.Migrations
                         {
                             EnrollmentID = 3,
                             CourseID = 3750,
-                            EnrollmentDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(3880),
+                            EnrollmentDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(1542),
                             Grade = "E",
                             GradePercentage = 18.800000000000001,
                             PointsEarned = 75.0,
@@ -423,7 +423,7 @@ namespace LMSV1.Migrations
                             AssignmentID = 1,
                             FileName = "2_test submission.txt",
                             Score = 100.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5024),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2253),
                             UserID = 2
                         },
                         new
@@ -432,7 +432,7 @@ namespace LMSV1.Migrations
                             AssignmentID = 1,
                             FileName = "4_test submission.txt",
                             Score = 75.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5035),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2263),
                             UserID = 4
                         },
                         new
@@ -441,7 +441,7 @@ namespace LMSV1.Migrations
                             AssignmentID = 1,
                             FileName = "5_test submission.txt",
                             Score = 25.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5037),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2265),
                             UserID = 5
                         },
                         new
@@ -450,7 +450,7 @@ namespace LMSV1.Migrations
                             AssignmentID = 3,
                             FileName = "2_test submission2.txt",
                             Score = 100.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5047),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2268),
                             UserID = 2
                         },
                         new
@@ -459,7 +459,7 @@ namespace LMSV1.Migrations
                             AssignmentID = 3,
                             FileName = "4_test submission2.txt",
                             Score = 75.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5050),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2270),
                             UserID = 4
                         },
                         new
@@ -467,7 +467,7 @@ namespace LMSV1.Migrations
                             SubmissionID = 6,
                             AssignmentID = 2,
                             Score = 100.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5058),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2273),
                             TextSubmission = "Here is some text.",
                             UserID = 2
                         },
@@ -476,7 +476,7 @@ namespace LMSV1.Migrations
                             SubmissionID = 7,
                             AssignmentID = 2,
                             Score = 90.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5061),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2275),
                             TextSubmission = "Here is some text.",
                             UserID = 4
                         },
@@ -485,7 +485,7 @@ namespace LMSV1.Migrations
                             SubmissionID = 8,
                             AssignmentID = 2,
                             Score = 50.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5065),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2279),
                             TextSubmission = "Here is some text.",
                             UserID = 5
                         },
@@ -494,7 +494,7 @@ namespace LMSV1.Migrations
                             SubmissionID = 9,
                             AssignmentID = 4,
                             Score = 100.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5068),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2280),
                             TextSubmission = "Here is some text.",
                             UserID = 2
                         },
@@ -503,7 +503,7 @@ namespace LMSV1.Migrations
                             SubmissionID = 10,
                             AssignmentID = 4,
                             Score = 75.0,
-                            SubmissionDate = new DateTime(2023, 11, 14, 21, 23, 41, 919, DateTimeKind.Local).AddTicks(5071),
+                            SubmissionDate = new DateTime(2023, 11, 15, 9, 37, 35, 485, DateTimeKind.Local).AddTicks(2282),
                             TextSubmission = "Here is some text.",
                             UserID = 4
                         });
@@ -611,17 +611,17 @@ namespace LMSV1.Migrations
                         {
                             Id = 1,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "15be1cdd-203b-4bf9-bec7-461b8933103d",
+                            ConcurrencyStamp = "1379b280-e9c2-4967-84a4-893dc67bd246",
                             Email = "Instructor1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR1@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHNlS+DRqXKgPH4CgKow+DO9nsH01UD/Div+T8vTUNx9pQmJnE7YVqDQCt2j3Cwv7w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMNLuDobDab/FTFvucQBWUdPjmQPzPApmqzVOxfNiwMfQKPzmYWaxeebLhTJDGtelg==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "37458cf7-5ee1-4197-b8b7-afb726c203df",
+                            SecurityStamp = "d8154887-2aa9-4693-bcfe-07b18259d5e4",
                             TuitionAmount = 0L,
                             UserName = "Instructor1@gmail.com"
                         },
@@ -629,17 +629,17 @@ namespace LMSV1.Migrations
                         {
                             Id = 2,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "2822b6e9-3fa9-479d-9c8d-a8dbf5cfbc65",
+                            ConcurrencyStamp = "26660ef9-a205-43c9-99ec-80701a0647ac",
                             Email = "Student1@gmail.com",
                             FirstName = "John",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT1@GMAIL.COM",
                             NormalizedUserName = "STUDENT1@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDFOjlIX5WcHFT5flqsfZkRFKuq0pL5K0G3kVWaT59j7V7KzDzdwKXGrs/6snc2WCA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFBj0A+Bh+pk5AKjOW+3wt/QY6pWgz9JaiPdAbOcwnNVnYWY8+g/6hnImrl3liuCMA==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "708f47d3-80fd-48d1-b5f3-ad2367315069",
+                            SecurityStamp = "d098e732-b3c0-4797-9c23-bc17b17f8b99",
                             TuitionAmount = 400L,
                             UserName = "Student1@gmail.com"
                         },
@@ -647,17 +647,17 @@ namespace LMSV1.Migrations
                         {
                             Id = 3,
                             Birthdate = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "f2cc6c7d-c258-4551-9326-46f93f674e71",
+                            ConcurrencyStamp = "84ff7fa9-c14e-4f33-a144-87dfd3349d40",
                             Email = "Instructor2@gmail.com",
                             FirstName = "John2",
                             LastName = "Doe",
                             NormalizedEmail = "INSTRUCTOR2@GMAIL.COM",
                             NormalizedUserName = "INSTRUCTOR2@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHH9BErObyxIZYOrsn8/va7Cgi/j1UMyewGVfEzi6HATlXaMhmAbJFWMxUHYEGxafg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENB/DkgvfpjZGiK44030RPSt5vxRmG0XOtsZkHbR/OuXXDnx3WoJx2omBBPP94mNeg==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Instructor",
-                            SecurityStamp = "310e45c4-e4b9-4239-8836-d20e19cdc48d",
+                            SecurityStamp = "8b0f8023-a9fe-4ef4-8a63-5ea21f81713c",
                             TuitionAmount = 0L,
                             UserName = "Instructor2@gmail.com"
                         },
@@ -665,17 +665,17 @@ namespace LMSV1.Migrations
                         {
                             Id = 4,
                             Birthdate = new DateTime(1995, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "9d96451e-b2b1-4c42-9d2d-0f0b2396f57a",
+                            ConcurrencyStamp = "bf1f6357-6968-4e52-9b9c-8343cea3f97f",
                             Email = "Student4@gmail.com",
                             FirstName = "Jane",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT4@GMAIL.COM",
                             NormalizedUserName = "STUDENT4@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM/3tKsrtEFhtStM1sb6wBint5FLoQmOkHtvC9qMnnCphwy3IMHpgawTt+cT15KXoQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJDTvGcqyyeXxpPd7DHpO+3uGzg0CF0BldYi1Ia0WafgRQLDpo4ythAmTZ0ynrf42w==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "f756aca9-4d13-4365-b183-eb4de8529462",
+                            SecurityStamp = "b2127f17-ddfd-4dab-ba82-d2ec4929231c",
                             TuitionAmount = 400L,
                             UserName = "Student4@gmail.com"
                         },
@@ -683,17 +683,17 @@ namespace LMSV1.Migrations
                         {
                             Id = 5,
                             Birthdate = new DateTime(1995, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ConcurrencyStamp = "b86ef5d8-a330-48ee-8784-14bf5351c2f1",
+                            ConcurrencyStamp = "ea1c20e5-e369-4785-8cbe-f64883f0dc58",
                             Email = "Student5@gmail.com",
                             FirstName = "Johnathan",
                             LastName = "Doe",
                             NormalizedEmail = "STUDENT5@GMAIL.COM",
                             NormalizedUserName = "STUDENT5@GMAIL.COM",
                             Password = "Abc123!",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFYZDB+Z3E9u9xv6Tuv0A5CZiowBcYqVBGgKGli7TTk9PxhUrEAxXSD408wMCyox/g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENwgeYyid6jf1LSIu9lOa0pLHN7HUdRX5C5oMZ7EV8DEUZ2mw14Q+xklzGQEqozluA==",
                             ProfileImage = "/Uploads/stock-profile-image.jpg",
                             Role = "Student",
-                            SecurityStamp = "928b0e46-f600-489e-b0ce-66018feecff5",
+                            SecurityStamp = "5209dc5c-3fa9-4aee-a618-ea35e16bfb91",
                             TuitionAmount = 400L,
                             UserName = "Student5@gmail.com"
                         });
