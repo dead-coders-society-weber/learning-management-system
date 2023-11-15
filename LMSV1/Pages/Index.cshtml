@@ -36,7 +36,7 @@
         </div>
 
         <!-- To Do Section -->
-        @if (await UserManager.IsInRoleAsync(user, "Student")) {
+        @if (user.Role == "Student") {
             <div class="to-do-section">
                 <h4>To Do</h4>
                 <hr />

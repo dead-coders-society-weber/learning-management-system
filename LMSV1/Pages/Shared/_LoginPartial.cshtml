@@ -10,7 +10,7 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    @if (await UserManager.IsInRoleAsync(user, "Student"))
+    @if (user.Role == "Student")
     {
         <li class="nav-item dropdown">
             <button class="notification-bell-container dropbtn">
