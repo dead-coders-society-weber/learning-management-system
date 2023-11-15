@@ -66,6 +66,8 @@ public class User : IdentityUser<int>
     [DataType(DataType.ImageUrl)]
     public string? ProfileImage { get; set; }
 
+    public long TuitionAmount { get; set; }
+
     public ICollection<Enrollment>? Enrollments { get; set; }
     public ICollection<Course>? Courses { get; set;}
     public ICollection<Submission>? Submissions { get; set; }

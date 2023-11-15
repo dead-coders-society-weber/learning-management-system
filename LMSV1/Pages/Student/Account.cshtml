@@ -2,17 +2,53 @@
 @model LMSV1.Pages.Student.AccountModel
 @{
     ViewData["Title"] = "Account";
+    long totalTuition = 0;
 }
 <script src="https://js.stripe.com/v3/"></script>
 <section>
-    <div class="product">
-        <div class="description">
-            <h3>Tuition Payment</h3>
-            <h5>@Model.TuitionAmount.ToString("C")</h5>
-        </div>
+    <div class="tuition-payment">
+        <h2>Tuition Payment</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Credits</th>
+                    <th></th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var course in Model.Courses)
+                {
+                    <tr>
+                        <td>@course.CourseName</td>
+                        <td>@course.Credits</td>
+                        <td>x100</td>
+                        <td>@((course.Credits * 100).ToString("C"))</td>
+                    </tr>
+                    totalTuition += course.Credits * 100;
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total:</td>
+                    <td>@totalTuition.ToString("C")</td>
+                </tr>
+            </tfoot>
+        </table>
+        <form method="post" class="checkout">
+            <div>
+                Paid: @((totalTuition - Model.TuitionAmount).ToString("C"))
+                <br />
+                Owed: @Model.TuitionAmount.ToString("C")
+            </div>
+            <div>
+                <label for="amount">$</label>
+                <input type="text" id="amount">
+                <button>Checkout</button>
+            </div>
+        </form>
     </div>
-    <form method="POST">
-        <input type="text" name="amount" /> 
-        <button type="submit" id="checkout-button">Checkout</button>
-    </form>
 </section>

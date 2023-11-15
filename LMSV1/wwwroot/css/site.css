@@ -239,3 +239,36 @@ footer {
     margin-right: auto;
     margin-left: auto;
 }
+
+/* styles for account page */
+.checkout {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.checkout label {
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.checkout input {
+    padding: 8px;
+    margin-top: 20px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+}
+
+.checkout button {
+    padding: 8px 16px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.checkout button:hover {
+    background-color: #4cae4c;
+}

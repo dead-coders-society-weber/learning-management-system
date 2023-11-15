@@ -84,6 +84,12 @@ namespace LMSV1.Pages.Courses.Student
             // Add the enrollment to the Enrollments table in the DB
             _context.Enrollments.Add(enrollment);
 
+            // get credit hours of course for tuition
+            var creditHours = _context.Courses.FirstOrDefaultAsync(c => c.CourseID == courseId).Result.Credits;
+            // get student user and update tuition
+            var student = await _userManager.GetUserAsync(User);
+            student.TuitionAmount += creditHours * 100;
+
             // Save the changes in the DB
             await _context.SaveChangesAsync();
 
@@ -104,6 +110,13 @@ namespace LMSV1.Pages.Courses.Student
             if (enrollment != null)
             {
                 _context.Enrollments.Remove(enrollment);
+
+                // get credit hours of course for tuition
+                var creditHours = _context.Courses.FirstOrDefaultAsync(c => c.CourseID == courseId).Result.Credits;
+                // get student user and update tuition
+                var student = await _userManager.GetUserAsync(User);
+                student.TuitionAmount -= creditHours * 100;
+
                 await _context.SaveChangesAsync();
             }
 

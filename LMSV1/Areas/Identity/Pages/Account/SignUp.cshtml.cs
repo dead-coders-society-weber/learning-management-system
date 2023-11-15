@@ -110,6 +110,7 @@ namespace LMSV1.Areas.Identity.Pages.Account
                 // add stock img by default for profile image
                 user.ProfileImage = "/Uploads/stock-profile-image.jpg";
                 user.SecurityStamp = Guid.NewGuid().ToString();
+                user.TuitionAmount = 0;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

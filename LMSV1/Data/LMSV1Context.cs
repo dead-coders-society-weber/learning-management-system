@@ -78,7 +78,8 @@ namespace LMSV1.Data
                         Role = "Instructor",
                         // add stock img by default for profile image
                         ProfileImage = "/Uploads/stock-profile-image.jpg",
-                        SecurityStamp = Guid.NewGuid().ToString()
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        TuitionAmount = 0
                     },
                     new User
                     {
@@ -94,7 +95,8 @@ namespace LMSV1.Data
                         Role = "Student",
                         // add stock img by default for profile image
                         ProfileImage = "/Uploads/stock-profile-image.jpg",
-                        SecurityStamp = Guid.NewGuid().ToString()
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        TuitionAmount = 400
                     },
                     new User
                     {
@@ -110,7 +112,8 @@ namespace LMSV1.Data
                         Role = "Instructor",
                         // add stock img by default for profile image
                         ProfileImage = "/Uploads/stock-profile-image.jpg",
-                        SecurityStamp = Guid.NewGuid().ToString()
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        TuitionAmount = 0
                     },
                     new User
                     {
@@ -126,7 +129,8 @@ namespace LMSV1.Data
                         Role = "Student",
                         // add stock img by default for profile image
                         ProfileImage = "/Uploads/stock-profile-image.jpg",
-                        SecurityStamp = Guid.NewGuid().ToString()
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        TuitionAmount = 400
                     },
                     new User
                     {
@@ -142,7 +146,8 @@ namespace LMSV1.Data
                         Role = "Student",
                         // add stock img by default for profile image
                         ProfileImage = "/Uploads/stock-profile-image.jpg",
-                        SecurityStamp = Guid.NewGuid().ToString()
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        TuitionAmount = 400
                     }
                 };
 
@@ -274,6 +279,66 @@ namespace LMSV1.Data
                         EndTime = new TimeSpan(11, 0, 0),
                         DepartmentID = "CS",
                         InstructorID = 1
+                    },
+                    new Course
+                    {
+                        CourseID = 4801,
+                        Title = "Advanced Algorithms",
+                        Credits = 3,
+                        Location = "Tech Hall - 101",
+                        MeetDays = DaysOfWeek.T | DaysOfWeek.Th,
+                        StartTime = new TimeSpan(14, 0, 0),
+                        EndTime = new TimeSpan(15, 30, 0),
+                        DepartmentID = "CS",
+                        InstructorID = 3
+                    },
+                    new Course
+                    {
+                        CourseID = 5302,
+                        Title = "Linear Algebra",
+                        Credits = 4,
+                        Location = "Math Building - 205",
+                        MeetDays = DaysOfWeek.M | DaysOfWeek.W | DaysOfWeek.F,
+                        StartTime = new TimeSpan(10, 0, 0),
+                        EndTime = new TimeSpan(11, 15, 0),
+                        DepartmentID = "MATH",
+                        InstructorID = 1
+                    },
+                    new Course
+                    {
+                        CourseID = 3775,
+                        Title = "Modern World History",
+                        Credits = 3,
+                        Location = "History Hall - 330",
+                        MeetDays = DaysOfWeek.T | DaysOfWeek.Th,
+                        StartTime = new TimeSpan(13, 0, 0),
+                        EndTime = new TimeSpan(14, 30, 0),
+                        DepartmentID = "HIST",
+                        InstructorID = 1
+                    },
+                    new Course
+                    {
+                        CourseID = 4020,
+                        Title = "Shakespearean Literature",
+                        Credits = 3,
+                        Location = "Literature Dept - 210",
+                        MeetDays = DaysOfWeek.W | DaysOfWeek.F,
+                        StartTime = new TimeSpan(9, 30, 0),
+                        EndTime = new TimeSpan(11, 0, 0),
+                        DepartmentID = "ENGL",
+                        InstructorID = 3
+                    },
+                    new Course
+                    {
+                        CourseID = 4550,
+                        Title = "Contemporary Art Practices",
+                        Credits = 4,
+                        Location = "Art Studio - 120",
+                        MeetDays = DaysOfWeek.M | DaysOfWeek.Th,
+                        StartTime = new TimeSpan(15, 0, 0),
+                        EndTime = new TimeSpan(17, 0, 0),
+                        DepartmentID = "ART",
+                        InstructorID = 3
                     }
                 );
             });
