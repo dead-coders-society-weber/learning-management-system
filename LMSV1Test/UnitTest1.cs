@@ -242,13 +242,26 @@ namespace LSMV1Test
         [TestMethod]
         public async Task StudentCanSubmitTextEntryAsync()
         {
-            
+            // Create text assignment
+            Assignment newAssignment = new Assignment
+            {
+                AssignmentID = 8,
+                Title = "Text Entry Assignment Test",
+                Description = "Assignment created for Unit Test",
+                MaxPoints = 100,
+                DueDate = DateTime.Now,
+                SubmissionType = SubmissionType.TextEntry,
+                CourseID = 1
+            };
+            Context.Assignments.Add(newAssignment);
+            Context.SaveChanges();
+
             // get initial count of submissions
             int initialSubmissionCount = Context.Submissions.Count();
 
             // set the student and assignment ids
             int studentId = 2;
-            int assignmentId = 2;
+            int assignmentId = 8;
 
             // create page model with context
             var submitModel = new SubmitModel(Context, null, null);
@@ -280,7 +293,7 @@ namespace LSMV1Test
             // Create text assignment
             Assignment newAssignment = new Assignment
             {
-                AssignmentID = 2,
+                AssignmentID = 7,
                 Title = "Text Entry Assignment Test",
                 Description = "Assignment created for Unit Test",
                 MaxPoints = 100,
@@ -295,7 +308,7 @@ namespace LSMV1Test
             var newSubmission = new Submission
             {
                 SubmissionID = 7,
-                AssignmentID = 2,
+                AssignmentID = 7,
                 UserID = 2,
                 TextSubmission = "Here is some text.",
                 Score = null,
@@ -313,7 +326,7 @@ namespace LSMV1Test
 
             // simulate grading from instructor
             int score = 60;
-            await editModel.OnPostAsync(submissionId, 2, 1, score);
+            await editModel.OnPostAsync(submissionId, 7, 1, score);
 
             // check if grade is updated
             var submission = Context.Submissions.FindAsync(submissionId).Result;

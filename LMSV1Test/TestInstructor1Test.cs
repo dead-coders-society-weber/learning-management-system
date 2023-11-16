@@ -190,8 +190,9 @@ namespace UItest
             Thread.Sleep(2000);
 
             //Go to the specific course and create a new assingment
-            driver.FindElement(By.LinkText("CS 3750")).Click();
-            driver.FindElement(By.LinkText("Create new assignment")).Click();
+            driver.Navigate().GoToUrl("https://localhost:7019/Courses/CourseHome/3750");
+            Thread.Sleep(1000);
+            driver.Navigate().GoToUrl("https://localhost:7019/Courses/Assignments/AssignmentCreate?id=3750");
             Thread.Sleep(2000);
 
             //Enter the data into the various fields
@@ -211,18 +212,59 @@ namespace UItest
             Thread.Sleep(2000);
 
             //Submit the creation
-            driver.FindElement(By.LinkText("Create")).Click();
+            driver.FindElement(By.Id("create")).Click();
             driver.FindElement(By.LinkText("Dashboard")).Click();
             Thread.Sleep(2000);
 
             //Go confirm the assignment is created
-            driver.FindElement(By.LinkText("CS 3750")).Click();
+            driver.Navigate().GoToUrl("https://localhost:7019/Courses/CourseHome/3750");
             driver.FindElement(By.LinkText("Syllabus Quiz")).Click();
             Thread.Sleep(5000);
 
             //Logout of the system
             driver.FindElement(By.Id("logout")).Click();
             driver.Close();
+        }
+        // UI Test for Student submission
+        [Test]
+        public void UITest_StudentSubmitsText()
+        {
+            // Navigate to the login page
+            driver.Navigate().GoToUrl("https://localhost:7019");
+            Thread.Sleep(2000);
+
+            // Login as student
+            driver.FindElement(By.Id("login")).Click();
+            driver.FindElement(By.Id("Input_Email")).SendKeys("Student1@gmail.com");
+            driver.FindElement(By.Id("Input_Password")).SendKeys("Abc123!");
+            driver.FindElement(By.Id("login-submit")).Click();
+            Thread.Sleep(2000);
+
+            // Student clicks on their 3750 course
+            driver.Navigate().GoToUrl("https://localhost:7019/Courses/CourseHome/3750");
+            Thread.Sleep(2000);
+
+            // Student clicks on the "Text Assignment 3" link
+            driver.FindElement(By.LinkText("Text Assignment 3")).Click();
+            Thread.Sleep(2000);
+
+            // Student clicks on "Submit Assignment"
+            driver.FindElement(By.LinkText("Submit Assignment")).Click();
+            Thread.Sleep(2000);
+
+            // Student types their text submission in the textbox
+            driver.FindElement(By.Id("Input_TextSubmission")).Click();
+            Thread.Sleep(1000);
+            driver.FindElement(By.Id("Input_TextSubmission")).SendKeys("Here's my submission for this assignment.");
+            Thread.Sleep(2000);
+
+            // Student clicks the "Upload" button to turn in the assignment
+            driver.FindElement(By.Id("submit")).Click();
+            Thread.Sleep(2000);
+
+            // Logout
+            driver.FindElement(By.Id("logout")).Click();
+            Thread.Sleep(2000);
         }
 }   
 }

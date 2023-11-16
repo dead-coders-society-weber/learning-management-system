@@ -420,7 +420,7 @@ namespace LMSV1.Data
                         Title = "File Assignment 3",
                         Description = "This is an assignment that needs a File Upload and is not yet due.",
                         MaxPoints = 200,
-                        DueDate = new DateTime(2023, 11, 11, 23, 59, 59),
+                        DueDate = new DateTime(2023, 11, 17, 23, 59, 59),
                         SubmissionType = SubmissionType.FileUpload,
                         CourseID = 3750
                     },
@@ -451,7 +451,7 @@ namespace LMSV1.Data
                         Title = "Text Assignment 3",
                         Description = "This is an assignment that needs a Text entry and is not yet due.",
                         MaxPoints = 150,
-                        DueDate = new DateTime(2023, 11, 12, 23, 59, 59),
+                        DueDate = new DateTime(2023, 11, 29, 23, 59, 59),
                         SubmissionType = SubmissionType.TextEntry,
                         CourseID = 3750
                     }
