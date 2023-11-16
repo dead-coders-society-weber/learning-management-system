@@ -89,7 +89,7 @@ namespace LMSV1.Pages.Courses
                 }
                 else
                 {
-                    enrollment.GradePercentage = Math.Round((double)(enrollment.PointsEarned / pointsTotal),4);
+                    enrollment.GradePercentage = Math.Round((double)(enrollment.PointsEarned / pointsTotal),4) * 100;
                     pointsPercentage = enrollment.GradePercentage;
                 }
                 // display Points the Student has earned so far
