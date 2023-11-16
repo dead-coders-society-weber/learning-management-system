@@ -79,18 +79,52 @@ namespace LSMV1Test
         [TestMethod]
         public async Task StudentCanRegisterForClassAsync()
         {
-
             //int CurUser = User.CountAsync();
             int initialEnrollmentCount = Context.Enrollments.Count();
 
-            int studentId = 2;// studentId;
-            //int courseId = courseId;
-            int courseId = 1234;
+            // add user for testing purposes
+            User newUser = new User
+            {
+                Id = 1,
+                Email = "TestStudent@email.com",
+                NormalizedEmail = "TESTSTUDENT@EMAIL.COM",
+                UserName = "TestStudent@email.com",
+                NormalizedUserName = "TESTSTUDENT@EMAIL.COM",
+                Password = "ABC123!",
+                FirstName = "Plain",
+                LastName = "Jane",
+                Birthdate = new DateTime(1995, 5, 5),
+                Role = "Student",
+                // add stock img by default for profile image
+                ProfileImage = "/Uploads/stock-profile-image.jpg",
+                SecurityStamp = Guid.NewGuid().ToString(),
+                TuitionAmount = 0
+            };
+            Context.Users.Add(newUser);
+            Context.SaveChanges();
+
+            // add course for testing purposes
+            Course newCourse = new Course
+            {
+                CourseID = 1234,
+                Title = "Test Class",
+                Credits = 3,
+                Location = "Weber NB - 324",
+                MeetDays = DaysOfWeek.T | DaysOfWeek.Th,
+                StartTime = new TimeSpan(7, 0, 0),
+                EndTime = new TimeSpan(9, 0, 0),
+                DepartmentID = "CS",
+                InstructorID = 1
+            };
+            Context.Courses.Add(newCourse);
+            Context.SaveChanges();
+
+            int studentId = newUser.Id;
+            int courseId = newCourse.CourseID;
 
             // Act: Call the registration method
             var courseRegistrationModel = new CourseRegistrationModel(Context, null); // Assuming UserManager is not needed for this test
             await courseRegistrationModel.OnPostRegisterAsync(studentId, courseId);
-
 
             int finalEnrollmentCount = Context.Enrollments.Count();
             //check if increased by 1

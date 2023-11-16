@@ -87,7 +87,7 @@ namespace LMSV1.Pages.Courses.Student
             // get credit hours of course for tuition
             var creditHours = _context.Courses.FirstOrDefaultAsync(c => c.CourseID == courseId).Result.Credits;
             // get student user and update tuition
-            var student = await _userManager.GetUserAsync(User);
+            var student = await _context.Users.FirstOrDefaultAsync(u => u.Id == studentId);
             student.TuitionAmount += creditHours * 100;
 
             // Save the changes in the DB
