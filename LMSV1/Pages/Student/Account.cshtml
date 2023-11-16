@@ -39,16 +39,9 @@
             </tfoot>
         </table>
         <form method="post" class="checkout">
-            <div>
-                Paid: @((totalTuition - Model.TuitionAmount).ToString("C"))
-                <br />
-                Owed: @Model.TuitionAmount.ToString("C")
-            </div>
-            <div>
-                <label for="amount">$</label>
-                <input type="text" name="amount" />
-                <button type="submit" id="checkout-button">Checkout</button>
-            </div>
+            <label for="amount">$</label>
+            <input type="text" name="amount" />
+            <button type="submit" id="checkout-button">Checkout</button>
         </form>
     </div>
 </section>
