@@ -110,9 +110,8 @@ namespace LMSV1.Pages.Courses
                 {
                     // using syllabus for the class, update the student's grade for the course
                     enrollment.GradePercentage = pointsPercentage;
-                    double percentCalc = (double)pointsPercentage * 100;
                     enrollment.PointsEarned = pointsEarned;
-                    switch (percentCalc)
+                    switch (pointsPercentage)
                     {
                         case var n when (n >= 94.00):
                             enrollment.Grade = "A";
