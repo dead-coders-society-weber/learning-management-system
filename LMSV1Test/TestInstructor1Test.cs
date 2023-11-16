@@ -46,7 +46,6 @@ namespace UItest
         [Test]
         public void testInstructor1()
         {
-
             driver.Navigate().GoToUrl("https://localhost:7019");//5173
             Thread.Sleep(2000);
             driver.FindElement(By.Id("login")).Click();
@@ -73,16 +72,64 @@ namespace UItest
             driver.FindElement(By.CssSelector("input:nth-child(4)")).Click();
             driver.FindElement(By.Id("Input_StartTime")).Click();
             driver.FindElement(By.Id("Input_StartTime")).Click();
-            driver.FindElement(By.Id("Input_StartTime")).SendKeys("09:00");
+            driver.FindElement(By.Id("Input_StartTime")).SendKeys("09:00a");
             driver.FindElement(By.Id("Input_EndTime")).Click();
             driver.FindElement(By.Id("Input_EndTime")).Click();
-            driver.FindElement(By.Id("Input_EndTime")).SendKeys("10:45");
+            driver.FindElement(By.Id("Input_EndTime")).SendKeys("10:45a");
             driver.FindElement(By.Id("Input_EndTime")).Click();
+            Thread.Sleep(10000);
             driver.FindElement(By.CssSelector(".form-group:nth-child(9)")).Click();
             driver.FindElement(By.CssSelector(".btn-primary")).Click();
-            driver.FindElement(By.LinkText("Delete")).Click();
+            string courseName = "Circuit and Relays";
+            var deleteLinkXPath = $"//table[@class='table']//tr[td[contains(text(), '{courseName}')]]//a[text()='Delete']";
+            var deleteLink = driver.FindElement(By.XPath(deleteLinkXPath));
+            Thread.Sleep(10000);
+            deleteLink.Click();
             driver.FindElement(By.CssSelector(".btn-danger")).Click();
             driver.FindElement(By.Id("logout")).Click();
+            driver.Close();
+        }
+
+        [Test]
+        public void UITest_StudentRegistersForClass()
+        {
+            driver.Navigate().GoToUrl("https://localhost:7019");
+            Thread.Sleep(2000);
+
+            // Login
+            driver.FindElement(By.Id("login")).Click();
+            driver.FindElement(By.Id("Input_Email")).SendKeys("Student1@gmail.com");
+            driver.FindElement(By.Id("Input_Password")).SendKeys("Abc123!");
+            driver.FindElement(By.Id("login-submit")).Click();
+            Thread.Sleep(2000);
+
+            // Navigate to Course Registration
+            driver.FindElement(By.LinkText("Course Registration")).Click();
+            Thread.Sleep(2000);
+
+            // Select a specific course and register
+            string courseTitle = "Linear Algebra";
+            var registerButtonXPath = $"//table[@class='table']//tr[td[contains(text(), '{courseTitle}')]]//input[@value='Register']";
+            var registerButton = driver.FindElement(By.XPath(registerButtonXPath));
+            registerButton.Click();
+            Thread.Sleep(2000);
+
+            // Validate successful registration
+            // Navigate back to Dashboard
+            driver.FindElement(By.LinkText("Dashboard")).Click();
+            Thread.Sleep(2000);
+
+            // Undo changes and logout
+            driver.FindElement(By.LinkText("Course Registration")).Click();
+            Thread.Sleep(2000);
+            var dropButtonXPath = $"//table[@class='table']//tr[td[contains(text(), '{courseTitle}')]]//input[@value='Drop']";
+            var dropButton = driver.FindElement(By.XPath(dropButtonXPath));
+            dropButton.Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.Id("logout")).Click();
+            Thread.Sleep(2000);
+
+            // Close the browser
             driver.Close();
         }
     }
