@@ -246,6 +246,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    flex-direction: column;
 }
 
 .checkout label {
@@ -255,6 +256,7 @@ footer {
 
 .checkout input {
     padding: 8px;
+    margin-top: 20px;
     margin-right: 10px;
     border: 1px solid #ddd;
 }

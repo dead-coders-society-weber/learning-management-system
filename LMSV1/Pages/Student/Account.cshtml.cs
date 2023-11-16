@@ -26,7 +26,7 @@ namespace LMSV1.Pages.Student
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string? payment, long? amount)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -34,6 +34,13 @@ namespace LMSV1.Pages.Student
             {
                 // get enrolled courses
                 Courses = await _context.Enrollments.Where(e => e.StudentID == user.Id).Select(e => e.Course).ToListAsync();
+
+                if(payment == "success" && amount is not null)
+                {
+                    user.TuitionAmount -= (long)amount;
+                    await _context.SaveChangesAsync();
+                }
+                TuitionAmount = user.TuitionAmount;
             }
 
             return Page();
@@ -64,8 +71,8 @@ namespace LMSV1.Pages.Student
                     },
                 },
                 Mode = "payment",
-                SuccessUrl = "https://localhost:7019/Student/Account",
-                CancelUrl = "https://localhost:7019/Student/Account",
+                SuccessUrl = $"https://localhost:7019/Student/Account?payment=success&amount={amount}",
+                CancelUrl = "https://localhost:7019/Student/Account?payment=cancel",
             };
 
             var service = new SessionService();
