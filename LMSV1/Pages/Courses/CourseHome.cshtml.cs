@@ -73,10 +73,10 @@ namespace LMSV1.Pages.Courses
             // By default, if the instructor hasn't updated grades, the student will have full points
             if (user.Role == "Student")
             {
-                    Grades = await _context.Enrollments
-                               .Where(e => e.CourseID == id)
-                               .Select(e => e.Grade)
-                               .ToListAsync();
+                Grades = await _context.Enrollments
+                           .Where(e => e.CourseID == id)
+                           .Select(e => e.Grade)
+                           .ToListAsync();
                 Enrollment enrollment = await _context.Enrollments
                     .Where(e => e.StudentID == user.Id).FirstOrDefaultAsync(e => e.CourseID == id);
                 // Display the max points possible in the class
@@ -89,6 +89,7 @@ namespace LMSV1.Pages.Courses
                 }
                 else
                 {
+                    enrollment.GradePercentage = enrollment.PointsEarned / pointsTotal;
                     pointsPercentage = enrollment.GradePercentage;
                 }
                 // display Points the Student has earned so far
@@ -107,82 +108,57 @@ namespace LMSV1.Pages.Courses
                 }
                 else
                 {
+                    // using syllabus for the class, update the student's grade for the course
+                    enrollment.GradePercentage = pointsPercentage;
+                    double percentCalc = (double)pointsPercentage * 100;
+                    enrollment.PointsEarned = pointsEarned;
+                    switch (percentCalc)
+                    {
+                        case var n when (n >= 94.00):
+                            enrollment.Grade = "A";
+                            break;
+                        case var n when (n >= 90.00 && n < 94.00):
+                            enrollment.Grade = "A-";
+                            break;
+                        case var n when (n >= 87.00 && n < 90.00):
+                            enrollment.Grade = "B+";
+                            break;
+                        case var n when (n >= 84.00 && n < 87.00):
+                            enrollment.Grade = "B";
+                            break;
+                        case var n when (n >= 80.00 && n < 84.00):
+                            enrollment.Grade = "B-";
+                            break;
+                        case var n when (n >= 77.00 && n < 80.00):
+                            enrollment.Grade = "C+";
+                            break;
+                        case var n when (n >= 74.00 && n < 77.00):
+                            enrollment.Grade = "C";
+                            break;
+                        case var n when (n >= 70.00 && n < 74.00):
+                            enrollment.Grade = "C-";
+                            break;
+                        case var n when (n >= 67.00 && n < 70.00):
+                            enrollment.Grade = "D+";
+                            break;
+                        case var n when (n >= 64.00 && n < 67.00):
+                            enrollment.Grade = "D";
+                            break;
+                        case var n when (n >= 60.00 && n < 64.00):
+                            enrollment.Grade = "D-";
+                            break;
+                        default:
+                            enrollment.Grade = "E";
+                            break;
+                    }
+                    // save changes to DB
+                    await _context.SaveChangesAsync();
                     finalGrade = enrollment.Grade;
                 }
-                
+
             }
             return Page();
         }
-
-        // Disabled, method moved to the Submissions page
-        // Prepoluate the Instructor Chart.
-        // Calculates the user(student) points earned, total points possible, and grade for the course
-        //public void CalculateGrade(int? cid, User user)
-        //{
-        //    // Sum the total points earned of all the grades submissions of the student
-        //    pointsEarned = (double)_context.Submissions
-        //        .Where(m => m.UserID == user.Id)
-        //        .Sum(m => m.Score);
-
-        //    // Sum the total max points of all assignments of the course, only for assignments pass the due date, which is when they'll be graded
-        //    pointsTotal = (double)_context.Assignments
-        //        .Where(m => m.CourseID == cid)
-        //        .Where(m => m.DueDate < DateTime.Now)
-        //        .Sum(m => m.MaxPoints);
-
-        //    // create a percentage of the points earned and max points by dividing and multiply by 100
-        //    double? pointsPercent = pointsEarned / pointsTotal * 100;
-        //    // round percentage to 2 decimal places
-        //    pointsPercentage = (double)Math.Round((decimal)pointsPercent, 2);
-
-        //    // store the enrollment to update the student's grade
-        //    var enrollment = _context.Enrollments.Where(m => m.StudentID == user.Id).FirstOrDefault(m => m.CourseID == cid);
-
-        //    // using syllabus for the class, update the student's grade for the course
-        //    switch (pointsPercentage)
-        //    {
-        //        case var n when (n >= 94.00):
-        //            enrollment.Grade = "A";
-        //            break;
-        //        case var n when (n >= 90.00 && n < 94.00):
-        //            enrollment.Grade = "A-";
-        //            break;
-        //        case var n when (n >= 87.00 && n < 90.00):
-        //            enrollment.Grade = "B+";
-        //            break;
-        //        case var n when (n >= 84.00 && n < 87.00):
-        //            enrollment.Grade = "B";
-        //            break;
-        //        case var n when (n >= 80.00 && n < 84.00):
-        //            enrollment.Grade = "B-";
-        //            break;
-        //        case var n when (n >= 77.00 && n < 80.00):
-        //            enrollment.Grade = "C+";
-        //            break;
-        //        case var n when (n >= 74.00 && n < 77.00):
-        //            enrollment.Grade = "C";
-        //            break;
-        //        case var n when (n >= 70.00 && n < 74.00):
-        //            enrollment.Grade = "C-";
-        //            break;
-        //        case var n when (n >= 67.00 && n < 70.00):
-        //            enrollment.Grade = "D+";
-        //            break;
-        //        case var n when (n >= 64.00 && n < 67.00):
-        //            enrollment.Grade = "D";
-        //            break;
-        //        case var n when (n >= 60.00 && n < 64.00):
-        //            enrollment.Grade = "D-";
-        //            break;
-        //        default:
-        //            enrollment.Grade = "E";
-        //            break;
-        //    }
-        //    // store it in the model for display
-        //    finalGrade = enrollment.Grade;
-        //    // save changes to DB
-        //    _context.SaveChangesAsync();
-        //}
 
     }
 }
