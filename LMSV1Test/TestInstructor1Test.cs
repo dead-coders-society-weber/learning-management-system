@@ -174,5 +174,56 @@ namespace UItest
             // Close the browser
             driver.Close();
         }
-    }
+        //UI test added by Quinn
+        [Test]
+        public void InstructorCreatesAnAssignment()
+        {
+            //Go to the website
+            driver.Navigate().GoToUrl("https://localhost:7019"); //5173
+            Thread.Sleep(2000);
+
+            //Login as the instructor
+            driver.FindElement(By.Id("login")).Click();
+            driver.FindElement(By.Id("Input_Email")).SendKeys("Instructor1@gmail.com");
+            driver.FindElement(By.Id("Input_Password")).SendKeys("Abc123!");
+            driver.FindElement(By.Id("login-submit")).Click();
+            Thread.Sleep(2000);
+
+            //Go to the specific course and create a new assingment
+            driver.FindElement(By.LinkText("CS 3750")).Click();
+            driver.FindElement(By.LinkText("Create new assignment")).Click();
+            Thread.Sleep(2000);
+
+            //Enter the data into the various fields
+            driver.FindElement(By.Id("Input_Title")).Click();
+            driver.FindElement(By.Id("Input_Title")).SendKeys("Syllabus Quiz");
+            driver.FindElement(By.Id("Input_Description")).Click();
+            driver.FindElement(By.Id("Input_Description")).SendKeys("Describe the Syllabus");
+            driver.FindElement(By.Id("Input_MaxPoints")).Click();
+            driver.FindElement(By.Id("Input_MaxPoints")).SendKeys("100");
+            driver.FindElement(By.Id("Input_DueDate")).Click();
+            driver.FindElement(By.Id("Input_DueDate")).SendKeys("121200202411301");
+            driver.FindElement(By.Id("Input_SubmissionType")).Click();
+            {
+                var dropdown = driver.FindElement(By.Id("Input_SubmissionType"));
+                dropdown.FindElement(By.XPath("//option[. = 'Text Entry']")).Click();
+            }
+            Thread.Sleep(2000);
+
+            //Submit the creation
+            driver.FindElement(By.LinkText("Create")).Click();
+            driver.FindElement(By.LinkText("Dashboard")).Click();
+            Thread.Sleep(2000);
+
+            //Go confirm the assignment is created
+            driver.FindElement(By.LinkText("CS 3750")).Click();
+            driver.FindElement(By.LinkText("Syllabus Quiz")).Click();
+            Thread.Sleep(5000);
+
+            //Logout of the system
+            driver.FindElement(By.Id("logout")).Click();
+            driver.Close();
+        }
+}   
 }
+
