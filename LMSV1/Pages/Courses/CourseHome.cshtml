@@ -221,12 +221,11 @@
     <a asp-page="../Index">Back to Dashboard</a>
     //Student chart goes here
     @* Display the student's current grade and points for the course displayed*@
-    var point = Model.pointsPercentage * 100;
     <div>
         <center>
             <p>
                 <h4><u>Grade</u></h4>
-                <h5>@point  % - @Model.finalGrade</h5> <br />
+                <h5>@Model.pointsPercentage % - @Model.finalGrade</h5> <br />
                 <u>Points (Earned / Total)</u> <br />
                 <b>@Model.pointsEarned / @Model.pointsTotal</b> <br />
             </p>
