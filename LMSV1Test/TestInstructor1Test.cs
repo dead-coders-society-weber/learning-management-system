@@ -17,6 +17,7 @@ using LMSV1.Models;
 using LMSV1.Pages;
 using LMSV1.Pages.Courses.Assignments.Submissions;
 using LMSV1.Pages.Courses.Student;
+using NuGet.ContentModel;
 
 namespace UItest
 {
@@ -125,6 +126,47 @@ namespace UItest
             var dropButtonXPath = $"//table[@class='table']//tr[td[contains(text(), '{courseTitle}')]]//input[@value='Drop']";
             var dropButton = driver.FindElement(By.XPath(dropButtonXPath));
             dropButton.Click();
+            Thread.Sleep(2000);
+            driver.FindElement(By.Id("logout")).Click();
+            Thread.Sleep(2000);
+
+            // Close the browser
+            driver.Close();
+        }
+
+        [Test]
+        public void UITest_Instructor1GradesStudent1Assignment1()
+        {
+            driver.Navigate().GoToUrl("https://localhost:7019");
+            Thread.Sleep(2000);
+
+            // Login
+            driver.FindElement(By.Id("login")).Click();
+            driver.FindElement(By.Id("Input_Email")).SendKeys("Instructor1@gmail.com");
+            driver.FindElement(By.Id("Input_Password")).SendKeys("Abc123!");
+            driver.FindElement(By.Id("login-submit")).Click();
+            Thread.Sleep(2000);
+
+            // Navigate to Course home page for CS 3750
+            driver.Navigate().GoToUrl("https://localhost:7019/Courses/CourseHome/3750");
+            Thread.Sleep(2000);
+
+            // Navigate to Assignment 1 submission for course CS 3750
+            driver.Navigate().GoToUrl("https://localhost:7019/Courses/Assignments/Submissions/Submissions/1?cid=3750");
+            Thread.Sleep(2000);
+
+            // Navigate to Assignment 1 submission Grade for course CS 3750
+            driver.Navigate().GoToUrl("https://localhost:7019/Courses/Assignments/Submissions/Grade?id=1&assId=1&cId=3750");
+            Thread.Sleep(2000);
+            
+            // Grade the assignment to 100 and click save
+            string courseTitle = "Linear Algebra";
+            driver.FindElement(By.Name("score")).SendKeys("100");
+            driver.FindElement(By.ClassName("btn-primary")).Click();
+            Thread.Sleep(2000);
+
+            //logout
+
             Thread.Sleep(2000);
             driver.FindElement(By.Id("logout")).Click();
             Thread.Sleep(2000);
